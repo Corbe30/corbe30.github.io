@@ -1,22 +1,40 @@
 ---
 layout: post
-title: The Purpose of Education
-date: 1948-12-12 10:18:00
-categories: [fiction, jekyll]
+title: Seamless View Switching Algorithm for ArcRotateCamera in Babylon.js
+date: 2024-06-27 10:00:00
+categories: [babylon.js, algorithm]
 ---
 
-As I engage in the so-called "bull sessions" around and about the school, I too often find that most college men have a misconception of the purpose of education. Most of the "brethren" think that education should equip them with the proper instruments of exploitation so that they can forever trample over the masses. Still others think that education should furnish them with noble ends rather than means to an end.
+I'll describe how I derived an algorithm to switch seamlessly between perspective and orthographic views. The solution will be implemented in babylon.js.
 
-![alt](https://picsum.photos/800/300)
+## Basics (the why)
+A camera can be controlled by 3 operations - pan, zoom and orbit.
+These operations in arcRotateCamera are performed by changing the following properties:
+1. camera position (where the camera is at)
+2. camera target (where the camera is looking at)
 
-It seems to me that education has a two-fold function to perform in the life of man and in society: the one is utility and the other is culture. Education must enable a man to become more efficient, to achieve with increasing facility the ligitimate goals of his life.
+More about how it works [here](https://doc.babylonjs.com/features/featuresDeepDive/cameras/camera_introduction#arc-rotate-camera).
 
-Education must also train one for quick, resolute and effective thinking. To think incisively and to think for one's self is very difficult. We are prone to let our mental life become invaded by legions of half truths, prejudices, and propaganda. At this point, I often wonder whether or not education is fulfilling its purpose. A great majority of the so-called educated people do not think logically and scientifically. Even the press, the classroom, the platform, and the pulpit in many instances do not give us objective and unbiased truths. To save man from the morass of propaganda, in my opinion, is one of the chief aims of education. Education must enable one to sift and weigh evidence, to discern the true from the false, the real from the unreal, and the facts from the fiction.
+Consider using only these two properties to perform the operations. Although pan and orbit changes are reflect in both the views, zoom doesn't seem to have any effect in orthographic view (see [why?](https://blenderartists.org/t/zooming-through-orthographic-cameras-not-working-need-everyones-help-to-fix-this/701450/3))
 
-The function of education, therefore, is to teach one to think intensively and to think critically. But education which stops with efficiency may prove the greatest menace to society. The most dangerous criminal may be the man gifted with reason, but with no morals.
+So we need a third parameter to control zooming in ortho view - which is `visible area`. Instead of going back and forth, we make the camera's viewing area larger or smaller. In babylon.js, this is done by modifying ortholeft, orthoright, orthobottom and orthotop properties. 
 
-The late Eugene Talmadge, in my opinion, possessed one of the better minds of Georgia, or even America. Moreover, he wore the Phi Beta Kappa key. By all measuring rods, Mr. Talmadge could think critically and intensively; yet he contends that I am an inferior being. Are those the types of men we call educated?
+Using this solution is fine in orthographic view, but once we try to apply it in perpective view, the edges and corners of your view may appear to bend outwards. Think of it as changing from 1x to 0.5x in your phone's camera. To zoom out, you'd rather want to move your phone back, than switch to 0.5x zoom.
 
-We must remember that intelligence is not enough. Intelligence plus character--that is the goal of true education. The complete education gives one not only power of concentration, but worthy objectives upon which to concentrate. The broad education will, therefore, transmit to one not only the accumulated knowledge of the race but also the accumulated experience of social living.
+> If you are adamant, in perspective view, `fov` is used to expand the boundaries. In ortho view, [the fov is actually 0](https://gamedev.stackexchange.com/a/64431).
 
-If we are not careful, our colleges will produce a group of close-minded, unscientific, illogical propagandists, consumed with immoral acts. Be careful, "brethren!" Be careful, teachers!
+So now, to handle zooming, we need a function which converts ortho-values (for orthographic view) to target (for perspective view) and visa versa.
+
+
+## Algorithm
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
+
+```js
+// Javascript code with syntax highlighting.
+var fun = function lang(l) {
+  dateformat.i18n = require("./lang/" + l);
+  return true;
+};
+```
+
+Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
