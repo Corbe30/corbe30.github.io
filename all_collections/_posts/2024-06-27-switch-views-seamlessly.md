@@ -2,7 +2,7 @@
 layout: post
 title: Seamless View Switching Algorithm for ArcRotateCamera in Babylon.js
 date: 2024-06-27 10:00:00
-categories: [babylon.js, algorithm]
+categories: [babylonjs, algorithm]
 ---
 
 I'll describe how I derived an algorithm to switch seamlessly between perspective and orthographic views. The solution will be implemented in babylon.js.
