@@ -79,4 +79,4 @@ scene.onBeforeRenderObservable.add(() => {
 ```
 
 View the final result here (press X to switch between the views):
-https://playground.babylonjs.com/#P2QHFS#1
+[https://playground.babylonjs.com/#P2QHFS#1](https://playground.babylonjs.com/#P2QHFS#1)
