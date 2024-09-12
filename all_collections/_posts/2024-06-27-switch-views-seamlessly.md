@@ -26,17 +26,15 @@ Using this solution is fine in orthographic view, but once we try to apply it in
 So now, to handle zooming, we need a function which converts ortho-values (for orthographic view) to position (for perspective view) and visa versa.
 
 
-## Algorithm
+## Algorithm (the how)
 Ortho-values can be modified uniformly wrt length and height ratio using this function:
 
 ```js
-const updateOrthoValues = (camera, width) => {
-    const ratio = canvas.height / canvas.width;
-    camera.orthoLeft = -width;
-    camera.orthoRight = width;
-    camera.orthoTop = camera.orthoRight * ratio;
-    camera.orthoBottom = camera.orthoLeft * ratio;
-}
+const ratio = canvas.height / canvas.width;
+camera.orthoLeft = -width;
+camera.orthoRight = width;
+camera.orthoTop = camera.orthoRight * ratio;
+camera.orthoBottom = camera.orthoLeft * ratio;
 ```
 So, we must provide a new width everytime there are changes in camera position in perspective mode. In general:
 
@@ -46,26 +44,39 @@ newWidth = ∏(dependencies) * constant
 
 We know camera position is one of the dependencies for calculating new width. Plugging it in:
 ```js
-newWidth = camera.position.length() * ∏(other_dependencies) * constant
+new_width = camera.position.length() * ∏(other_dependencies) * constant
 ```
 
-After playing around by switching camera modes, we can hit-and-try the constant. But there's a catch - this contant depends on Babylon's canvas width. This is the last dependency. My canvas width was 766 when I binary-searched 0.525 as the constant, so we get:
+After playing around by switching camera modes, we can hit-and-try the constant. But there's a catch - this contant depends on Babylon's canvas width. This is the last dependency. My canvas width was `766` when I binary-searched `0.525` as the constant, so we get:
 ```js
-const getDist = (camera) => {
-    return camera.position.length() * 0.525 * canvas.width / 766;
+new_width = camera.position.length() * 0.525 * canvas.width / 766;
+```
+
+Add this conversion as an observable and we have successfully implemented seamless switching between orthographic and perspective view.
+```js
+
+const updateOrthoValues = (camera, width) => {
+    const ratio = canvas.height / canvas.width;
+    camera.orthoLeft = -width;
+    camera.orthoRight = width;
+    camera.orthoTop = camera.orthoRight * ratio;
+    camera.orthoBottom = camera.orthoLeft * ratio;
 }
 ```
-
-Add this conversion as an observable.
 ```js
-    scene.onBeforeRenderObservable.add(() => {
-        let newRadius = getDist(camera);
-        if (oldRadius !== newRadius) {
-            updateOrthoValues(camera, newRadius);
-            oldRadius = newRadius;
-        }
-    })
+const getDist = (camera) => {
+    return camera.position.length() * canvas.width * 402.15;
+}
+```
+```js
+scene.onBeforeRenderObservable.add(() => {
+    let newRadius = getDist(camera);
+    if (oldRadius !== newRadius) {
+        updateOrthoValues(camera, newRadius);
+        oldRadius = newRadius;
+    }
+})
 ```
 
-View the final result here:
+View the final result here (press X to switch between the views):
 https://playground.babylonjs.com/#P2QHFS#1
