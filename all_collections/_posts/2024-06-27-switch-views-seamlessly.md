@@ -23,18 +23,49 @@ Using this solution is fine in orthographic view, but once we try to apply it in
 
 > If you are adamant, in perspective view, `fov` is used to expand the boundaries. In ortho view, [the fov is actually 0](https://gamedev.stackexchange.com/a/64431).
 
-So now, to handle zooming, we need a function which converts ortho-values (for orthographic view) to target (for perspective view) and visa versa.
+So now, to handle zooming, we need a function which converts ortho-values (for orthographic view) to position (for perspective view) and visa versa.
 
 
 ## Algorithm
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
+Ortho-values can be modified uniformly wrt length and height ratio using this function:
 
 ```js
-// Javascript code with syntax highlighting.
-var fun = function lang(l) {
-  dateformat.i18n = require("./lang/" + l);
-  return true;
-};
+const updateOrthoValues = (camera, width) => {
+    const ratio = canvas.height / canvas.width;
+    camera.orthoLeft = -width;
+    camera.orthoRight = width;
+    camera.orthoTop = camera.orthoRight * ratio;
+    camera.orthoBottom = camera.orthoLeft * ratio;
+}
+```
+So, we must provide a new width everytime there are changes in camera position in perspective mode. In general:
+
+```js
+newWidth = ∏(dependencies) * constant
 ```
 
-Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+We know camera position is one of the dependencies for calculating new width. Plugging it in:
+```js
+newWidth = camera.position.length() * ∏(other_dependencies) * constant
+```
+
+After playing around by switching camera modes, we can hit-and-try the constant. But there's a catch - this contant depends on Babylon's canvas width. This is the last dependency. My canvas width was 766 when I binary-searched 0.525 as the constant, so we get:
+```js
+const getDist = (camera) => {
+    return camera.position.length() * 0.525 * canvas.width / 766;
+}
+```
+
+Add this conversion as an observable.
+```js
+    scene.onBeforeRenderObservable.add(() => {
+        let newRadius = getDist(camera);
+        if (oldRadius !== newRadius) {
+            updateOrthoValues(camera, newRadius);
+            oldRadius = newRadius;
+        }
+    })
+```
+
+View the final result here:
+https://playground.babylonjs.com/#P2QHFS#1
