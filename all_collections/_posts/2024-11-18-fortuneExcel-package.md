@@ -1,6 +1,6 @@
 ---
 layout: post
-title: FortuneExcel: Lessons from my First Package
+title: FortuneExcel - Lessons from my First Package
 date: 2024-11-18 10:00:00
 categories: [excel, fortune-sheet, npm]
 ---
