@@ -5,8 +5,12 @@ date: 2024-11-18 10:00:00
 categories: [excel, fortune-sheet, npm]
 ---
 
-I revived an archived project and released it as [FortuneExcel](http://npmjs.com/package/@corbe30/fortune-excel) 
-<img src="https://img.shields.io/npm/v/@corbe30/fortune-excel" /> - a plugin for FortuneSheet to import/export Excel (.xlsx) files.
+I revived an archived project and released it as [FortuneExcel](http://npmjs.com/package/@corbe30/fortune-excel) - a plugin for FortuneSheet to import/export Excel (.xlsx) files.
+<p>
+<a href="http://npmjs.com/package/@corbe30/fortune-excel" alt="fortuneExcel on npm">
+<img src="https://img.shields.io/npm/v/@corbe30/fortune-excel" /></a> <a href="http://npmjs.com/package/@corbe30/fortune-excel" alt="fortuneExcel downloads">
+<img src="https://img.shields.io/npm/d18m/%40corbe30%2Ffortune-excel" /></a>
+</p>
 
 ## Initialization
 
