@@ -5,7 +5,8 @@ date: 2024-11-18 10:00:00
 categories: [excel, fortune-sheet, npm]
 ---
 
-I revived an archived project and released it as [FortuneExcel](https://www.npmjs.com/package/@corbe30/fortune-excel) - a plugin for FortuneSheet to import/export Excel (.xlsx) files.
+I revived an archived project and released it as <a href="http://npmjs.com/package/@corbe30/fortune-excel" alt="fortuneExcel on npm"> FortuneExcel 
+<img src="https://img.shields.io/npm/v/@corbe30/fortune-excel" /></a> - a plugin for FortuneSheet to import/export Excel (.xlsx) files.
 
 ## Initialization
 
@@ -17,7 +18,9 @@ While implementing a package, it should have maximum abstraction. User should ha
 
 ## Github Workflow
 
-Run the workflow whenever a release is published or manually triggered from Actions tab.
+Lets breakdown the pubhlish.yml file.
+
+Run the workflow whenever a release is published or manually triggered from Actions tab:
 
 ```
 publish.yml
@@ -28,7 +31,7 @@ on:
   workflow_dispatch:
 ```
 
-Define premissions required by the workflow.
+Define premissions required by the workflow:
 
 ```
 permissions:
@@ -37,7 +40,7 @@ permissions:
   id-token: write
 ```
 
-Checkout the code, setup node environment, install dependencies (see [`npm i` vs `npm ci`](https://stackoverflow.com/questions/52499617/what-is-the-difference-between-npm-install-and-npm-ci)) and publish the package on npm.
+Checkout the code, setup node environment, install dependencies (see [npm i vs npm ci](https://stackoverflow.com/questions/52499617/what-is-the-difference-between-npm-install-and-npm-ci)) and publish the package on npm:
 
 ```
     - uses: actions/checkout@v3
@@ -51,7 +54,7 @@ Checkout the code, setup node environment, install dependencies (see [`npm i` vs
         NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 ```
 
-Build the Storybook, upload it as an artifact and deploy it on GitHub Pages.
+Build the Storybook, upload it as an artifact and deploy it on GitHub Pages:
 
 > Note: Update Build and Deployement source to 'Github Actions' in repo > Settings > Pages
 
@@ -72,9 +75,9 @@ In the above section inside publish.yml, notice `github.token` and `secrets.NPM_
 
 While `github.token` is automatically provided by GitHub Actions, `secrets.NPM_TOKEN` is an [_automation_ access token](https://docs.npmjs.com/about-access-tokens) that has to be generated at npmjs.com and [set as repository secret](https://docs.github.com/en/actions/security-for-github-actions/security-guides/using-secrets-in-github-actions#creating-secrets-for-a-repository) on Github.
 
-## Goof up with tsconfig.json
+## Emitted Javascript version
 
-The `target` and `module` in `compilerOptions` of the plugin should be the same as that of root project's.
+Fortune-excel and fortune-sheet were having incompatibility issues due to different transmitted JS when compiled from TS. This is defined by the `target` value in `compilerOptions` of tsconfig.json. Since fortune-sheet compiles the JS In es5, changing the target from es6 to es5 in fortune-excel fixed the issue:
 
 ```
 tsconfig.json
@@ -82,8 +85,17 @@ tsconfig.json
 {
   "compilerOptions": {
     "target": "es5",
-    "module": "es2015",
     ...
   }
 }
 ```
+
+## Commonjs entrypoint
+
+After publishing the package, Yarn showed this warning - '_the package doesn't seem to have a commonjs entry point_'. Compiling the TS in commonjs is necessary for old projects still using CJS instead of ESM. Compiling is ESM is optional since EMS supports CJS, but not visa-versa. To fix the warning:
+
+1. Make sure package.json does not have `"type": "module"` defined
+   > When set to "module", the type field allows a package to specify all .js files within are ES modules. If the "type" field is omitted or set to "commonjs", all .js files are treated as CommonJS.
+2. Define `"module": "commonjs"` in tsconfig.json - refer to [this](https://www.typescriptlang.org/tsconfig/#module).
+
+
