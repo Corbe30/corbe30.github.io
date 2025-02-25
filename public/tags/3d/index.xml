@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>3D on Corbe30</title>
+    <link>https://corbe30.github.io/tags/3d/</link>
+    <description>Recent content in 3D on Corbe30</description>
+    <image>
+      <title>Corbe30</title>
+      <url>https://corbe30.github.io/images/papermod-cover.png</url>
+      <link>https://corbe30.github.io/images/papermod-cover.png</link>
+    </image>
+    <generator>Hugo -- 0.144.2</generator>
+    <language>en</language>
+    <lastBuildDate>Thu, 27 Jun 2024 11:30:03 +0000</lastBuildDate>
+    <atom:link href="https://corbe30.github.io/tags/3d/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Seamless View Switching Algorithm for ArcRotateCamera in Babylon.js</title>
+      <link>https://corbe30.github.io/posts/view-switching-algo/</link>
+      <pubDate>Thu, 27 Jun 2024 11:30:03 +0000</pubDate>
+      <guid>https://corbe30.github.io/posts/view-switching-algo/</guid>
+      <description>&lt;p&gt;I&amp;rsquo;ll describe how I derived an algorithm to switch seamlessly between perspective and orthographic views. The solution will be implemented in babylon.js.&lt;/p&gt;
+&lt;h2 id=&#34;basics-the-why&#34;&gt;Basics (the why)&lt;/h2&gt;
+&lt;p&gt;A camera can be controlled by 3 operations - pan, zoom and orbit.
+These operations in arcRotateCamera are performed by changing the following properties:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;camera position (where the camera is at)&lt;/li&gt;
+&lt;li&gt;camera target (where the camera is looking at)&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;More about how it works &lt;a href=&#34;https://doc.babylonjs.com/features/featuresDeepDive/cameras/camera_introduction#arc-rotate-camera&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Consider using only these two properties to perform the operations. Although pan and orbit changes are reflect in both the views, zoom doesn&amp;rsquo;t seem to have any effect in orthographic view (see &lt;a href=&#34;https://blenderartists.org/t/zooming-through-orthographic-cameras-not-working-need-everyones-help-to-fix-this/701450/3&#34;&gt;why?&lt;/a&gt;)&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

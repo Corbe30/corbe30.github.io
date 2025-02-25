@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Seamless View Switching Algorithm for ArcRotateCamera in Babylon.js | Corbe30</title>
+<meta name="keywords" content="algorithm, babylonjs, 3D">
+<meta name="description" content="I&rsquo;ll describe how I derived an algorithm to switch seamlessly between perspective and orthographic views. The solution will be implemented in babylon.js.
+Basics (the why)
+A camera can be controlled by 3 operations - pan, zoom and orbit.
+These operations in arcRotateCamera are performed by changing the following properties:
+
+camera position (where the camera is at)
+camera target (where the camera is looking at)
+
+More about how it works here.
+Consider using only these two properties to perform the operations. Although pan and orbit changes are reflect in both the views, zoom doesn&rsquo;t seem to have any effect in orthographic view (see why?)">
+<meta name="author" content="">
+<link rel="canonical" href="https://canonical.url/to/page">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.efc11bcb5d31e7c91a87866a42f4dede09b7cbf81ea0cd1f9d3c26a637209b49.css" integrity="sha256-78Eby10x58kah4ZqQvTe3gm3y/geoM0fnTwmpjcgm0k=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://corbe30.github.io/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://corbe30.github.io/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://corbe30.github.io/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://corbe30.github.io/apple-touch-icon.png">
+<link rel="mask-icon" href="https://corbe30.github.io/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="https://corbe30.github.io/posts/view-switching-algo/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:url" content="https://corbe30.github.io/posts/view-switching-algo/">
+  <meta property="og:site_name" content="Corbe30">
+  <meta property="og:title" content="Seamless View Switching Algorithm for ArcRotateCamera in Babylon.js">
+  <meta property="og:description" content="I’ll describe how I derived an algorithm to switch seamlessly between perspective and orthographic views. The solution will be implemented in babylon.js.
+Basics (the why) A camera can be controlled by 3 operations - pan, zoom and orbit. These operations in arcRotateCamera are performed by changing the following properties:
+camera position (where the camera is at) camera target (where the camera is looking at) More about how it works here.
+Consider using only these two properties to perform the operations. Although pan and orbit changes are reflect in both the views, zoom doesn’t seem to have any effect in orthographic view (see why?)">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2024-06-27T11:30:03+00:00">
+    <meta property="article:modified_time" content="2024-06-27T11:30:03+00:00">
+    <meta property="article:tag" content="Algorithm">
+    <meta property="article:tag" content="Babylonjs">
+    <meta property="article:tag" content="3D">
+    <meta property="og:image" content="https://raw.githubusercontent.com/Corbe30/3D-shape-editor/main/images/3dShapeEditor.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/Corbe30/3D-shape-editor/main/images/3dShapeEditor.png">
+<meta name="twitter:title" content="Seamless View Switching Algorithm for ArcRotateCamera in Babylon.js">
+<meta name="twitter:description" content="I&rsquo;ll describe how I derived an algorithm to switch seamlessly between perspective and orthographic views. The solution will be implemented in babylon.js.
+Basics (the why)
+A camera can be controlled by 3 operations - pan, zoom and orbit.
+These operations in arcRotateCamera are performed by changing the following properties:
+
+camera position (where the camera is at)
+camera target (where the camera is looking at)
+
+More about how it works here.
+Consider using only these two properties to perform the operations. Although pan and orbit changes are reflect in both the views, zoom doesn&rsquo;t seem to have any effect in orthographic view (see why?)">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://corbe30.github.io/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Seamless View Switching Algorithm for ArcRotateCamera in Babylon.js",
+      "item": "https://corbe30.github.io/posts/view-switching-algo/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Seamless View Switching Algorithm for ArcRotateCamera in Babylon.js",
+  "name": "Seamless View Switching Algorithm for ArcRotateCamera in Babylon.js",
+  "description": "I\u0026rsquo;ll describe how I derived an algorithm to switch seamlessly between perspective and orthographic views. The solution will be implemented in babylon.js.\nBasics (the why) A camera can be controlled by 3 operations - pan, zoom and orbit. These operations in arcRotateCamera are performed by changing the following properties:\ncamera position (where the camera is at) camera target (where the camera is looking at) More about how it works here.\nConsider using only these two properties to perform the operations. Although pan and orbit changes are reflect in both the views, zoom doesn\u0026rsquo;t seem to have any effect in orthographic view (see why?)\n",
+  "keywords": [
+    "algorithm", "babylonjs", "3D"
+  ],
+  "articleBody": "I’ll describe how I derived an algorithm to switch seamlessly between perspective and orthographic views. The solution will be implemented in babylon.js.\nBasics (the why) A camera can be controlled by 3 operations - pan, zoom and orbit. These operations in arcRotateCamera are performed by changing the following properties:\ncamera position (where the camera is at) camera target (where the camera is looking at) More about how it works here.\nConsider using only these two properties to perform the operations. Although pan and orbit changes are reflect in both the views, zoom doesn’t seem to have any effect in orthographic view (see why?)\nSo we need a third parameter to control zooming in ortho view - which is visible area. Instead of going back and forth, we make the camera’s viewing area larger or smaller. In babylon.js, this is done by modifying ortholeft, orthoright, orthobottom and orthotop properties.\nUsing this solution is fine in orthographic view, but once we try to apply it in perpective view, the edges and corners of your view may appear to bend outwards. Think of it as changing from 1x to 0.5x in your phone’s camera. To zoom out, you’d rather want to move your phone back, than switch to 0.5x zoom.\nIf you are adamant, in perspective view, fov is used to expand the boundaries. In ortho view, the fov is actually 0.\nSo now, to handle zooming, we need a function which converts ortho-values (for orthographic view) to position (for perspective view) and visa versa.\nAlgorithm (the how) Ortho-values can be modified uniformly wrt length and height ratio using this function:\nconst ratio = canvas.height / canvas.width; camera.orthoLeft = -width; camera.orthoRight = width; camera.orthoTop = camera.orthoRight * ratio; camera.orthoBottom = camera.orthoLeft * ratio; So, we must provide a new width everytime there are changes in camera position in perspective mode. In general:\nnewWidth = ∏(dependencies) * constant We know camera position is one of the dependencies for calculating new width. Plugging it in:\nnew_width = camera.position.length() * ∏(other_dependencies) * constant After playing around by switching camera modes, we can hit-and-try the constant. But there’s a catch - this contant depends on Babylon’s canvas width. This is the last dependency. My canvas width was 766 when I binary-searched 0.525 as the constant, so we get:\nnew_width = (camera.position.length() * 0.525 * canvas.width) / 766; Add this conversion as an observable and we have successfully implemented seamless switching between orthographic and perspective view.\nconst updateOrthoValues = (camera, width) =\u003e { const ratio = canvas.height / canvas.width; camera.orthoLeft = -width; camera.orthoRight = width; camera.orthoTop = camera.orthoRight * ratio; camera.orthoBottom = camera.orthoLeft * ratio; }; const getDist = (camera) =\u003e { return camera.position.length() * canvas.width * 402.15; }; scene.onBeforeRenderObservable.add(() =\u003e { let newRadius = getDist(camera); if (oldRadius !== newRadius) { updateOrthoValues(camera, newRadius); oldRadius = newRadius; } }); View the final result here (press X to switch between the views): https://playground.babylonjs.com/#P2QHFS#1\n",
+  "wordCount" : "483",
+  "inLanguage": "en",
+  "image":"https://raw.githubusercontent.com/Corbe30/3D-shape-editor/main/images/3dShapeEditor.png","datePublished": "2024-06-27T11:30:03Z",
+  "dateModified": "2024-06-27T11:30:03Z",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://corbe30.github.io/posts/view-switching-algo/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Corbe30",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://corbe30.github.io/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://corbe30.github.io/" accesskey="h" title="Corbe30 (Alt + H)">Corbe30</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://corbe30.github.io/resume/" title="Resume">
+                    <span>Resume</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://corbe30.github.io/archives/" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://corbe30.github.io/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="https://corbe30.github.io/">Home</a>&nbsp;»&nbsp;<a href="https://corbe30.github.io/posts/">Posts</a></div>
+    <h1 class="post-title entry-hint-parent">
+      Seamless View Switching Algorithm for ArcRotateCamera in Babylon.js
+    </h1>
+    <div class="post-meta"><span title='2024-06-27 11:30:03 +0000 +0000'>June 27, 2024</span>&nbsp;·&nbsp;3 min
+
+</div>
+  </header> 
+<figure class="entry-cover"><img loading="eager" src="https://raw.githubusercontent.com/Corbe30/3D-shape-editor/main/images/3dShapeEditor.png" alt="">
+        <p><text></p>
+</figure><div class="toc">
+    <details >
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">Table of Contents</span>
+        </summary>
+
+        <div class="inner"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#basics-the-why">Basics (the why)</a></li>
+    <li><a href="#algorithm-the-how">Algorithm (the how)</a></li>
+  </ul>
+</nav>
+        </div>
+    </details>
+</div>
+
+  <div class="post-content"><p>I&rsquo;ll describe how I derived an algorithm to switch seamlessly between perspective and orthographic views. The solution will be implemented in babylon.js.</p>
+<h2 id="basics-the-why">Basics (the why)<a hidden class="anchor" aria-hidden="true" href="#basics-the-why">#</a></h2>
+<p>A camera can be controlled by 3 operations - pan, zoom and orbit.
+These operations in arcRotateCamera are performed by changing the following properties:</p>
+<ol>
+<li>camera position (where the camera is at)</li>
+<li>camera target (where the camera is looking at)</li>
+</ol>
+<p>More about how it works <a href="https://doc.babylonjs.com/features/featuresDeepDive/cameras/camera_introduction#arc-rotate-camera">here</a>.</p>
+<p>Consider using only these two properties to perform the operations. Although pan and orbit changes are reflect in both the views, zoom doesn&rsquo;t seem to have any effect in orthographic view (see <a href="https://blenderartists.org/t/zooming-through-orthographic-cameras-not-working-need-everyones-help-to-fix-this/701450/3">why?</a>)</p>
+<p>So we need a third parameter to control zooming in ortho view - which is <code>visible area</code>. Instead of going back and forth, we make the camera&rsquo;s viewing area larger or smaller. In babylon.js, this is done by modifying ortholeft, orthoright, orthobottom and orthotop properties.</p>
+<p>Using this solution is fine in orthographic view, but once we try to apply it in perpective view, the edges and corners of your view may appear to bend outwards. Think of it as changing from 1x to 0.5x in your phone&rsquo;s camera. To zoom out, you&rsquo;d rather want to move your phone back, than switch to 0.5x zoom.</p>
+<blockquote>
+<p>If you are adamant, in perspective view, <code>fov</code> is used to expand the boundaries. In ortho view, <a href="https://gamedev.stackexchange.com/a/64431">the fov is actually 0</a>.</p></blockquote>
+<p>So now, to handle zooming, we need a function which converts ortho-values (for orthographic view) to position (for perspective view) and visa versa.</p>
+<h2 id="algorithm-the-how">Algorithm (the how)<a hidden class="anchor" aria-hidden="true" href="#algorithm-the-how">#</a></h2>
+<p>Ortho-values can be modified uniformly wrt length and height ratio using this function:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">ratio</span> <span class="o">=</span> <span class="nx">canvas</span><span class="p">.</span><span class="nx">height</span> <span class="o">/</span> <span class="nx">canvas</span><span class="p">.</span><span class="nx">width</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">camera</span><span class="p">.</span><span class="nx">orthoLeft</span> <span class="o">=</span> <span class="o">-</span><span class="nx">width</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">camera</span><span class="p">.</span><span class="nx">orthoRight</span> <span class="o">=</span> <span class="nx">width</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">camera</span><span class="p">.</span><span class="nx">orthoTop</span> <span class="o">=</span> <span class="nx">camera</span><span class="p">.</span><span class="nx">orthoRight</span> <span class="o">*</span> <span class="nx">ratio</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">camera</span><span class="p">.</span><span class="nx">orthoBottom</span> <span class="o">=</span> <span class="nx">camera</span><span class="p">.</span><span class="nx">orthoLeft</span> <span class="o">*</span> <span class="nx">ratio</span><span class="p">;</span>
+</span></span></code></pre></div><p>So, we must provide a new width everytime there are changes in camera position in perspective mode. In general:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="nx">newWidth</span> <span class="o">=</span> <span class="err">∏</span><span class="p">(</span><span class="nx">dependencies</span><span class="p">)</span> <span class="o">*</span> <span class="nx">constant</span>
+</span></span></code></pre></div><p>We know camera position is one of the dependencies for calculating new width. Plugging it in:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="nx">new_width</span> <span class="o">=</span> <span class="nx">camera</span><span class="p">.</span><span class="nx">position</span><span class="p">.</span><span class="nx">length</span><span class="p">()</span> <span class="o">*</span> <span class="err">∏</span><span class="p">(</span><span class="nx">other_dependencies</span><span class="p">)</span> <span class="o">*</span> <span class="nx">constant</span>
+</span></span></code></pre></div><p>After playing around by switching camera modes, we can hit-and-try the constant. But there&rsquo;s a catch - this contant depends on Babylon&rsquo;s canvas width. This is the last dependency. My canvas width was <code>766</code> when I binary-searched <code>0.525</code> as the constant, so we get:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="nx">new_width</span> <span class="o">=</span> <span class="p">(</span><span class="nx">camera</span><span class="p">.</span><span class="nx">position</span><span class="p">.</span><span class="nx">length</span><span class="p">()</span> <span class="o">*</span> <span class="mf">0.525</span> <span class="o">*</span> <span class="nx">canvas</span><span class="p">.</span><span class="nx">width</span><span class="p">)</span> <span class="o">/</span> <span class="mi">766</span><span class="p">;</span>
+</span></span></code></pre></div><p>Add this conversion as an observable and we have successfully implemented seamless switching between orthographic and perspective view.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">updateOrthoValues</span> <span class="o">=</span> <span class="p">(</span><span class="nx">camera</span><span class="p">,</span> <span class="nx">width</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">ratio</span> <span class="o">=</span> <span class="nx">canvas</span><span class="p">.</span><span class="nx">height</span> <span class="o">/</span> <span class="nx">canvas</span><span class="p">.</span><span class="nx">width</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">camera</span><span class="p">.</span><span class="nx">orthoLeft</span> <span class="o">=</span> <span class="o">-</span><span class="nx">width</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">camera</span><span class="p">.</span><span class="nx">orthoRight</span> <span class="o">=</span> <span class="nx">width</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">camera</span><span class="p">.</span><span class="nx">orthoTop</span> <span class="o">=</span> <span class="nx">camera</span><span class="p">.</span><span class="nx">orthoRight</span> <span class="o">*</span> <span class="nx">ratio</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">camera</span><span class="p">.</span><span class="nx">orthoBottom</span> <span class="o">=</span> <span class="nx">camera</span><span class="p">.</span><span class="nx">orthoLeft</span> <span class="o">*</span> <span class="nx">ratio</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">getDist</span> <span class="o">=</span> <span class="p">(</span><span class="nx">camera</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="nx">camera</span><span class="p">.</span><span class="nx">position</span><span class="p">.</span><span class="nx">length</span><span class="p">()</span> <span class="o">*</span> <span class="nx">canvas</span><span class="p">.</span><span class="nx">width</span> <span class="o">*</span> <span class="mf">402.15</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="nx">scene</span><span class="p">.</span><span class="nx">onBeforeRenderObservable</span><span class="p">.</span><span class="nx">add</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kd">let</span> <span class="nx">newRadius</span> <span class="o">=</span> <span class="nx">getDist</span><span class="p">(</span><span class="nx">camera</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="nx">oldRadius</span> <span class="o">!==</span> <span class="nx">newRadius</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">updateOrthoValues</span><span class="p">(</span><span class="nx">camera</span><span class="p">,</span> <span class="nx">newRadius</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">oldRadius</span> <span class="o">=</span> <span class="nx">newRadius</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">});</span>
+</span></span></code></pre></div><p>View the final result here (press X to switch between the views):
+<a href="https://playground.babylonjs.com/#P2QHFS%231">https://playground.babylonjs.com/#P2QHFS#1</a></p>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://corbe30.github.io/tags/algorithm/">Algorithm</a></li>
+      <li><a href="https://corbe30.github.io/tags/babylonjs/">Babylonjs</a></li>
+      <li><a href="https://corbe30.github.io/tags/3d/">3D</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="https://corbe30.github.io/posts/lessons-from-fortuneexcel/">
+    <span class="title">« Prev</span>
+    <br>
+    <span>⇧⇩ FortuneExcel - Lessons from my First Package</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2025 <a href="https://corbe30.github.io/">Corbe30</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

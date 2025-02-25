@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>⇧⇩ FortuneExcel - Lessons from my First Package | Corbe30</title>
+<meta name="keywords" content="excel, fortune-sheet, npm">
+<meta name="description" content="I revived an archived project and released it as FortuneExcel - a plugin for FortuneSheet to import/export Excel (.xlsx) files.
+
+  
+    
+     
+  
+ 
+Initialization
+Reviving the project meant fixing the deprecated code and existing bugs. Along with this, I added export feature, toolbar plugin support for fortune-sheet and set up Github workflow.
+Modularization
+While implementing a package, it should have maximum abstraction. User should have to add minimal code to their environment for your package to work, all while having no side-effects on their existing code. A proper code strucrure also makes it easier for others to contribute to your code.">
+<meta name="author" content="">
+<link rel="canonical" href="https://canonical.url/to/page">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.efc11bcb5d31e7c91a87866a42f4dede09b7cbf81ea0cd1f9d3c26a637209b49.css" integrity="sha256-78Eby10x58kah4ZqQvTe3gm3y/geoM0fnTwmpjcgm0k=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://corbe30.github.io/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://corbe30.github.io/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://corbe30.github.io/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://corbe30.github.io/apple-touch-icon.png">
+<link rel="mask-icon" href="https://corbe30.github.io/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="https://corbe30.github.io/posts/lessons-from-fortuneexcel/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:url" content="https://corbe30.github.io/posts/lessons-from-fortuneexcel/">
+  <meta property="og:site_name" content="Corbe30">
+  <meta property="og:title" content="⇧⇩ FortuneExcel - Lessons from my First Package">
+  <meta property="og:description" content="I revived an archived project and released it as FortuneExcel - a plugin for FortuneSheet to import/export Excel (.xlsx) files.
+Initialization Reviving the project meant fixing the deprecated code and existing bugs. Along with this, I added export feature, toolbar plugin support for fortune-sheet and set up Github workflow.
+Modularization While implementing a package, it should have maximum abstraction. User should have to add minimal code to their environment for your package to work, all while having no side-effects on their existing code. A proper code strucrure also makes it easier for others to contribute to your code.">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2024-11-18T11:30:03+00:00">
+    <meta property="article:modified_time" content="2024-11-18T11:30:03+00:00">
+    <meta property="article:tag" content="Excel">
+    <meta property="article:tag" content="Fortune-Sheet">
+    <meta property="article:tag" content="Npm">
+    <meta property="og:image" content="https://corbe30.github.io/%3Cimage%20path/url%3E">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://corbe30.github.io/%3Cimage%20path/url%3E">
+<meta name="twitter:title" content="⇧⇩ FortuneExcel - Lessons from my First Package">
+<meta name="twitter:description" content="I revived an archived project and released it as FortuneExcel - a plugin for FortuneSheet to import/export Excel (.xlsx) files.
+
+  
+    
+     
+  
+ 
+Initialization
+Reviving the project meant fixing the deprecated code and existing bugs. Along with this, I added export feature, toolbar plugin support for fortune-sheet and set up Github workflow.
+Modularization
+While implementing a package, it should have maximum abstraction. User should have to add minimal code to their environment for your package to work, all while having no side-effects on their existing code. A proper code strucrure also makes it easier for others to contribute to your code.">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://corbe30.github.io/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "⇧⇩ FortuneExcel - Lessons from my First Package",
+      "item": "https://corbe30.github.io/posts/lessons-from-fortuneexcel/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "⇧⇩ FortuneExcel - Lessons from my First Package",
+  "name": "⇧⇩ FortuneExcel - Lessons from my First Package",
+  "description": "I revived an archived project and released it as FortuneExcel - a plugin for FortuneSheet to import/export Excel (.xlsx) files.\nInitialization Reviving the project meant fixing the deprecated code and existing bugs. Along with this, I added export feature, toolbar plugin support for fortune-sheet and set up Github workflow.\nModularization While implementing a package, it should have maximum abstraction. User should have to add minimal code to their environment for your package to work, all while having no side-effects on their existing code. A proper code strucrure also makes it easier for others to contribute to your code.\n",
+  "keywords": [
+    "excel", "fortune-sheet", "npm"
+  ],
+  "articleBody": "I revived an archived project and released it as FortuneExcel - a plugin for FortuneSheet to import/export Excel (.xlsx) files.\nInitialization Reviving the project meant fixing the deprecated code and existing bugs. Along with this, I added export feature, toolbar plugin support for fortune-sheet and set up Github workflow.\nModularization While implementing a package, it should have maximum abstraction. User should have to add minimal code to their environment for your package to work, all while having no side-effects on their existing code. A proper code strucrure also makes it easier for others to contribute to your code.\nGithub Workflow Lets breakdown the pubhlish.yml file.\nRun the workflow whenever a release is published or manually triggered from Actions tab:\npublish.yml ----------- on: release: types: [published] workflow_dispatch: Define premissions required by the workflow:\npermissions: contents: read pages: write id-token: write Checkout the code, setup node environment, install dependencies (see npm i vs npm ci) and publish the package on npm:\n- uses: actions/checkout@v3 - uses: actions/setup-node@v3 with: node-version: \"20.x\" registry-url: \"https://registry.npmjs.org\" - run: npm ci - run: npm publish --tag latest --provenance --access public env: NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }} Build the Storybook, upload it as an artifact and deploy it on GitHub Pages:\nNote: Update Build and Deployement source to ‘Github Actions’ in repo \u003e Settings \u003e Pages\n- run: npm run build-storybook - uses: actions/upload-pages-artifact@v2 with: path: storybook-static - id: deploy uses: actions/deploy-pages@v3 with: token: ${{ github.token }} Secrets and Tokens In the above section inside publish.yml, notice github.token and secrets.NPM_TOKEN.\nWhile github.token is automatically provided by GitHub Actions, secrets.NPM_TOKEN is an automation access token that has to be generated at npmjs.com and set as repository secret on Github.\nEmitted Javascript version Fortune-excel and fortune-sheet were having incompatibility issues due to different transmitted JS when compiled from TS. This is defined by the target value in compilerOptions of tsconfig.json. Since fortune-sheet compiles the JS In es5, changing the target from es6 to es5 in fortune-excel fixed the issue:\n// tsconfig.json { \"compilerOptions\": { \"target\": \"es5\", ... } } Commonjs entrypoint After publishing the package, Yarn showed this warning - ‘the package doesn’t seem to have a commonjs entry point’. Compiling the TS in commonjs is necessary for old projects still using CJS instead of ESM. Compiling is ESM is optional since EMS supports CJS, but not visa-versa. To fix the warning:\nMake sure package.json does not have \"type\": \"module\" defined When set to “module”, the type field allows a package to specify all .js files within are ES modules. If the “type” field is omitted or set to “commonjs”, all .js files are treated as CommonJS.\nDefine \"module\": \"commonjs\" in tsconfig.json - refer to this. Compiling TS for Storybook To make our plugin work with Storybook in the same repository, we can take two approaches:\nUsing Compiled JavaScript (CommonJS from /dist/) Using TypeScript Source Directly Using TS source directly enables seamless debugging in browsers, but it will require additional configuration. To leverage your TypeScript source directly within Storybook:\nConfigure TypeScript Path Aliases: Modify your tsconfig.json to create a path alias for your plugin’s entry point. This allows Storybook to resolve the import correctly.\n// tsconfig.json { \"paths\": { \"@corbe30/fortune-excel\": [\"./src/main.ts\"], }, ... } // stories/Page.tsx import { exportToolBarItem, importToolBarItem, } from \"@corbe30/fortune-excel\"; Configure Babel for TypeScript Support: Storybook uses Babel for its build process. To enable TypeScript compilation, you need to add the @babel/preset-typescript preset to your Babel configuration (babel.config.js or .babelrc).\n// babel.config.js module.exports = { presets: [ \"@babel/preset-env\", \"@babel/preset-react\", \"@babel/preset-typescript\" ], ... }; Install Babel Presets: Ensure you have the necessary Babel presets installed as development dependencies.\nnpm install --save-dev @babel/preset-env @babel/preset-react @babel/preset-typescript ",
+  "wordCount" : "605",
+  "inLanguage": "en",
+  "image":"https://corbe30.github.io/%3Cimage%20path/url%3E","datePublished": "2024-11-18T11:30:03Z",
+  "dateModified": "2024-11-18T11:30:03Z",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://corbe30.github.io/posts/lessons-from-fortuneexcel/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Corbe30",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://corbe30.github.io/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://corbe30.github.io/" accesskey="h" title="Corbe30 (Alt + H)">Corbe30</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://corbe30.github.io/resume/" title="Resume">
+                    <span>Resume</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://corbe30.github.io/archives/" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://corbe30.github.io/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="https://corbe30.github.io/">Home</a>&nbsp;»&nbsp;<a href="https://corbe30.github.io/posts/">Posts</a></div>
+    <h1 class="post-title entry-hint-parent">
+      ⇧⇩ FortuneExcel - Lessons from my First Package
+    </h1>
+    <div class="post-meta"><span title='2024-11-18 11:30:03 +0000 +0000'>November 18, 2024</span>&nbsp;·&nbsp;3 min
+
+</div>
+  </header> <div class="toc">
+    <details >
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">Table of Contents</span>
+        </summary>
+
+        <div class="inner"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#initialization">Initialization</a></li>
+    <li><a href="#modularization">Modularization</a></li>
+    <li><a href="#github-workflow">Github Workflow</a></li>
+    <li><a href="#secrets-and-tokens">Secrets and Tokens</a></li>
+    <li><a href="#emitted-javascript-version">Emitted Javascript version</a></li>
+    <li><a href="#commonjs-entrypoint">Commonjs entrypoint</a></li>
+    <li><a href="#compiling-ts-for-storybook">Compiling TS for Storybook</a></li>
+  </ul>
+</nav>
+        </div>
+    </details>
+</div>
+
+  <div class="post-content"><p>I revived an archived project and released it as <a href="http://npmjs.com/package/@corbe30/fortune-excel">FortuneExcel</a> - a plugin for FortuneSheet to import/export Excel (.xlsx) files.</p>
+<table>
+  <tr>
+    <td  valign="top"><img src="https://img.shields.io/npm/v/@corbe30/fortune-excel" /></td>
+    <td  valign="top"><img src="https://img.shields.io/npm/d18m/%40corbe30%2Ffortune-excel" /> </td>
+  </tr>
+ </table>
+<h2 id="initialization">Initialization<a hidden class="anchor" aria-hidden="true" href="#initialization">#</a></h2>
+<p>Reviving the project meant fixing the deprecated code and existing bugs. Along with this, I added export feature, toolbar plugin support for fortune-sheet and set up Github workflow.</p>
+<h2 id="modularization">Modularization<a hidden class="anchor" aria-hidden="true" href="#modularization">#</a></h2>
+<p>While implementing a package, it should have maximum abstraction. User should have to add minimal code to their environment for your package to work, all while having no side-effects on their existing code. A proper code strucrure also makes it easier for others to contribute to your code.</p>
+<h2 id="github-workflow">Github Workflow<a hidden class="anchor" aria-hidden="true" href="#github-workflow">#</a></h2>
+<p>Lets breakdown the pubhlish.yml file.</p>
+<p>Run the workflow whenever a release is published or manually triggered from Actions tab:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"><span class="line"><span class="cl"><span class="l">publish.yml</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nn">---</span>--------<span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">on</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">release</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">types</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">published]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">workflow_dispatch</span><span class="p">:</span><span class="w">
+</span></span></span></code></pre></div><p>Define premissions required by the workflow:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"><span class="line"><span class="cl"><span class="nt">permissions</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">contents</span><span class="p">:</span><span class="w"> </span><span class="l">read</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">pages</span><span class="p">:</span><span class="w"> </span><span class="l">write</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">id-token</span><span class="p">:</span><span class="w"> </span><span class="l">write</span><span class="w">
+</span></span></span></code></pre></div><p>Checkout the code, setup node environment, install dependencies (see <a href="https://stackoverflow.com/questions/52499617/what-is-the-difference-between-npm-install-and-npm-ci">npm i vs npm ci</a>) and publish the package on npm:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">actions/checkout@v3</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">actions/setup-node@v3</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">with</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">node-version</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;20.x&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">registry-url</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;https://registry.npmjs.org&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l">npm ci</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l">npm publish --tag latest --provenance --access public</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">env</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">NODE_AUTH_TOKEN</span><span class="p">:</span><span class="w"> </span><span class="l">${{ secrets.NPM_TOKEN }}</span><span class="w">
+</span></span></span></code></pre></div><p>Build the Storybook, upload it as an artifact and deploy it on GitHub Pages:</p>
+<blockquote>
+<p>Note: Update Build and Deployement source to &lsquo;Github Actions&rsquo; in repo &gt; Settings &gt; Pages</p></blockquote>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l">npm run build-storybook</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">actions/upload-pages-artifact@v2</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">with</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l">storybook-static</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l">deploy</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">actions/deploy-pages@v3</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">with</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">token</span><span class="p">:</span><span class="w"> </span><span class="l">${{ github.token }}</span><span class="w">
+</span></span></span></code></pre></div><h2 id="secrets-and-tokens">Secrets and Tokens<a hidden class="anchor" aria-hidden="true" href="#secrets-and-tokens">#</a></h2>
+<p>In the above section inside publish.yml, notice <code>github.token</code> and <code>secrets.NPM_TOKEN</code>.</p>
+<p>While <code>github.token</code> is automatically provided by GitHub Actions, <code>secrets.NPM_TOKEN</code> is an <a href="https://docs.npmjs.com/about-access-tokens"><em>automation</em> access token</a> that has to be generated at npmjs.com and <a href="https://docs.github.com/en/actions/security-for-github-actions/security-guides/using-secrets-in-github-actions#creating-secrets-for-a-repository">set as repository secret</a> on Github.</p>
+<h2 id="emitted-javascript-version">Emitted Javascript version<a hidden class="anchor" aria-hidden="true" href="#emitted-javascript-version">#</a></h2>
+<p>Fortune-excel and fortune-sheet were having incompatibility issues due to different transmitted JS when compiled from TS. This is defined by the <code>target</code> value in <code>compilerOptions</code> of tsconfig.json. Since fortune-sheet compiles the JS In es5, changing the target from es6 to es5 in fortune-excel fixed the issue:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="c1">// tsconfig.json
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;compilerOptions&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;target&#34;</span><span class="p">:</span> <span class="s2">&#34;es5&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="err">...</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><h2 id="commonjs-entrypoint">Commonjs entrypoint<a hidden class="anchor" aria-hidden="true" href="#commonjs-entrypoint">#</a></h2>
+<p>After publishing the package, Yarn showed this warning - &lsquo;<em>the package doesn&rsquo;t seem to have a commonjs entry point</em>&rsquo;. Compiling the TS in commonjs is necessary for old projects still using CJS instead of ESM. Compiling is ESM is optional since EMS supports CJS, but not visa-versa. To fix the warning:</p>
+<ol>
+<li>Make sure package.json does not have <code>&quot;type&quot;: &quot;module&quot;</code> defined
+<blockquote>
+<p>When set to &ldquo;module&rdquo;, the type field allows a package to specify all .js files within are ES modules. If the &ldquo;type&rdquo; field is omitted or set to &ldquo;commonjs&rdquo;, all .js files are treated as CommonJS.</p></blockquote>
+</li>
+<li>Define <code>&quot;module&quot;: &quot;commonjs&quot;</code> in tsconfig.json - refer to <a href="https://www.typescriptlang.org/tsconfig/#module">this</a>.</li>
+</ol>
+<h2 id="compiling-ts-for-storybook">Compiling TS for Storybook<a hidden class="anchor" aria-hidden="true" href="#compiling-ts-for-storybook">#</a></h2>
+<p>To make our plugin work with Storybook in the <i>same repository</i>, we can take two approaches:</p>
+<ol>
+<li>Using Compiled JavaScript (CommonJS from <code>/dist/</code>)</li>
+<li>Using TypeScript Source Directly</li>
+</ol>
+<p>Using TS source directly enables seamless debugging in browsers, but it will require additional configuration. To leverage your TypeScript source directly within Storybook:</p>
+<ol>
+<li>
+<p>Configure TypeScript Path Aliases: Modify your tsconfig.json to create a path alias for your plugin&rsquo;s entry point. This allows Storybook to resolve the import correctly.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="c1">// tsconfig.json
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;paths&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">     <span class="nt">&#34;@corbe30/fortune-excel&#34;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&#34;./src/main.ts&#34;</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="err">...</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-tsx" data-lang="tsx"><span class="line"><span class="cl"><span class="c1">// stories/Page.tsx
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">import</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">exportToolBarItem</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">importToolBarItem</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span> <span class="kr">from</span> <span class="s2">&#34;@corbe30/fortune-excel&#34;</span><span class="p">;</span>
+</span></span></code></pre></div></li>
+<li>
+<p>Configure Babel for TypeScript Support: Storybook uses Babel for its build process. To enable TypeScript compilation, you need to add the <code>@babel/preset-typescript</code> preset to your Babel configuration (<code>babel.config.js</code> or .<code>babelrc</code>).</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="c1">// babel.config.js
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">presets</span><span class="o">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;@babel/preset-env&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;@babel/preset-react&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;@babel/preset-typescript&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">],</span>
+</span></span><span class="line"><span class="cl">  <span class="p">...</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></div></li>
+<li>
+<p>Install Babel Presets: Ensure you have the necessary Babel presets installed as development dependencies.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">npm install --save-dev @babel/preset-env @babel/preset-react @babel/preset-typescript
+</span></span></code></pre></div></li>
+</ol>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://corbe30.github.io/tags/excel/">Excel</a></li>
+      <li><a href="https://corbe30.github.io/tags/fortune-sheet/">Fortune-Sheet</a></li>
+      <li><a href="https://corbe30.github.io/tags/npm/">Npm</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="next" href="https://corbe30.github.io/posts/view-switching-algo/">
+    <span class="title">Next »</span>
+    <br>
+    <span>Seamless View Switching Algorithm for ArcRotateCamera in Babylon.js</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2025 <a href="https://corbe30.github.io/">Corbe30</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

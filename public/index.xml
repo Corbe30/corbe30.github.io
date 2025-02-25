@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Corbe30</title>
+    <link>https://corbe30.github.io/</link>
+    <description>Recent content on Corbe30</description>
+    <image>
+      <title>Corbe30</title>
+      <url>https://corbe30.github.io/images/papermod-cover.png</url>
+      <link>https://corbe30.github.io/images/papermod-cover.png</link>
+    </image>
+    <generator>Hugo -- 0.144.2</generator>
+    <language>en</language>
+    <lastBuildDate>Mon, 18 Nov 2024 11:30:03 +0000</lastBuildDate>
+    <atom:link href="https://corbe30.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>⇧⇩ FortuneExcel - Lessons from my First Package</title>
+      <link>https://corbe30.github.io/posts/lessons-from-fortuneexcel/</link>
+      <pubDate>Mon, 18 Nov 2024 11:30:03 +0000</pubDate>
+      <guid>https://corbe30.github.io/posts/lessons-from-fortuneexcel/</guid>
+      <description>&lt;p&gt;I revived an archived project and released it as &lt;a href=&#34;http://npmjs.com/package/@corbe30/fortune-excel&#34;&gt;FortuneExcel&lt;/a&gt; - a plugin for FortuneSheet to import/export Excel (.xlsx) files.&lt;/p&gt;
+&lt;table&gt;
+  &lt;tr&gt;
+    &lt;td  valign=&#34;top&#34;&gt;&lt;img src=&#34;https://img.shields.io/npm/v/@corbe30/fortune-excel&#34; /&gt;&lt;/td&gt;
+    &lt;td  valign=&#34;top&#34;&gt;&lt;img src=&#34;https://img.shields.io/npm/d18m/%40corbe30%2Ffortune-excel&#34; /&gt; &lt;/td&gt;
+  &lt;/tr&gt;
+ &lt;/table&gt;
+&lt;h2 id=&#34;initialization&#34;&gt;Initialization&lt;/h2&gt;
+&lt;p&gt;Reviving the project meant fixing the deprecated code and existing bugs. Along with this, I added export feature, toolbar plugin support for fortune-sheet and set up Github workflow.&lt;/p&gt;
+&lt;h2 id=&#34;modularization&#34;&gt;Modularization&lt;/h2&gt;
+&lt;p&gt;While implementing a package, it should have maximum abstraction. User should have to add minimal code to their environment for your package to work, all while having no side-effects on their existing code. A proper code strucrure also makes it easier for others to contribute to your code.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Seamless View Switching Algorithm for ArcRotateCamera in Babylon.js</title>
+      <link>https://corbe30.github.io/posts/view-switching-algo/</link>
+      <pubDate>Thu, 27 Jun 2024 11:30:03 +0000</pubDate>
+      <guid>https://corbe30.github.io/posts/view-switching-algo/</guid>
+      <description>&lt;p&gt;I&amp;rsquo;ll describe how I derived an algorithm to switch seamlessly between perspective and orthographic views. The solution will be implemented in babylon.js.&lt;/p&gt;
+&lt;h2 id=&#34;basics-the-why&#34;&gt;Basics (the why)&lt;/h2&gt;
+&lt;p&gt;A camera can be controlled by 3 operations - pan, zoom and orbit.
+These operations in arcRotateCamera are performed by changing the following properties:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;camera position (where the camera is at)&lt;/li&gt;
+&lt;li&gt;camera target (where the camera is looking at)&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;More about how it works &lt;a href=&#34;https://doc.babylonjs.com/features/featuresDeepDive/cameras/camera_introduction#arc-rotate-camera&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Consider using only these two properties to perform the operations. Although pan and orbit changes are reflect in both the views, zoom doesn&amp;rsquo;t seem to have any effect in orthographic view (see &lt;a href=&#34;https://blenderartists.org/t/zooming-through-orthographic-cameras-not-working-need-everyones-help-to-fix-this/701450/3&#34;&gt;why?&lt;/a&gt;)&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title></title>
+      <link>https://corbe30.github.io/resume/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://corbe30.github.io/resume/</guid>
+      <description>&lt;h1 id=&#34;shashank-agarwal&#34;&gt;Shashank Agarwal&lt;/h1&gt;
+&lt;p&gt;&lt;a href=&#34;mailto:shashankc1705@gmail.com&#34;&gt;shashankc1705@gmail.com&lt;/a&gt; | &lt;a href=&#34;https://github.com/Corbe30/&#34;&gt;Github&lt;/a&gt; | &lt;a href=&#34;https://www.linkedin.com/in/shashank-agarwal-3ab5b21a7/&#34;&gt;Linkedin&lt;/a&gt; | Gurgaon, Haryana&lt;/p&gt;
+&lt;h3 id=&#34;summary&#34;&gt;Summary&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;2 years of work experience in software development&lt;/li&gt;
+&lt;li&gt;Hands on experience in frontend, backend and android&lt;/li&gt;
+&lt;li&gt;Proficient in React, Redux, TypeScript and node.js + Express&lt;/li&gt;
+&lt;/ul&gt;
+&lt;br/&gt;
+&lt;h2 id=&#34;work-experience&#34;&gt;Work Experience&lt;/h2&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;flipkart&#34;&gt;Flipkart&lt;/h3&gt;
+&lt;h4 id=&#34;ui-engineer-1-082024---present&#34;&gt;UI Engineer-1 [08/2024 - present]&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;Maintained and enhanced spreadsheet library &lt;a href=&#34;https://github.com/ruilisi/fortune-sheet&#34;&gt;FortuneSheet&lt;/a&gt;, resulting in 24% increase in weekly downloads. Managed code reviews, resolved issues, and upheld coding standards and license compliance.&lt;/li&gt;
+&lt;li&gt;Reduce latency from 4.5s to 0.8s on edit operations by optimizations in formula parser. Resulted 20% bump in fps in large sheets optimizations in cell-text handling.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;snaptrude&#34;&gt;Snaptrude&lt;/h3&gt;
+&lt;h4 id=&#34;algorithms-engineer-082023---082024&#34;&gt;Algorithms Engineer [08/2023 - 08/2024]&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;Utilized knowledge of graphics programming and WebGL to solve mathematical and algorithmic problems for 20,000 users.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Developed Archicad Parser&lt;/strong&gt;: Worked in the development of a C++ plugin used to export Snaptrude’s models into Archicad. Parsed using Node.js server. Used Amazon Cloudfront (CDN) and S3 for storing geometry data. Fixed major bugs, added support for furniture export.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Delete storey operation&lt;/strong&gt;: Solo developer in a feature to delete Snaptrude storeys. Developed frontend in Typescript, React and Redux; and backend APIs in Node.js server. Used linked list for managing storeys and Command design pattern to implement undo-redo operations on queue data structure. Supported with unit tests.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Revamped Snaptrude Manager&lt;/strong&gt;: Improved Snaptrude’s desktop application + plugin used for interoperability with Autodesk Revit. Developed user interface in React and Redux, and supporting RESTful APIs in Django backend. Migrated plugin code from Python to C#.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Optimizations&lt;/strong&gt;: Implemented series of optimizations in mongoDB for slow server response by implementing bulkWrite. Reduced Revit export JSON file size by 50% and made API enhancements, saving 2 minutes of AWS S3 bucket export time for large projects.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;testbook&#34;&gt;Testbook&lt;/h3&gt;
+&lt;h4 id=&#34;android-developer-022023---082023&#34;&gt;Android Developer [02/2023 - 08/2023]&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;Maintained and developed features in &lt;strong&gt;Kotlin&lt;/strong&gt; for Testbook app for &lt;strong&gt;5 million active users&lt;/strong&gt; in the Android team.&lt;/li&gt;
+&lt;li&gt;Drove &lt;strong&gt;14.7% revenue growth&lt;/strong&gt; through Testbook Pass Pro by developing UI elements in &lt;strong&gt;Compose&lt;/strong&gt; and &lt;strong&gt;XML&lt;/strong&gt;, integrating analytics events to WebEngage and &lt;strong&gt;Firebase&lt;/strong&gt;, deep links, and improving UX.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Increased book sales by 272%&lt;/strong&gt; within a month by developing Smartbooks e‑commerce module ‑ implemented &lt;strong&gt;Jetpack Compose&lt;/strong&gt; UI components, implementing &lt;strong&gt;MVVM architecture&lt;/strong&gt; for the Book Details page, integration and consuming &lt;strong&gt;RESTful API in JSON&lt;/strong&gt; and introducing pin code validation feature.&lt;/li&gt;
+&lt;li&gt;Orchestrated an &lt;strong&gt;A/B testing&lt;/strong&gt; on all users by utilizing Firebase Engage and triggering 9 events across 144 locations within the app, revealing a significant &lt;strong&gt;12% difference&lt;/strong&gt; in purchase clicks and strengthening product decisions.&lt;/li&gt;
+&lt;li&gt;Troubleshooted bugs and crashes in Juspay payment gateway integration, resulting in a substantial improvement in the overall user experience and successful transactions.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;projects&#34;&gt;Projects&lt;/h2&gt;
+&lt;hr&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.npmjs.com/package/@corbe30/fortune-excel&#34;&gt;FortuneExcel&lt;/a&gt; - an .xlsx import/export plugin for FortuneSheet with over 1.7k downloads on npm. Built on Typescript and React.&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://monumental-moonbeam-9fe109.netlify.app/&#34;&gt;Multiplayer Snake Game&lt;/a&gt; - Developed and deployed a 2‐player Snake game in Javasript. Supports customizable snake colors, personal room creation, live score tracking, and rematch functionality.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;achievements&#34;&gt;Achievements&lt;/h2&gt;
+&lt;hr&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Responsible Vulnerability Disclosure (NCIIPC)&lt;/strong&gt; - Acknowledged by &lt;em&gt;National Critical Information Infrastructure Protection Centre, India (NCIIPC)&lt;/em&gt; for identifying and reporting  a directory traversal attack on MPEDA’s website, which exposed Aadhaar card information of 100+ Indian citizens.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;education&#34;&gt;Education&lt;/h2&gt;
+&lt;hr&gt;
+&lt;p&gt;&lt;strong&gt;Jaypee Institute of Information Technology, Noida [2019-2023]&lt;/strong&gt;
+&lt;br/&gt;B.Tech in Information Technology &lt;em&gt;(CGPA: 8.5)&lt;/em&gt;&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>
