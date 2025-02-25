@@ -17,11 +17,11 @@ ShowWordCount: false
 ShowRssButtonInSectionTermList: true
 UseHugoToc: true
 cover:
-    image: "<image path/url>" # image path/url
-    alt: "<alt text>" # alt text
+    image: "https://github.com/Corbe30/corbe30.github.io/blob/main/assets/images/self.jpg" # image path/url
+    alt: "myself" # alt text
     caption: "<text>" # display caption under cover
     relative: false # when using page bundles set this to true
-    hidden: true # only hide on current single page
+    hidden: false # only hide on current single page
 ---
 
 # Shashank Agarwal
