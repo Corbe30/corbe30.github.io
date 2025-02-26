@@ -22,7 +22,7 @@ ShowWordCount: false
 ShowRssButtonInSectionTermList: true
 UseHugoToc: true
 cover:
-    image: "https://s1.ezgif.com/tmp/ezgif-10e5cdbb94b2c0.gif" # image path/url
+    image: "https://raw.githubusercontent.com/Corbe30/corbe30.github.io/refs/heads/main/assets/images/asyncModal_gif.gif" # image path/url
     alt: "<alt text>" # alt text
     caption: "<text>" # display caption under cover
     relative: false # when using page bundles set this to true
@@ -123,7 +123,7 @@ A **custom hook** will help us do both.
 
 ## 3. Introducing `useAsyncModal`
 
-<img src="https://s1.ezgif.com/tmp/ezgif-10e5cdbb94b2c0.gif" />
+<img src="https://raw.githubusercontent.com/Corbe30/corbe30.github.io/refs/heads/main/assets/images/asyncModal_flow.png" />
 
 We create `useAsyncModal` hook, which will lie between ModalContext and App. It will manage context, and provide App component with a method to get response. `useAsyncModal` creates a promise, which is only resolved when the user clicks on either of the modal buttons.
 
