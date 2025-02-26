@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>Posts on Corbe30</title>
-    <link>https://corbe30.github.io/posts/</link>
-    <description>Recent content in Posts on Corbe30</description>
+    <title>React on Corbe30</title>
+    <link>https://corbe30.github.io/tags/react/</link>
+    <description>Recent content in React on Corbe30</description>
     <image>
       <title>Corbe30</title>
       <url>https://corbe30.github.io/images/papermod-cover.png</url>
@@ -12,7 +12,7 @@
     <generator>Hugo -- 0.144.2</generator>
     <language>en</language>
     <lastBuildDate>Wed, 26 Feb 2025 21:40:25 +0530</lastBuildDate>
-    <atom:link href="https://corbe30.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://corbe30.github.io/tags/react/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>A Bottom-up Approach to Async Modals in React</title>
       <link>https://corbe30.github.io/posts/async-modals/</link>
@@ -46,39 +46,6 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/details&gt;
 &lt;p&gt;To get the response (yes/no) from the modal, App component is forced to manage &lt;code&gt;isModalOpen&lt;/code&gt; state and include &lt;code&gt;&amp;lt;Modal /&amp;gt;&lt;/code&gt; component in its JSX. We know there is a better way to manage this by using Context.&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>⇧⇩ FortuneExcel - Lessons from my First Package</title>
-      <link>https://corbe30.github.io/posts/lessons-from-fortuneexcel/</link>
-      <pubDate>Mon, 18 Nov 2024 11:30:03 +0000</pubDate>
-      <guid>https://corbe30.github.io/posts/lessons-from-fortuneexcel/</guid>
-      <description>&lt;p&gt;I revived an archived project and released it as &lt;a href=&#34;http://npmjs.com/package/@corbe30/fortune-excel&#34;&gt;FortuneExcel&lt;/a&gt; - a plugin for FortuneSheet to import/export Excel (.xlsx) files.&lt;/p&gt;
-&lt;table&gt;
-  &lt;tr&gt;
-    &lt;td  valign=&#34;top&#34;&gt;&lt;img src=&#34;https://img.shields.io/npm/v/@corbe30/fortune-excel&#34; /&gt;&lt;/td&gt;
-    &lt;td  valign=&#34;top&#34;&gt;&lt;img src=&#34;https://img.shields.io/npm/d18m/%40corbe30%2Ffortune-excel&#34; /&gt; &lt;/td&gt;
-  &lt;/tr&gt;
- &lt;/table&gt;
-&lt;h2 id=&#34;initialization&#34;&gt;Initialization&lt;/h2&gt;
-&lt;p&gt;Reviving the project meant fixing the deprecated code and existing bugs. Along with this, I added export feature, toolbar plugin support for fortune-sheet and set up Github workflow.&lt;/p&gt;
-&lt;h2 id=&#34;modularization&#34;&gt;Modularization&lt;/h2&gt;
-&lt;p&gt;While implementing a package, it should have maximum abstraction. User should have to add minimal code to their environment for your package to work, all while having no side-effects on their existing code. A proper code strucrure also makes it easier for others to contribute to your code.&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>Seamless View Switching Algorithm for ArcRotateCamera in Babylon.js</title>
-      <link>https://corbe30.github.io/posts/view-switching-algo/</link>
-      <pubDate>Thu, 27 Jun 2024 11:30:03 +0000</pubDate>
-      <guid>https://corbe30.github.io/posts/view-switching-algo/</guid>
-      <description>&lt;p&gt;I&amp;rsquo;ll describe how I derived an algorithm to switch seamlessly between perspective and orthographic views. The solution will be implemented in babylon.js.&lt;/p&gt;
-&lt;h2 id=&#34;basics-the-why&#34;&gt;Basics (the why)&lt;/h2&gt;
-&lt;p&gt;A camera can be controlled by 3 operations - pan, zoom and orbit.
-These operations in arcRotateCamera are performed by changing the following properties:&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;camera position (where the camera is at)&lt;/li&gt;
-&lt;li&gt;camera target (where the camera is looking at)&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;More about how it works &lt;a href=&#34;https://doc.babylonjs.com/features/featuresDeepDive/cameras/camera_introduction#arc-rotate-camera&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;Consider using only these two properties to perform the operations. Although pan and orbit changes are reflect in both the views, zoom doesn&amp;rsquo;t seem to have any effect in orthographic view (see &lt;a href=&#34;https://blenderartists.org/t/zooming-through-orthographic-cameras-not-working-need-everyones-help-to-fix-this/701450/3&#34;&gt;why?&lt;/a&gt;)&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

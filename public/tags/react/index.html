@@ -5,11 +5,11 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="index, follow">
-<title>Categories | Corbe30</title>
+<title>React | Corbe30</title>
 <meta name="keywords" content="">
 <meta name="description" content="">
 <meta name="author" content="">
-<link rel="canonical" href="https://corbe30.github.io/categories/">
+<link rel="canonical" href="https://corbe30.github.io/tags/react/">
 <link crossorigin="anonymous" href="/assets/css/stylesheet.efc11bcb5d31e7c91a87866a42f4dede09b7cbf81ea0cd1f9d3c26a637209b49.css" integrity="sha256-78Eby10x58kah4ZqQvTe3gm3y/geoM0fnTwmpjcgm0k=" rel="preload stylesheet" as="style">
 <link rel="icon" href="https://corbe30.github.io/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://corbe30.github.io/favicon-16x16.png">
@@ -18,8 +18,8 @@
 <link rel="mask-icon" href="https://corbe30.github.io/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" type="application/rss+xml" href="https://corbe30.github.io/categories/index.xml">
-<link rel="alternate" hreflang="en" href="https://corbe30.github.io/categories/">
+<link rel="alternate" type="application/rss+xml" href="https://corbe30.github.io/tags/react/index.xml">
+<link rel="alternate" hreflang="en" href="https://corbe30.github.io/tags/react/">
 <noscript>
     <style>
         #theme-toggle,
@@ -56,15 +56,15 @@
         }
 
     </style>
-</noscript><meta property="og:url" content="https://corbe30.github.io/categories/">
+</noscript><meta property="og:url" content="https://corbe30.github.io/tags/react/">
   <meta property="og:site_name" content="Corbe30">
-  <meta property="og:title" content="Categories">
+  <meta property="og:title" content="React">
   <meta property="og:locale" content="en">
   <meta property="og:type" content="website">
       <meta property="og:image" content="https://corbe30.github.io/images/papermod-cover.png">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://corbe30.github.io/images/papermod-cover.png">
-<meta name="twitter:title" content="Categories">
+<meta name="twitter:title" content="React">
 <meta name="twitter:description" content="">
 
 </head>
@@ -132,13 +132,37 @@
         </ul>
     </nav>
 </header>
-<main class="main">
-<header class="page-header">
-    <h1>Categories</h1>
+<main class="main"> 
+<header class="page-header"><div class="breadcrumbs"><a href="https://corbe30.github.io/">Home</a>&nbsp;»&nbsp;<a href="https://corbe30.github.io/tags/">Tags</a></div>
+  <h1>
+    React
+    <a href="/tags/react/index.xml" title="RSS" aria-label="RSS">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round" height="23">
+        <path d="M4 11a9 9 0 0 1 9 9" />
+        <path d="M4 4a16 16 0 0 1 16 16" />
+        <circle cx="5" cy="19" r="1" />
+      </svg>
+    </a>
+  </h1>
 </header>
 
-<ul class="terms-tags">
-</ul>
+<article class="post-entry tag-entry"> 
+<figure class="entry-cover"><img loading="lazy" src="https://s1.ezgif.com/tmp/ezgif-10e5cdbb94b2c0.gif" alt="">
+</figure>
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">A Bottom-up Approach to Async Modals in React
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>In React, you can use combination of Context and custom hooks to implement async modals. Async modals let you capture the response from modal asynchronously, saving the hassle of managing another state and improves readibility.
+Let’s try to build it from the ground up:
+1. Bare bones App.js function App() { const [isModalOpen, setIsModalOpen] = useState(false); const onResponseClick = (response) =&gt; { setIsModalOpen(false); console.log(response); }; return ( &lt;div&gt; {isModalOpen &amp;&amp; &lt;Modal onResponseClick={onResponseClick} /&gt;} &lt;button onClick={() =&gt; { setIsModalOpen(true); }} &gt; Open Modal &lt;/button&gt; &lt;/div&gt; ); } To get the response (yes/no) from the modal, App component is forced to manage isModalOpen state and include &lt;Modal /&gt; component in its JSX. We know there is a better way to manage this by using Context.
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2025-02-26 21:40:25 +0530 IST'>February 26, 2025</span>&nbsp;·&nbsp;3 min</footer>
+  <a class="entry-link" aria-label="post link to A Bottom-up Approach to Async Modals in React" href="https://corbe30.github.io/posts/async-modals/"></a>
+</article>
     </main>
     
 <footer class="footer">

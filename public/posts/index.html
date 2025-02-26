@@ -139,6 +139,11 @@
                     <span>Tags</span>
                 </a>
             </li>
+            <li>
+                <a href="https://corbe30.github.io/search/" title="🔍︎">
+                    <span>🔍︎</span>
+                </a>
+            </li>
         </ul>
     </nav>
 </header>
@@ -156,6 +161,23 @@
     </a>
   </h1>
 </header>
+
+<article class="post-entry"> 
+<figure class="entry-cover"><img loading="lazy" src="https://s1.ezgif.com/tmp/ezgif-10e5cdbb94b2c0.gif" alt="">
+</figure>
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">A Bottom-up Approach to Async Modals in React
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>In React, you can use combination of Context and custom hooks to implement async modals. Async modals let you capture the response from modal asynchronously, saving the hassle of managing another state and improves readibility.
+Let’s try to build it from the ground up:
+1. Bare bones App.js function App() { const [isModalOpen, setIsModalOpen] = useState(false); const onResponseClick = (response) =&gt; { setIsModalOpen(false); console.log(response); }; return ( &lt;div&gt; {isModalOpen &amp;&amp; &lt;Modal onResponseClick={onResponseClick} /&gt;} &lt;button onClick={() =&gt; { setIsModalOpen(true); }} &gt; Open Modal &lt;/button&gt; &lt;/div&gt; ); } To get the response (yes/no) from the modal, App component is forced to manage isModalOpen state and include &lt;Modal /&gt; component in its JSX. We know there is a better way to manage this by using Context.
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2025-02-26 21:40:25 +0530 IST'>February 26, 2025</span>&nbsp;·&nbsp;3 min</footer>
+  <a class="entry-link" aria-label="post link to A Bottom-up Approach to Async Modals in React" href="https://corbe30.github.io/posts/async-modals/"></a>
+</article>
 
 <article class="post-entry"> 
   <header class="entry-header">
