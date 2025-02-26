@@ -94,9 +94,9 @@ Let’s try to build it from the ground up:
     <meta property="article:published_time" content="2025-02-26T21:40:25+05:30">
     <meta property="article:modified_time" content="2025-02-26T21:40:25+05:30">
     <meta property="article:tag" content="React">
-    <meta property="og:image" content="https://s1.ezgif.com/tmp/ezgif-10e5cdbb94b2c0.gif">
+    <meta property="og:image" content="https://raw.githubusercontent.com/Corbe30/corbe30.github.io/refs/heads/main/assets/images/asyncModal_gif.gif">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://s1.ezgif.com/tmp/ezgif-10e5cdbb94b2c0.gif">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/Corbe30/corbe30.github.io/refs/heads/main/assets/images/asyncModal_gif.gif">
 <meta name="twitter:title" content="A Bottom-up Approach to Async Modals in React">
 <meta name="twitter:description" content="In React, you can use combination of Context and custom hooks to implement async modals. Async modals let you capture the response from modal asynchronously, saving the hassle of managing another state and improves readibility.
 Let&rsquo;s try to build it from the ground up:
@@ -161,7 +161,7 @@ To get the response (yes/no) from the modal, App component is forced to manage i
   "articleBody": "In React, you can use combination of Context and custom hooks to implement async modals. Async modals let you capture the response from modal asynchronously, saving the hassle of managing another state and improves readibility.\nLet’s try to build it from the ground up:\n1. Bare bones App.js function App() { const [isModalOpen, setIsModalOpen] = useState(false); const onResponseClick = (response) =\u003e { setIsModalOpen(false); console.log(response); }; return ( \u003cdiv\u003e {isModalOpen \u0026\u0026 \u003cModal onResponseClick={onResponseClick} /\u003e} \u003cbutton onClick={() =\u003e { setIsModalOpen(true); }} \u003e Open Modal \u003c/button\u003e \u003c/div\u003e ); } To get the response (yes/no) from the modal, App component is forced to manage isModalOpen state and include component in its JSX. We know there is a better way to manage this by using Context.\n2. Context for consolidation Context can help us manage isModalOpen state and Modal component. But notice that the control for handling response moves to ModalContext.\nApp.js function App() { const modalCtx = useContext(ModalContext); return ( \u003cdiv\u003e \u003cbutton onClick={() =\u003e {modalCtx.setIsModalOpen(true)}}\u003e Open Modal \u003c/button\u003e \u003c/div\u003e ); } ModalContext.js export const ModalContext = createContext(); export const ModalProvider = ({ children }) =\u003e { const [isModalOpen, setIsModalOpen] = useState(false); const onResponseClick = (response) =\u003e { setIsModalOpen(false); console.log(response); }; return ( \u003cModalContext.Provider value={{ setIsModalOpen }}\u003e {isModalOpen \u0026\u0026 \u003cModal onResponseClick={onResponseClick} /\u003e} {children} \u003c/ModalContext.Provider\u003e ); }; To solve this, ModalContext can maintain another state response which will be observed by an useEffect in App component. Even so, the new response might be same as the previous, so we will need a responseKey which will be unique for every response.\nThis seems like a hassle:\nwe don’t want App to deal with context but want App to have control over response A custom hook will help us do both.\n3. Introducing useAsyncModal We create useAsyncModal hook, which will lie between ModalContext and App. It will manage context, and provide App component with a method to get response. useAsyncModal creates a promise, which is only resolved when the user clicks on either of the modal buttons.\nApp.js function App() { const { confirm } = useModal(); const onClickHandler = async () =\u003e { const response = await confirm(); console.log(response); }; return ( \u003cdiv\u003e \u003cbutton onClick={onClickHandler}\u003eOpen Modal\u003c/button\u003e \u003c/div\u003e ); } useAsyncModal.js const useAsyncModal = () =\u003e { const modalCtx = useContext(ModalContext); const confirm = async () =\u003e { modalCtx.setIsModalOpen(true); const response = await modalCtx.forUserToConfirm(); return response; }; return { confirm }; }; ModalContext.js export const ModalContext = createContext(); export const ModalProvider = ({ children }) =\u003e { const [settlePromise, setSettlePromise] = useState({}); const [isModalOpen, setIsModalOpen] = useState(false); const onResponseClick = (val) =\u003e { setIsModalOpen(false); settlePromise.resolve(val); }; const forUserToConfirm = () =\u003e { const confirmPromise = new Promise((resolve, reject) =\u003e { setSettlePromise({ resolve, reject }); }); return confirmPromise; }; return ( \u003cModalContext.Provider value={{ setIsModalOpen, forUserToConfirm }}\u003e {isModalOpen \u0026\u0026 \u003cModal onResponseClick={onResponseClick} /\u003e} {children} \u003c/ModalContext.Provider\u003e ); }; This Modal can now be used by any component, all while improving the code readability! You can view the code at my Github repo. It contains 3 branches, one for each step of this article.\n",
   "wordCount" : "503",
   "inLanguage": "en",
-  "image":"https://s1.ezgif.com/tmp/ezgif-10e5cdbb94b2c0.gif","datePublished": "2025-02-26T21:40:25+05:30",
+  "image":"https://raw.githubusercontent.com/Corbe30/corbe30.github.io/refs/heads/main/assets/images/asyncModal_gif.gif","datePublished": "2025-02-26T21:40:25+05:30",
   "dateModified": "2025-02-26T21:40:25+05:30",
   "mainEntityOfPage": {
     "@type": "WebPage",
@@ -254,7 +254,7 @@ To get the response (yes/no) from the modal, App component is forced to manage i
 
 </div>
   </header> 
-<figure class="entry-cover"><img loading="eager" src="https://s1.ezgif.com/tmp/ezgif-10e5cdbb94b2c0.gif" alt="">
+<figure class="entry-cover"><img loading="eager" src="https://raw.githubusercontent.com/Corbe30/corbe30.github.io/refs/heads/main/assets/images/asyncModal_gif.gif" alt="">
         <p><text></p>
 </figure><div class="toc">
     <details >
@@ -344,7 +344,7 @@ To get the response (yes/no) from the modal, App component is forced to manage i
 </ol>
 <p>A <strong>custom hook</strong> will help us do both.</p>
 <h2 id="3-introducing-useasyncmodal">3. Introducing <code>useAsyncModal</code><a hidden class="anchor" aria-hidden="true" href="#3-introducing-useasyncmodal">#</a></h2>
-<img src="https://s1.ezgif.com/tmp/ezgif-10e5cdbb94b2c0.gif" />
+<img src="https://raw.githubusercontent.com/Corbe30/corbe30.github.io/refs/heads/main/assets/images/asyncModal_flow.png" />
 <p>We create <code>useAsyncModal</code> hook, which will lie between ModalContext and App. It will manage context, and provide App component with a method to get response. <code>useAsyncModal</code> creates a promise, which is only resolved when the user clicks on either of the modal buttons.</p>
 <details open>
 <summary>App.js</summary>
