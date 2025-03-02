@@ -125,7 +125,7 @@ Let's take another example:
 | **1** | 4     | 5     | =A1+B1  | =B1+C1  | =C1+D1  |
 
 
-<img src="https://picsum.photos/200/300" />
+<img src="https://raw.githubusercontent.com/Corbe30/corbe30.github.io/refs/heads/main/assets/images/formula_dependency.png" />
 
 We can see why we need to use topological sorting instead of DFS. Calculating `E1` before `D1` will give incorrect ouput.
 There are several ways to implement topological sort, but keep in mind that our formulas could be cyclic, so we cannot assume a DAG.
