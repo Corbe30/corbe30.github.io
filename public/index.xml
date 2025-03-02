@@ -11,8 +11,43 @@
     </image>
     <generator>Hugo -- 0.144.2</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 26 Feb 2025 21:40:25 +0530</lastBuildDate>
+    <lastBuildDate>Thu, 27 Feb 2025 22:09:04 +0530</lastBuildDate>
     <atom:link href="https://corbe30.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Optimizing Graphs for Spreadsheet Formulas Evaluation</title>
+      <link>https://corbe30.github.io/posts/formula-algorithm/</link>
+      <pubDate>Thu, 27 Feb 2025 22:09:04 +0530</pubDate>
+      <guid>https://corbe30.github.io/posts/formula-algorithm/</guid>
+      <description>&lt;p&gt;Cells in a spreadsheet can form a chain of interdependent formulas, where a change in one cell triggers the reevaluation of the entire chain. For example, in the example below, changing cell &lt;code&gt;A1&lt;/code&gt; or &lt;code&gt;B1&lt;/code&gt; recomputes &lt;code&gt;C1&lt;/code&gt;, which recomputes &lt;code&gt;C2&lt;/code&gt; and &lt;code&gt;D1&lt;/code&gt;.&lt;/p&gt;
+&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;&lt;/th&gt;
+          &lt;th&gt;&lt;strong&gt;A&lt;/strong&gt;&lt;/th&gt;
+          &lt;th&gt;&lt;strong&gt;B&lt;/strong&gt;&lt;/th&gt;
+          &lt;th&gt;&lt;strong&gt;C&lt;/strong&gt;&lt;/th&gt;
+          &lt;th&gt;&lt;strong&gt;D&lt;/strong&gt;&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;strong&gt;1&lt;/strong&gt;&lt;/td&gt;
+          &lt;td&gt;4&lt;/td&gt;
+          &lt;td&gt;5&lt;/td&gt;
+          &lt;td&gt;=A1+B1&lt;/td&gt;
+          &lt;td&gt;=B1+C1&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;strong&gt;2&lt;/strong&gt;&lt;/td&gt;
+          &lt;td&gt;&lt;/td&gt;
+          &lt;td&gt;&lt;/td&gt;
+          &lt;td&gt;=C1 + 1&lt;/td&gt;
+          &lt;td&gt;=C2 + 1&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;I&amp;rsquo;ll explain how Fortunesheet handles this by using &lt;strong&gt;Topological Sorting&lt;/strong&gt;, and how I &lt;a href=&#34;https://github.com/ruilisi/fortune-sheet/pull/649&#34;&gt;optimized its performance by 82%&lt;/a&gt;.&lt;/p&gt;</description>
+    </item>
     <item>
       <title>A Bottom-up Approach to Async Modals in React</title>
       <link>https://corbe30.github.io/posts/async-modals/</link>

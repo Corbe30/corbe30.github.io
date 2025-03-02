@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Optimizing Graphs for Spreadsheet Formulas Evaluation | Corbe30</title>
+<meta name="keywords" content="excel, fortune-sheet, algorithm">
+<meta name="description" content="Cells in a spreadsheet can form a chain of interdependent formulas, where a change in one cell triggers the reevaluation of the entire chain. For example, in the example below, changing cell A1 or B1 recomputes C1, which recomputes C2 and D1.
+
+  
+      
+          
+          A
+          B
+          C
+          D
+      
+  
+  
+      
+          1
+          4
+          5
+          =A1&#43;B1
+          =B1&#43;C1
+      
+      
+          2
+          
+          
+          =C1 &#43; 1
+          =C2 &#43; 1
+      
+  
+
+I&rsquo;ll explain how Fortunesheet handles this by using Topological Sorting, and how I optimized its performance by 82%.">
+<meta name="author" content="">
+<link rel="canonical" href="https://canonical.url/to/page">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.efc11bcb5d31e7c91a87866a42f4dede09b7cbf81ea0cd1f9d3c26a637209b49.css" integrity="sha256-78Eby10x58kah4ZqQvTe3gm3y/geoM0fnTwmpjcgm0k=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://corbe30.github.io/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://corbe30.github.io/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://corbe30.github.io/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://corbe30.github.io/apple-touch-icon.png">
+<link rel="mask-icon" href="https://corbe30.github.io/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="https://corbe30.github.io/posts/formula-algorithm/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:url" content="https://corbe30.github.io/posts/formula-algorithm/">
+  <meta property="og:site_name" content="Corbe30">
+  <meta property="og:title" content="Optimizing Graphs for Spreadsheet Formulas Evaluation">
+  <meta property="og:description" content="Cells in a spreadsheet can form a chain of interdependent formulas, where a change in one cell triggers the reevaluation of the entire chain. For example, in the example below, changing cell A1 or B1 recomputes C1, which recomputes C2 and D1.
+A B C D 1 4 5 =A1&#43;B1 =B1&#43;C1 2 =C1 &#43; 1 =C2 &#43; 1 I’ll explain how Fortunesheet handles this by using Topological Sorting, and how I optimized its performance by 82%.">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2025-02-27T22:09:04+05:30">
+    <meta property="article:modified_time" content="2025-02-27T22:09:04+05:30">
+    <meta property="article:tag" content="Excel">
+    <meta property="article:tag" content="Fortune-Sheet">
+    <meta property="article:tag" content="Algorithm">
+      <meta property="og:image" content="https://corbe30.github.io/images/papermod-cover.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://corbe30.github.io/images/papermod-cover.png">
+<meta name="twitter:title" content="Optimizing Graphs for Spreadsheet Formulas Evaluation">
+<meta name="twitter:description" content="Cells in a spreadsheet can form a chain of interdependent formulas, where a change in one cell triggers the reevaluation of the entire chain. For example, in the example below, changing cell A1 or B1 recomputes C1, which recomputes C2 and D1.
+
+  
+      
+          
+          A
+          B
+          C
+          D
+      
+  
+  
+      
+          1
+          4
+          5
+          =A1&#43;B1
+          =B1&#43;C1
+      
+      
+          2
+          
+          
+          =C1 &#43; 1
+          =C2 &#43; 1
+      
+  
+
+I&rsquo;ll explain how Fortunesheet handles this by using Topological Sorting, and how I optimized its performance by 82%.">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://corbe30.github.io/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Optimizing Graphs for Spreadsheet Formulas Evaluation",
+      "item": "https://corbe30.github.io/posts/formula-algorithm/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Optimizing Graphs for Spreadsheet Formulas Evaluation",
+  "name": "Optimizing Graphs for Spreadsheet Formulas Evaluation",
+  "description": "Cells in a spreadsheet can form a chain of interdependent formulas, where a change in one cell triggers the reevaluation of the entire chain. For example, in the example below, changing cell A1 or B1 recomputes C1, which recomputes C2 and D1.\nA B C D 1 4 5 =A1+B1 =B1+C1 2 =C1 + 1 =C2 + 1 I\u0026rsquo;ll explain how Fortunesheet handles this by using Topological Sorting, and how I optimized its performance by 82%.\n",
+  "keywords": [
+    "excel", "fortune-sheet", "algorithm"
+  ],
+  "articleBody": "Cells in a spreadsheet can form a chain of interdependent formulas, where a change in one cell triggers the reevaluation of the entire chain. For example, in the example below, changing cell A1 or B1 recomputes C1, which recomputes C2 and D1.\nA B C D 1 4 5 =A1+B1 =B1+C1 2 =C1 + 1 =C2 + 1 I’ll explain how Fortunesheet handles this by using Topological Sorting, and how I optimized its performance by 82%.\nAn Overview of Steps The following steps are involved in handling chained formula revaluation:\nfunction revaluateFormulas(modifiedCells, sheets) { // 1. gather dependencies const allFormulas = getAllFormulas(sheets); const formulasInfoMap = getFormulasInfo(allFormulas); // 2. Find root cells for re-evaluation const rootCells = filterFormulaDependencyCells( modifiedCells, formulasInfoMap ); // 3. Find all affected formulas const affectedFormulas = topologicalSort(rootCells, formulasInfoMap); evalAllFormuals(affectedFormulas); } 1. Gathering Dependencies const allFormulas = getAllFormulas(sheets); const formulasInfoMap = getFormulasInfo(allFormulas); getAllFormulas() takes all the sheets are arguments. This is because formulas can refer to cells from another sheet as well. This data is cached. It’s only updated whenever there’s a write/update/delete operation of a formula cell.\ngetFormulasInfo() returns an object containing:\n{ \"=C1+1\": { \"key\": \"r2-c2-iabcd-efgh\", \"children\": [\"r1-c3-iabcd-efgh\"], // [\"C2\"] \"cellDependency\": [ { // C1 \"row\": [0, 0], \"column\": [2, 2], \"sheetId\": \"abcd-efgh\" } ], }, ... } key: unique id of the cell, created by combining row, column and sheetId cellDependency: all the cell ranges on which our formula depends children: formulas which depend on this formula Previously, cellDependecy was calculated for every formula update, which would cause edit operations to take ~5sec on sheets with 1,00,000+ formulas. I optimized it by caching formulasInfoMap at the cost of ~30mb for such sheets, which brought down the edit time to 0.8sec.\nchildren is calculated by looping through cellDependency. If any of the cell in cellDependency is a formula, we update that cell’s children array to include current formula:\nfor (formula in allFormulas) { for (cell in formula.cellDependency) { if (isFormula(cell)) cell.children.push(formula); } } The key and cellDependency properties is cached, but children isn’t. Every children is recalculated on every formula update. This is because, if one of the child cell is deleted, we would need to handle updation of cached reference too. Of course, this could be solved by maintaining a parents array, but it hasn’t been implemented yet.\n2. Finding Root Cells const rootCells = filterFormulaDependencyCells( modifiedCells, formulasInfoMap ); rootCells are simply the modifiedCells on which any formula is dependent. In other words, we filter the cells whose updation leads to no other change in the sheet. filterFormulaDependencyCells() works by looping through cellDependency in formulasInfoMap of each formula, and checking if it contains any of the modifiedCells.\nEven this can be cached by maintaining a reverse map of cell vs formula, but filterFormulaDependencyCells() isn’t performance intensive, and the cost of memory would be high.\n3. Topological Sorting const affectedFormulas = topologicalSort(rootCells, formulasInfoMap); Let’s take another example:\nA B C D E 1 4 5 =A1+B1 =B1+C1 =C1+D1 We can see why we need to use topological sorting instead of DFS. Calculating E1 before D1 will give incorrect ouput. There are several ways to implement topological sort, but keep in mind that our formulas could be cyclic, so we cannot assume a DAG.\nThat’s it! It’s a common misconception that frontend programming doesn’t involve data structures and algorithms, but it really depends on the product we are building.\n",
+  "wordCount" : "562",
+  "inLanguage": "en",
+  "image": "https://corbe30.github.io/images/papermod-cover.png","datePublished": "2025-02-27T22:09:04+05:30",
+  "dateModified": "2025-02-27T22:09:04+05:30",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://corbe30.github.io/posts/formula-algorithm/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Corbe30",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://corbe30.github.io/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://corbe30.github.io/" accesskey="h" title="Corbe30 (Alt + H)">Corbe30</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://corbe30.github.io/resume/" title="Resume">
+                    <span>Resume</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://corbe30.github.io/archives/" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://corbe30.github.io/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://corbe30.github.io/search/" title="🔍︎">
+                    <span>🔍︎</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="https://corbe30.github.io/">Home</a>&nbsp;»&nbsp;<a href="https://corbe30.github.io/posts/">Posts</a></div>
+    <h1 class="post-title entry-hint-parent">
+      Optimizing Graphs for Spreadsheet Formulas Evaluation
+    </h1>
+    <div class="post-meta"><span title='2025-02-27 22:09:04 +0530 IST'>February 27, 2025</span>&nbsp;·&nbsp;3 min
+
+</div>
+  </header> <div class="toc">
+    <details >
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">Table of Contents</span>
+        </summary>
+
+        <div class="inner"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#an-overview-of-steps">An Overview of Steps</a></li>
+    <li><a href="#1-gathering-dependencies">1. Gathering Dependencies</a></li>
+    <li><a href="#2-finding-root-cells">2. Finding Root Cells</a></li>
+    <li><a href="#3-topological-sorting">3. Topological Sorting</a></li>
+  </ul>
+</nav>
+        </div>
+    </details>
+</div>
+
+  <div class="post-content"><p>Cells in a spreadsheet can form a chain of interdependent formulas, where a change in one cell triggers the reevaluation of the entire chain. For example, in the example below, changing cell <code>A1</code> or <code>B1</code> recomputes <code>C1</code>, which recomputes <code>C2</code> and <code>D1</code>.</p>
+<table>
+  <thead>
+      <tr>
+          <th></th>
+          <th><strong>A</strong></th>
+          <th><strong>B</strong></th>
+          <th><strong>C</strong></th>
+          <th><strong>D</strong></th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><strong>1</strong></td>
+          <td>4</td>
+          <td>5</td>
+          <td>=A1+B1</td>
+          <td>=B1+C1</td>
+      </tr>
+      <tr>
+          <td><strong>2</strong></td>
+          <td></td>
+          <td></td>
+          <td>=C1 + 1</td>
+          <td>=C2 + 1</td>
+      </tr>
+  </tbody>
+</table>
+<p>I&rsquo;ll explain how Fortunesheet handles this by using <strong>Topological Sorting</strong>, and how I <a href="https://github.com/ruilisi/fortune-sheet/pull/649">optimized its performance by 82%</a>.</p>
+<h2 id="an-overview-of-steps">An Overview of Steps<a hidden class="anchor" aria-hidden="true" href="#an-overview-of-steps">#</a></h2>
+<p>The following steps are involved in handling chained formula revaluation:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">revaluateFormulas</span><span class="p">(</span><span class="nx">modifiedCells</span><span class="p">,</span> <span class="nx">sheets</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// 1. gather dependencies
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">const</span> <span class="nx">allFormulas</span> <span class="o">=</span> <span class="nx">getAllFormulas</span><span class="p">(</span><span class="nx">sheets</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">formulasInfoMap</span> <span class="o">=</span> <span class="nx">getFormulasInfo</span><span class="p">(</span><span class="nx">allFormulas</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1">// 2. Find root cells for re-evaluation
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">const</span> <span class="nx">rootCells</span> <span class="o">=</span> <span class="nx">filterFormulaDependencyCells</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">modifiedCells</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">formulasInfoMap</span>
+</span></span><span class="line"><span class="cl">  <span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1">// 3. Find all affected formulas
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">const</span> <span class="nx">affectedFormulas</span> <span class="o">=</span> <span class="nx">topologicalSort</span><span class="p">(</span><span class="nx">rootCells</span><span class="p">,</span> <span class="nx">formulasInfoMap</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">evalAllFormuals</span><span class="p">(</span><span class="nx">affectedFormulas</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><h2 id="1-gathering-dependencies">1. Gathering Dependencies<a hidden class="anchor" aria-hidden="true" href="#1-gathering-dependencies">#</a></h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">allFormulas</span> <span class="o">=</span> <span class="nx">getAllFormulas</span><span class="p">(</span><span class="nx">sheets</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">formulasInfoMap</span> <span class="o">=</span> <span class="nx">getFormulasInfo</span><span class="p">(</span><span class="nx">allFormulas</span><span class="p">);</span>
+</span></span></code></pre></div><p><code>getAllFormulas()</code> takes all the sheets are arguments. This is because formulas can refer to cells from another sheet as well. This data is cached. It&rsquo;s only updated whenever there&rsquo;s a write/update/delete operation of a formula cell.</p>
+<p><code>getFormulasInfo()</code> returns an object containing:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;=C1+1&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;key&#34;</span><span class="p">:</span> <span class="s2">&#34;r2-c2-iabcd-efgh&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;children&#34;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&#34;r1-c3-iabcd-efgh&#34;</span><span class="p">],</span> <span class="c1">// [&#34;C2&#34;]
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nt">&#34;cellDependency&#34;</span><span class="p">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">      <span class="p">{</span> <span class="c1">// C1
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nt">&#34;row&#34;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;column&#34;</span><span class="p">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;sheetId&#34;</span><span class="p">:</span> <span class="s2">&#34;abcd-efgh&#34;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">],</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="err">...</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><ul>
+<li><code>key</code>: unique id of the cell, created by combining row, column and sheetId</li>
+<li><code>cellDependency</code>: all the cell ranges on which our formula depends</li>
+<li><code>children</code>: formulas which depend on this formula</li>
+</ul>
+<p>Previously, <code>cellDependecy</code> was calculated for every formula update, which would cause edit operations to take ~5sec on sheets with 1,00,000+ formulas. I optimized it by caching <code>formulasInfoMap</code> at the cost of ~30mb for such sheets, which brought down the edit time to 0.8sec.</p>
+<p><code>children</code> is calculated by looping through <code>cellDependency</code>. If any of the cell in <code>cellDependency</code> is a formula, we update that cell&rsquo;s <code>children</code> array to include current formula:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="k">for</span> <span class="p">(</span><span class="nx">formula</span> <span class="k">in</span> <span class="nx">allFormulas</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="nx">cell</span> <span class="k">in</span> <span class="nx">formula</span><span class="p">.</span><span class="nx">cellDependency</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="nx">isFormula</span><span class="p">(</span><span class="nx">cell</span><span class="p">))</span> <span class="nx">cell</span><span class="p">.</span><span class="nx">children</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">formula</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>The <code>key</code> and <code>cellDependency</code> properties is cached, but <code>children</code> isn&rsquo;t. Every <code>children</code> is recalculated on every formula update. This is because, if one of the child cell is deleted, we would need to handle updation of cached reference too. Of course, this could be solved by maintaining a <code>parents</code> array, but it <a href="https://github.com/ruilisi/fortune-sheet/issues/686">hasn&rsquo;t been implemented</a> yet.</p>
+<h2 id="2-finding-root-cells">2. Finding Root Cells<a hidden class="anchor" aria-hidden="true" href="#2-finding-root-cells">#</a></h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">rootCells</span> <span class="o">=</span> <span class="nx">filterFormulaDependencyCells</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">modifiedCells</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">formulasInfoMap</span>
+</span></span><span class="line"><span class="cl"><span class="p">);</span>
+</span></span></code></pre></div><p><code>rootCells</code> are simply the <code>modifiedCells</code> on which any formula is dependent. In other words, we filter the cells whose updation leads to no other change in the sheet.
+<code>filterFormulaDependencyCells()</code> works by looping through <code>cellDependency</code> in <code>formulasInfoMap</code> of each formula, and checking if it contains any of the <code>modifiedCells</code>.</p>
+<p>Even this can be cached by maintaining a reverse map of cell vs formula, but <code>filterFormulaDependencyCells()</code> isn&rsquo;t performance intensive, and the cost of memory would be high.</p>
+<h2 id="3-topological-sorting">3. Topological Sorting<a hidden class="anchor" aria-hidden="true" href="#3-topological-sorting">#</a></h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">affectedFormulas</span> <span class="o">=</span> <span class="nx">topologicalSort</span><span class="p">(</span><span class="nx">rootCells</span><span class="p">,</span> <span class="nx">formulasInfoMap</span><span class="p">);</span>
+</span></span></code></pre></div><p>Let&rsquo;s take another example:</p>
+<table>
+  <thead>
+      <tr>
+          <th></th>
+          <th><strong>A</strong></th>
+          <th><strong>B</strong></th>
+          <th><strong>C</strong></th>
+          <th><strong>D</strong></th>
+          <th><strong>E</strong></th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><strong>1</strong></td>
+          <td>4</td>
+          <td>5</td>
+          <td>=A1+B1</td>
+          <td>=B1+C1</td>
+          <td>=C1+D1</td>
+      </tr>
+  </tbody>
+</table>
+<img src="https://picsum.photos/200/300" />
+<p>We can see why we need to use topological sorting instead of DFS. Calculating <code>E1</code> before <code>D1</code> will give incorrect ouput.
+There are several ways to implement topological sort, but keep in mind that our formulas could be cyclic, so we cannot assume a DAG.</p>
+<hr>
+<p>That&rsquo;s it! It&rsquo;s a common misconception that frontend programming doesn&rsquo;t involve data structures and algorithms, but it really depends on the product we are building.</p>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://corbe30.github.io/tags/excel/">Excel</a></li>
+      <li><a href="https://corbe30.github.io/tags/fortune-sheet/">Fortune-Sheet</a></li>
+      <li><a href="https://corbe30.github.io/tags/algorithm/">Algorithm</a></li>
+    </ul>
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2025 <a href="https://corbe30.github.io/">Corbe30</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>
