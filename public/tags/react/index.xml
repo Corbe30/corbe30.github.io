@@ -2,22 +2,33 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>React on Corbe30</title>
-    <link>https://corbe30.github.io/tags/react/</link>
+    <link>http://localhost:1313/tags/react/</link>
     <description>Recent content in React on Corbe30</description>
     <image>
       <title>Corbe30</title>
-      <url>https://corbe30.github.io/images/papermod-cover.png</url>
-      <link>https://corbe30.github.io/images/papermod-cover.png</link>
+      <url>http://localhost:1313/images/papermod-cover.png</url>
+      <link>http://localhost:1313/images/papermod-cover.png</link>
     </image>
     <generator>Hugo -- 0.144.2</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 26 Feb 2025 21:40:25 +0530</lastBuildDate>
-    <atom:link href="https://corbe30.github.io/tags/react/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 03 Jun 2025 21:34:10 +0530</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/react/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Jest Worker Encountered 4 Child Process Exceptions</title>
+      <link>http://localhost:1313/posts/jest-child-process/</link>
+      <pubDate>Tue, 03 Jun 2025 21:34:10 +0530</pubDate>
+      <guid>http://localhost:1313/posts/jest-child-process/</guid>
+      <description>&lt;p&gt;When writing unit tests using Jest and React Testing Library, you might encounter this frustrating error:&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;Jest Worker Encountered 4 Child Process Exceptions
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;This usually signals that Jest retried your test multiple times across its worker threads but failed each time, eventually giving up. Here&amp;rsquo;s how I traced the root cause of this issue and resolved it.&lt;/p&gt;
+&lt;h2 id=&#34;the-culprit-fireevent-and-asynchronous-side-effects&#34;&gt;The Culprit: fireEvent and Asynchronous Side Effects&lt;/h2&gt;
+&lt;p&gt;At first glance, my test code looked fine. I was using &lt;code&gt;fireEvent.click&lt;/code&gt; to simulate user interaction. But here&amp;rsquo;s the catch — while &lt;code&gt;fireEvent&lt;/code&gt; is a synchronous function, the side effects it triggers (like state updates or calls inside &lt;code&gt;useEffect&lt;/code&gt;) are often asynchronous.&lt;/p&gt;</description>
+    </item>
     <item>
       <title>A Bottom-up Approach to Async Modals in React</title>
-      <link>https://corbe30.github.io/posts/async-modals/</link>
+      <link>http://localhost:1313/posts/async-modals/</link>
       <pubDate>Wed, 26 Feb 2025 21:40:25 +0530</pubDate>
-      <guid>https://corbe30.github.io/posts/async-modals/</guid>
+      <guid>http://localhost:1313/posts/async-modals/</guid>
       <description>&lt;p&gt;In React, you can use combination of Context and custom hooks to implement async modals. Async modals let you capture the response from modal asynchronously, saving the hassle of managing another state and improves readibility.&lt;/p&gt;
 &lt;p&gt;Let&amp;rsquo;s try to build it from the ground up:&lt;/p&gt;
 &lt;h2 id=&#34;1-bare-bones&#34;&gt;1. Bare bones&lt;/h2&gt;

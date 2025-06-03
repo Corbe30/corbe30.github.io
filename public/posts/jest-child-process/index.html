@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Jest Worker and his 4 Horrifying Children | Corbe30</title>
+<meta name="keywords" content="jest, react">
+<meta name="description" content="When writing unit tests using Jest and React Testing Library, you might encounter this error:
+Jest Worker Encountered 4 Child Process Exceptions, exceeding retry limit
+This usually signals that Jest retried your test multiple times across its worker threads but failed each time, eventually giving up. Here&rsquo;s how I traced the root cause of this issue and resolved it.
+The Culprit: fireEvent and Asynchronous Side Effects
+At first glance, my test code looked fine. I was using fireEvent.click to simulate user interaction. But here&rsquo;s the catch — while fireEvent is a synchronous function, the side effects it triggers (like state updates or calls inside useEffect) are often asynchronous.">
+<meta name="author" content="">
+<link rel="canonical" href="https://canonical.url/to/page">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.efc11bcb5d31e7c91a87866a42f4dede09b7cbf81ea0cd1f9d3c26a637209b49.css" integrity="sha256-78Eby10x58kah4ZqQvTe3gm3y/geoM0fnTwmpjcgm0k=" rel="preload stylesheet" as="style">
+<link rel="icon" href="http://localhost:1313/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32.png">
+<link rel="apple-touch-icon" href="http://localhost:1313/apple-touch-icon.png">
+<link rel="mask-icon" href="http://localhost:1313/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="http://localhost:1313/posts/jest-child-process/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:url" content="http://localhost:1313/posts/jest-child-process/">
+  <meta property="og:site_name" content="Corbe30">
+  <meta property="og:title" content="Jest Worker and his 4 Horrifying Children">
+  <meta property="og:description" content="When writing unit tests using Jest and React Testing Library, you might encounter this error:
+Jest Worker Encountered 4 Child Process Exceptions, exceeding retry limit This usually signals that Jest retried your test multiple times across its worker threads but failed each time, eventually giving up. Here’s how I traced the root cause of this issue and resolved it.
+The Culprit: fireEvent and Asynchronous Side Effects At first glance, my test code looked fine. I was using fireEvent.click to simulate user interaction. But here’s the catch — while fireEvent is a synchronous function, the side effects it triggers (like state updates or calls inside useEffect) are often asynchronous.">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2025-06-03T21:34:10+05:30">
+    <meta property="article:modified_time" content="2025-06-03T21:34:10+05:30">
+    <meta property="article:tag" content="Jest">
+    <meta property="article:tag" content="React">
+    <meta property="og:image" content="http://localhost:1313/%3Cimage%20path/url%3E">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://localhost:1313/%3Cimage%20path/url%3E">
+<meta name="twitter:title" content="Jest Worker and his 4 Horrifying Children">
+<meta name="twitter:description" content="When writing unit tests using Jest and React Testing Library, you might encounter this error:
+Jest Worker Encountered 4 Child Process Exceptions, exceeding retry limit
+This usually signals that Jest retried your test multiple times across its worker threads but failed each time, eventually giving up. Here&rsquo;s how I traced the root cause of this issue and resolved it.
+The Culprit: fireEvent and Asynchronous Side Effects
+At first glance, my test code looked fine. I was using fireEvent.click to simulate user interaction. But here&rsquo;s the catch — while fireEvent is a synchronous function, the side effects it triggers (like state updates or calls inside useEffect) are often asynchronous.">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "http://localhost:1313/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Jest Worker and his 4 Horrifying Children",
+      "item": "http://localhost:1313/posts/jest-child-process/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Jest Worker and his 4 Horrifying Children",
+  "name": "Jest Worker and his 4 Horrifying Children",
+  "description": "When writing unit tests using Jest and React Testing Library, you might encounter this error:\nJest Worker Encountered 4 Child Process Exceptions, exceeding retry limit This usually signals that Jest retried your test multiple times across its worker threads but failed each time, eventually giving up. Here\u0026rsquo;s how I traced the root cause of this issue and resolved it.\nThe Culprit: fireEvent and Asynchronous Side Effects At first glance, my test code looked fine. I was using fireEvent.click to simulate user interaction. But here\u0026rsquo;s the catch — while fireEvent is a synchronous function, the side effects it triggers (like state updates or calls inside useEffect) are often asynchronous.\n",
+  "keywords": [
+    "jest", "react"
+  ],
+  "articleBody": "When writing unit tests using Jest and React Testing Library, you might encounter this error:\nJest Worker Encountered 4 Child Process Exceptions, exceeding retry limit This usually signals that Jest retried your test multiple times across its worker threads but failed each time, eventually giving up. Here’s how I traced the root cause of this issue and resolved it.\nThe Culprit: fireEvent and Asynchronous Side Effects At first glance, my test code looked fine. I was using fireEvent.click to simulate user interaction. But here’s the catch — while fireEvent is a synchronous function, the side effects it triggers (like state updates or calls inside useEffect) are often asynchronous.\nThis led to race conditions in my tests. One fireEvent would trigger some async behavior, and before that completed, the next fireEvent would run. This overlap created unpredictable behavior, and Jest interpreted it as a failing test, retrying it across different workers until the retry limit was exceeded.\nReferences:\nAsync function without await in JavaScript Dev.to article on Jest Worker Exceptions The Fix: Wrap fireEvent in waitFor Since fireEvent isn’t async, it won’t wait for the event loop to flush out async side effects. That’s where waitFor comes in.\nawait waitFor(() =\u003e fireEvent.click(button)); waitFor ensures that your test pauses until any resulting async behavior completes. Keep in mind that fireEvent is already wrapped in act() internally by Jest, so you don’t need to do that manually. But wrapping it in waitFor() is essential if you’re seeing race conditions.\nFor deeper understanding of act() vs waitFor(), check out:\nReact Testing Library: act and waitFor Event Queue vs Worker Threads It’s important to understand that async tasks (e.g., a setTimeout, fetch, or useEffect) don’t create new threads. They’re queued in the event loop. Jest spawns new worker threads only for new unit tests, not for async operations inside a test.\nSo, if fireEvent.click() triggers an async useEffect, it’s still the same thread — it’s just relying on the JavaScript event loop to handle timing.\nA Better Way: Use Default Props for Inputs Using waitFor() adds delays. If you have 5+ fireEvent.click() calls wrapped in waitFor(), your unit test will become noticeably slower.\nRather than simulating all UI input changes via fireEvent, you can pass default values as props:\nconst MyPreferences = ( defaultSize, defaultColor ) =\u003e { // component logic }; This makes the component easier to test and avoids unnecessary fireEvent calls.\nWhile it’s ideal to keep test logic and component logic separate, sometimes you need to tweak components slightly to improve testability — and that’s okay. Design decisions should balance testability and maintainability.\nBonus Tip: Speed Up Jest with –maxWorkers=50% Surprisingly, running Jest with fewer workers can speed up your tests in some cases:\njest --maxWorkers=50% Spawning and managing too many worker threads has its own cost. By reducing the number of workers, you may see faster execution due to reduced overhead. Reference: Why does Jest run faster with maxWorkers=50%?\n",
+  "wordCount" : "488",
+  "inLanguage": "en",
+  "image":"http://localhost:1313/%3Cimage%20path/url%3E","datePublished": "2025-06-03T21:34:10+05:30",
+  "dateModified": "2025-06-03T21:34:10+05:30",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "http://localhost:1313/posts/jest-child-process/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Corbe30",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "http://localhost:1313/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="http://localhost:1313/" accesskey="h" title="Corbe30 (Alt + H)">Corbe30</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="http://localhost:1313/resume/" title="Resume">
+                    <span>Resume</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/archives/" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/search/" title="🔍︎">
+                    <span>🔍︎</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="http://localhost:1313/">Home</a>&nbsp;»&nbsp;<a href="http://localhost:1313/posts/">Posts</a></div>
+    <h1 class="post-title entry-hint-parent">
+      Jest Worker and his 4 Horrifying Children
+    </h1>
+    <div class="post-meta"><span title='2025-06-03 21:34:10 +0530 IST'>June 3, 2025</span>&nbsp;·&nbsp;3 min
+
+</div>
+  </header> <div class="toc">
+    <details >
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">Table of Contents</span>
+        </summary>
+
+        <div class="inner"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#the-culprit-fireevent-and-asynchronous-side-effects">The Culprit: fireEvent and Asynchronous Side Effects</a></li>
+    <li><a href="#the-fix-wrap-fireevent-in-waitfor">The Fix: Wrap fireEvent in waitFor</a></li>
+    <li><a href="#event-queue-vs-worker-threads">Event Queue vs Worker Threads</a></li>
+    <li><a href="#a-better-way-use-default-props-for-inputs">A Better Way: Use Default Props for Inputs</a></li>
+    <li><a href="#bonus-tip-speed-up-jest-with-maxworkers50">Bonus Tip: Speed Up Jest with &ndash;maxWorkers=50%</a></li>
+  </ul>
+</nav>
+        </div>
+    </details>
+</div>
+
+  <div class="post-content"><p>When writing unit tests using Jest and React Testing Library, you might encounter this error:</p>
+<pre tabindex="0"><code>Jest Worker Encountered 4 Child Process Exceptions, exceeding retry limit
+</code></pre><p>This usually signals that Jest retried your test multiple times across its worker threads but failed each time, eventually giving up. Here&rsquo;s how I traced the root cause of this issue and resolved it.</p>
+<h2 id="the-culprit-fireevent-and-asynchronous-side-effects">The Culprit: fireEvent and Asynchronous Side Effects<a hidden class="anchor" aria-hidden="true" href="#the-culprit-fireevent-and-asynchronous-side-effects">#</a></h2>
+<p>At first glance, my test code looked fine. I was using <code>fireEvent.click</code> to simulate user interaction. But here&rsquo;s the catch — while <code>fireEvent</code> is a synchronous function, the side effects it triggers (like state updates or calls inside <code>useEffect</code>) are often asynchronous.</p>
+<p>This led to race conditions in my tests. One <code>fireEvent</code> would trigger some async behavior, and before that completed, the next <code>fireEvent</code> would run. This overlap created unpredictable behavior, and Jest interpreted it as a failing test, retrying it across different workers until the retry limit was exceeded.</p>
+<p>References:</p>
+<ul>
+<li><a href="https://stackoverflow.com/questions/45594596/async-function-without-await-in-javascript">Async function without await in JavaScript</a></li>
+<li><a href="https://dev.to/ninthsun91/jest-worker-encountered-4-child-process-exceptions-exceeding-retry-limit-82o">Dev.to article on Jest Worker Exceptions</a></li>
+</ul>
+<h2 id="the-fix-wrap-fireevent-in-waitfor">The Fix: Wrap fireEvent in waitFor<a hidden class="anchor" aria-hidden="true" href="#the-fix-wrap-fireevent-in-waitfor">#</a></h2>
+<p>Since fireEvent isn&rsquo;t async, it won’t wait for the event loop to flush out async side effects. That&rsquo;s where <code>waitFor</code> comes in.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kr">await</span> <span class="nx">waitFor</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="nx">fireEvent</span><span class="p">.</span><span class="nx">click</span><span class="p">(</span><span class="nx">button</span><span class="p">));</span>
+</span></span></code></pre></div><p><code>waitFor</code> ensures that your test pauses until any resulting async behavior completes. Keep in mind that <code>fireEvent</code> is already wrapped in <code>act()</code> internally by Jest, so you don’t need to do that manually. But wrapping it in <code>waitFor()</code> is essential if you&rsquo;re seeing race conditions.</p>
+<p>For deeper understanding of <code>act()</code> vs <code>waitFor()</code>, check out:</p>
+<ul>
+<li><a href="https://medium.com/@AbbasPlusPlus/act-and-waitfor-react-testing-library-dba78bb57e30">React Testing Library: act and waitFor</a></li>
+</ul>
+<h2 id="event-queue-vs-worker-threads">Event Queue vs Worker Threads<a hidden class="anchor" aria-hidden="true" href="#event-queue-vs-worker-threads">#</a></h2>
+<p>It&rsquo;s important to understand that async tasks (e.g., a <code>setTimeout</code>, fetch, or <code>useEffect</code>) don’t create new threads. They’re queued in the event loop. Jest spawns new worker threads only for new unit tests, not for async operations inside a test.</p>
+<p>So, if <code>fireEvent.click()</code> triggers an async <code>useEffect</code>, it’s still the same thread — it&rsquo;s just relying on the JavaScript event loop to handle timing.</p>
+<h2 id="a-better-way-use-default-props-for-inputs">A Better Way: Use Default Props for Inputs<a hidden class="anchor" aria-hidden="true" href="#a-better-way-use-default-props-for-inputs">#</a></h2>
+<p>Using <code>waitFor()</code> adds delays. If you have 5+ <code>fireEvent.click()</code> calls wrapped in <code>waitFor()</code>, your unit test will become noticeably slower.</p>
+<p>Rather than simulating all UI input changes via <code>fireEvent</code>, you can pass default values as props:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">MyPreferences</span> <span class="o">=</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">defaultSize</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">defaultColor</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// component logic
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">};</span>
+</span></span></code></pre></div><p>This makes the component easier to test and avoids unnecessary <code>fireEvent</code> calls.</p>
+<p>While it&rsquo;s ideal to keep test logic and component logic separate, sometimes you need to tweak components slightly to improve testability — and that’s okay. Design decisions should balance testability and maintainability.</p>
+<h2 id="bonus-tip-speed-up-jest-with-maxworkers50">Bonus Tip: Speed Up Jest with &ndash;maxWorkers=50%<a hidden class="anchor" aria-hidden="true" href="#bonus-tip-speed-up-jest-with-maxworkers50">#</a></h2>
+<p>Surprisingly, running Jest with fewer workers can speed up your tests in some cases:</p>
+<pre tabindex="0"><code>jest --maxWorkers=50%
+</code></pre><p>Spawning and managing too many worker threads has its own cost. By reducing the number of workers, you may see faster execution due to reduced overhead. Reference: <a href="https://stackoverflow.com/questions/71287710/why-does-jest-run-faster-with-maxworkers-50">Why does Jest run faster with maxWorkers=50%?</a></p>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="http://localhost:1313/tags/jest/">Jest</a></li>
+      <li><a href="http://localhost:1313/tags/react/">React</a></li>
+    </ul>
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2025 <a href="http://localhost:1313/">Corbe30</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

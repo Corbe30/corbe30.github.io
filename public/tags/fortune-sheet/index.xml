@@ -2,22 +2,22 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Fortune-Sheet on Corbe30</title>
-    <link>https://corbe30.github.io/tags/fortune-sheet/</link>
+    <link>http://localhost:1313/tags/fortune-sheet/</link>
     <description>Recent content in Fortune-Sheet on Corbe30</description>
     <image>
       <title>Corbe30</title>
-      <url>https://corbe30.github.io/images/papermod-cover.png</url>
-      <link>https://corbe30.github.io/images/papermod-cover.png</link>
+      <url>http://localhost:1313/images/papermod-cover.png</url>
+      <link>http://localhost:1313/images/papermod-cover.png</link>
     </image>
     <generator>Hugo -- 0.144.2</generator>
     <language>en</language>
     <lastBuildDate>Thu, 27 Feb 2025 22:09:04 +0530</lastBuildDate>
-    <atom:link href="https://corbe30.github.io/tags/fortune-sheet/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/tags/fortune-sheet/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Optimizing Graphs for Spreadsheet Formulas Evaluation</title>
-      <link>https://corbe30.github.io/posts/formula-algorithm/</link>
+      <link>http://localhost:1313/posts/formula-algorithm/</link>
       <pubDate>Thu, 27 Feb 2025 22:09:04 +0530</pubDate>
-      <guid>https://corbe30.github.io/posts/formula-algorithm/</guid>
+      <guid>http://localhost:1313/posts/formula-algorithm/</guid>
       <description>&lt;p&gt;Cells in a spreadsheet can form a chain of interdependent formulas, where a change in one cell triggers the reevaluation of the entire chain. For example, in the example below, changing cell &lt;code&gt;A1&lt;/code&gt; or &lt;code&gt;B1&lt;/code&gt; recomputes &lt;code&gt;C1&lt;/code&gt;, which recomputes &lt;code&gt;C2&lt;/code&gt; and &lt;code&gt;D1&lt;/code&gt;.&lt;/p&gt;
 &lt;table&gt;
   &lt;thead&gt;
@@ -49,10 +49,10 @@
 &lt;p&gt;I&amp;rsquo;ll explain how Fortunesheet handles this by using &lt;strong&gt;Topological Sorting&lt;/strong&gt;, and how I &lt;a href=&#34;https://github.com/ruilisi/fortune-sheet/pull/649&#34;&gt;optimized its performance by 82%&lt;/a&gt;.&lt;/p&gt;</description>
     </item>
     <item>
-      <title>⇧⇩ FortuneExcel - Lessons from my First Package</title>
-      <link>https://corbe30.github.io/posts/lessons-from-fortuneexcel/</link>
+      <title>FortuneExcel - Lessons from my First Package</title>
+      <link>http://localhost:1313/posts/lessons-from-fortuneexcel/</link>
       <pubDate>Mon, 18 Nov 2024 11:30:03 +0000</pubDate>
-      <guid>https://corbe30.github.io/posts/lessons-from-fortuneexcel/</guid>
+      <guid>http://localhost:1313/posts/lessons-from-fortuneexcel/</guid>
       <description>&lt;p&gt;I revived an archived project and released it as &lt;a href=&#34;http://npmjs.com/package/@corbe30/fortune-excel&#34;&gt;FortuneExcel&lt;/a&gt; - a plugin for FortuneSheet to import/export Excel (.xlsx) files.&lt;/p&gt;
 &lt;table&gt;
   &lt;tr&gt;

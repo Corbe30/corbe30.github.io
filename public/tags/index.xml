@@ -2,64 +2,71 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Tags on Corbe30</title>
-    <link>https://corbe30.github.io/tags/</link>
+    <link>http://localhost:1313/tags/</link>
     <description>Recent content in Tags on Corbe30</description>
     <image>
       <title>Corbe30</title>
-      <url>https://corbe30.github.io/images/papermod-cover.png</url>
-      <link>https://corbe30.github.io/images/papermod-cover.png</link>
+      <url>http://localhost:1313/images/papermod-cover.png</url>
+      <link>http://localhost:1313/images/papermod-cover.png</link>
     </image>
     <generator>Hugo -- 0.144.2</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 27 Feb 2025 22:09:04 +0530</lastBuildDate>
-    <atom:link href="https://corbe30.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 03 Jun 2025 21:34:10 +0530</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Algorithm</title>
-      <link>https://corbe30.github.io/tags/algorithm/</link>
-      <pubDate>Thu, 27 Feb 2025 22:09:04 +0530</pubDate>
-      <guid>https://corbe30.github.io/tags/algorithm/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Excel</title>
-      <link>https://corbe30.github.io/tags/excel/</link>
-      <pubDate>Thu, 27 Feb 2025 22:09:04 +0530</pubDate>
-      <guid>https://corbe30.github.io/tags/excel/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Fortune-Sheet</title>
-      <link>https://corbe30.github.io/tags/fortune-sheet/</link>
-      <pubDate>Thu, 27 Feb 2025 22:09:04 +0530</pubDate>
-      <guid>https://corbe30.github.io/tags/fortune-sheet/</guid>
+      <title>Jest</title>
+      <link>http://localhost:1313/tags/jest/</link>
+      <pubDate>Tue, 03 Jun 2025 21:34:10 +0530</pubDate>
+      <guid>http://localhost:1313/tags/jest/</guid>
       <description></description>
     </item>
     <item>
       <title>React</title>
-      <link>https://corbe30.github.io/tags/react/</link>
-      <pubDate>Wed, 26 Feb 2025 21:40:25 +0530</pubDate>
-      <guid>https://corbe30.github.io/tags/react/</guid>
+      <link>http://localhost:1313/tags/react/</link>
+      <pubDate>Tue, 03 Jun 2025 21:34:10 +0530</pubDate>
+      <guid>http://localhost:1313/tags/react/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Algorithm</title>
+      <link>http://localhost:1313/tags/algorithm/</link>
+      <pubDate>Thu, 27 Feb 2025 22:09:04 +0530</pubDate>
+      <guid>http://localhost:1313/tags/algorithm/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Excel</title>
+      <link>http://localhost:1313/tags/excel/</link>
+      <pubDate>Thu, 27 Feb 2025 22:09:04 +0530</pubDate>
+      <guid>http://localhost:1313/tags/excel/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Fortune-Sheet</title>
+      <link>http://localhost:1313/tags/fortune-sheet/</link>
+      <pubDate>Thu, 27 Feb 2025 22:09:04 +0530</pubDate>
+      <guid>http://localhost:1313/tags/fortune-sheet/</guid>
       <description></description>
     </item>
     <item>
       <title>Npm</title>
-      <link>https://corbe30.github.io/tags/npm/</link>
+      <link>http://localhost:1313/tags/npm/</link>
       <pubDate>Mon, 18 Nov 2024 11:30:03 +0000</pubDate>
-      <guid>https://corbe30.github.io/tags/npm/</guid>
+      <guid>http://localhost:1313/tags/npm/</guid>
       <description></description>
     </item>
     <item>
       <title>3D</title>
-      <link>https://corbe30.github.io/tags/3d/</link>
+      <link>http://localhost:1313/tags/3d/</link>
       <pubDate>Thu, 27 Jun 2024 11:30:03 +0000</pubDate>
-      <guid>https://corbe30.github.io/tags/3d/</guid>
+      <guid>http://localhost:1313/tags/3d/</guid>
       <description></description>
     </item>
     <item>
       <title>Babylonjs</title>
-      <link>https://corbe30.github.io/tags/babylonjs/</link>
+      <link>http://localhost:1313/tags/babylonjs/</link>
       <pubDate>Thu, 27 Jun 2024 11:30:03 +0000</pubDate>
-      <guid>https://corbe30.github.io/tags/babylonjs/</guid>
+      <guid>http://localhost:1313/tags/babylonjs/</guid>
       <description></description>
     </item>
   </channel>

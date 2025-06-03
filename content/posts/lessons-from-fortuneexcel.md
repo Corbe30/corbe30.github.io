@@ -1,5 +1,5 @@
 ---
-title: "⇧⇩ FortuneExcel - Lessons from my First Package"
+title: "FortuneExcel - Lessons from my First Package"
 date: 2024-11-18T11:30:03+00:00
 # weight: 1
 # aliases: ["/first"]
