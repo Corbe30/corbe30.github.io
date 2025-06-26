@@ -5,11 +5,11 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="index, follow">
-<title>React | Corbe30</title>
+<title>Webpack | Corbe30</title>
 <meta name="keywords" content="">
 <meta name="description" content="">
 <meta name="author" content="">
-<link rel="canonical" href="http://localhost:1313/tags/react/">
+<link rel="canonical" href="http://localhost:1313/tags/webpack/">
 <link crossorigin="anonymous" href="/assets/css/stylesheet.efc11bcb5d31e7c91a87866a42f4dede09b7cbf81ea0cd1f9d3c26a637209b49.css" integrity="sha256-78Eby10x58kah4ZqQvTe3gm3y/geoM0fnTwmpjcgm0k=" rel="preload stylesheet" as="style">
 <link rel="icon" href="http://localhost:1313/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
@@ -18,8 +18,8 @@
 <link rel="mask-icon" href="http://localhost:1313/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" type="application/rss+xml" href="http://localhost:1313/tags/react/index.xml">
-<link rel="alternate" hreflang="en" href="http://localhost:1313/tags/react/">
+<link rel="alternate" type="application/rss+xml" href="http://localhost:1313/tags/webpack/index.xml">
+<link rel="alternate" hreflang="en" href="http://localhost:1313/tags/webpack/">
 <noscript>
     <style>
         #theme-toggle,
@@ -56,15 +56,15 @@
         }
 
     </style>
-</noscript><meta property="og:url" content="http://localhost:1313/tags/react/">
+</noscript><meta property="og:url" content="http://localhost:1313/tags/webpack/">
   <meta property="og:site_name" content="Corbe30">
-  <meta property="og:title" content="React">
+  <meta property="og:title" content="Webpack">
   <meta property="og:locale" content="en">
   <meta property="og:type" content="website">
       <meta property="og:image" content="http://localhost:1313/images/papermod-cover.png">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="http://localhost:1313/images/papermod-cover.png">
-<meta name="twitter:title" content="React">
+<meta name="twitter:title" content="Webpack">
 <meta name="twitter:description" content="">
 
 </head>
@@ -135,8 +135,8 @@
 <main class="main"> 
 <header class="page-header"><div class="breadcrumbs"><a href="http://localhost:1313/">Home</a>&nbsp;»&nbsp;<a href="http://localhost:1313/tags/">Tags</a></div>
   <h1>
-    React
-    <a href="/tags/react/index.xml" title="RSS" aria-label="RSS">
+    Webpack
+    <a href="/tags/webpack/index.xml" title="RSS" aria-label="RSS">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
         stroke-linecap="round" stroke-linejoin="round" height="23">
         <path d="M4 11a9 9 0 0 1 9 9" />
@@ -149,34 +149,16 @@
 
 <article class="post-entry tag-entry"> 
   <header class="entry-header">
-    <h2 class="entry-hint-parent">Jest Worker and his 4 Horrifying Children
+    <h2 class="entry-hint-parent">ChunkLoadError During Hot Reloads in Webpack with Multiple Entry Points
     </h2>
   </header>
   <div class="entry-content">
-    <p>When writing unit tests using Jest and React Testing Library, you might encounter this error:
-Jest Worker Encountered 4 Child Process Exceptions, exceeding retry limit This usually signals that Jest retried your test multiple times across its worker threads but failed each time, eventually giving up. Here’s how I traced the root cause of this issue and resolved it.
-The Culprit: fireEvent and Asynchronous Side Effects At first glance, my test code looked fine. I was using fireEvent.click to simulate user interaction. But here’s the catch — while fireEvent is a synchronous function, the side effects it triggers (like state updates or calls inside useEffect) are often asynchronous.
+    <p>What’s the issue? Webpack supports adding multiple entry points in an app. Entry Points page in documentation explains that a bundle for each entry point is created separately, which can help reduce load time by caching bundles that aren’t modified (e.g. node_modules). But having multiple entry points may lead to following error during hot reloads:
+ChunkLoadError: Loading hot update failed. One of my org’s repo had a long standing issue of hot reloads not working. Digging further into the issue, I found this solution on stack overflow of adding runtimeChunk: &#39;single&#39; to webpack.dev.js. But there was hardly any explanation of what the other options for runtimeChunk actually did in simple words.
 ...</p>
   </div>
-  <footer class="entry-footer"><span title='2025-06-03 21:34:10 +0530 IST'>June 3, 2025</span>&nbsp;·&nbsp;3 min</footer>
-  <a class="entry-link" aria-label="post link to Jest Worker and his 4 Horrifying Children" href="http://localhost:1313/posts/jest-child-process/"></a>
-</article>
-
-<article class="post-entry tag-entry"> 
-<figure class="entry-cover"><img loading="lazy" src="https://raw.githubusercontent.com/Corbe30/corbe30.github.io/refs/heads/main/assets/images/asyncModal_gif.gif" alt="">
-</figure>
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">A Bottom-up Approach to Async Modals in React
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>In React, you can use combination of Context and custom hooks to implement async modals. Async modals let you capture the response from modal asynchronously, saving the hassle of managing another state and improves readibility.
-Let’s try to build it from the ground up:
-1. Bare bones App.js function App() { const [isModalOpen, setIsModalOpen] = useState(false); const onResponseClick = (response) =&gt; { setIsModalOpen(false); console.log(response); }; return ( &lt;div&gt; {isModalOpen &amp;&amp; &lt;Modal onResponseClick={onResponseClick} /&gt;} &lt;button onClick={() =&gt; { setIsModalOpen(true); }} &gt; Open Modal &lt;/button&gt; &lt;/div&gt; ); } To get the response (yes/no) from the modal, App component is forced to manage isModalOpen state and include &lt;Modal /&gt; component in its JSX. We know there is a better way to manage this by using Context.
-...</p>
-  </div>
-  <footer class="entry-footer"><span title='2025-02-26 21:40:25 +0530 IST'>February 26, 2025</span>&nbsp;·&nbsp;3 min</footer>
-  <a class="entry-link" aria-label="post link to A Bottom-up Approach to Async Modals in React" href="http://localhost:1313/posts/async-modals/"></a>
+  <footer class="entry-footer"><span title='2025-06-26 01:24:50 +0530 IST'>June 26, 2025</span>&nbsp;·&nbsp;2 min</footer>
+  <a class="entry-link" aria-label="post link to ChunkLoadError During Hot Reloads in Webpack with Multiple Entry Points" href="http://localhost:1313/posts/webpack-hot-reload/"></a>
 </article>
     </main>
     

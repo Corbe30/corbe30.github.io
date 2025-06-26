@@ -11,15 +11,26 @@
     </image>
     <generator>Hugo -- 0.144.2</generator>
     <language>en</language>
-    <lastBuildDate>Tue, 03 Jun 2025 21:34:10 +0530</lastBuildDate>
+    <lastBuildDate>Thu, 26 Jun 2025 01:24:50 +0530</lastBuildDate>
     <atom:link href="http://localhost:1313/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Jest Worker Encountered 4 Child Process Exceptions</title>
+      <title>ChunkLoadError During Hot Reloads in Webpack with Multiple Entry Points</title>
+      <link>http://localhost:1313/posts/webpack-hot-reload/</link>
+      <pubDate>Thu, 26 Jun 2025 01:24:50 +0530</pubDate>
+      <guid>http://localhost:1313/posts/webpack-hot-reload/</guid>
+      <description>&lt;h2 id=&#34;whats-the-issue&#34;&gt;What&amp;rsquo;s the issue?&lt;/h2&gt;
+&lt;p&gt;Webpack supports adding multiple entry points in an app. &lt;a href=&#34;https://webpack.js.org/concepts/entry-points/&#34;&gt;Entry Points page
+&lt;/a&gt; in documentation explains that a bundle for each entry point is created separately, which can help reduce load time by caching bundles that aren&amp;rsquo;t modified (e.g. node_modules). But having multiple entry points may lead to following error during hot reloads:&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;ChunkLoadError: Loading hot update failed.
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;One of my org&amp;rsquo;s repo had a long standing issue of hot reloads not working. Digging further into the issue, I found &lt;a href=&#34;https://stackoverflow.com/a/66197410&#34;&gt;this&lt;/a&gt; solution on stack overflow of adding &lt;code&gt;runtimeChunk: &#39;single&#39;&lt;/code&gt; to webpack.dev.js. But there was hardly any explanation of what the &lt;em&gt;other&lt;/em&gt; options for runtimeChunk actually did in simple words.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Jest Worker and his 4 Horrifying Children</title>
       <link>http://localhost:1313/posts/jest-child-process/</link>
       <pubDate>Tue, 03 Jun 2025 21:34:10 +0530</pubDate>
       <guid>http://localhost:1313/posts/jest-child-process/</guid>
-      <description>&lt;p&gt;When writing unit tests using Jest and React Testing Library, you might encounter this frustrating error:&lt;/p&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;Jest Worker Encountered 4 Child Process Exceptions
+      <description>&lt;p&gt;When writing unit tests using Jest and React Testing Library, you might encounter this error:&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;Jest Worker Encountered 4 Child Process Exceptions, exceeding retry limit
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;This usually signals that Jest retried your test multiple times across its worker threads but failed each time, eventually giving up. Here&amp;rsquo;s how I traced the root cause of this issue and resolved it.&lt;/p&gt;
 &lt;h2 id=&#34;the-culprit-fireevent-and-asynchronous-side-effects&#34;&gt;The Culprit: fireEvent and Asynchronous Side Effects&lt;/h2&gt;
 &lt;p&gt;At first glance, my test code looked fine. I was using &lt;code&gt;fireEvent.click&lt;/code&gt; to simulate user interaction. But here&amp;rsquo;s the catch — while &lt;code&gt;fireEvent&lt;/code&gt; is a synchronous function, the side effects it triggers (like state updates or calls inside &lt;code&gt;useEffect&lt;/code&gt;) are often asynchronous.&lt;/p&gt;</description>
