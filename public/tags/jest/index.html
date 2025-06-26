@@ -149,17 +149,17 @@
 
 <article class="post-entry tag-entry"> 
   <header class="entry-header">
-    <h2 class="entry-hint-parent">Jest Worker Encountered 4 Child Process Exceptions
+    <h2 class="entry-hint-parent">Jest Worker and his 4 Horrifying Children
     </h2>
   </header>
   <div class="entry-content">
-    <p>When writing unit tests using Jest and React Testing Library, you might encounter this frustrating error:
-Jest Worker Encountered 4 Child Process Exceptions This usually signals that Jest retried your test multiple times across its worker threads but failed each time, eventually giving up. Here’s how I traced the root cause of this issue and resolved it.
+    <p>When writing unit tests using Jest and React Testing Library, you might encounter this error:
+Jest Worker Encountered 4 Child Process Exceptions, exceeding retry limit This usually signals that Jest retried your test multiple times across its worker threads but failed each time, eventually giving up. Here’s how I traced the root cause of this issue and resolved it.
 The Culprit: fireEvent and Asynchronous Side Effects At first glance, my test code looked fine. I was using fireEvent.click to simulate user interaction. But here’s the catch — while fireEvent is a synchronous function, the side effects it triggers (like state updates or calls inside useEffect) are often asynchronous.
 ...</p>
   </div>
   <footer class="entry-footer"><span title='2025-06-03 21:34:10 +0530 IST'>June 3, 2025</span>&nbsp;·&nbsp;3 min</footer>
-  <a class="entry-link" aria-label="post link to Jest Worker Encountered 4 Child Process Exceptions" href="http://localhost:1313/posts/jest-child-process/"></a>
+  <a class="entry-link" aria-label="post link to Jest Worker and his 4 Horrifying Children" href="http://localhost:1313/posts/jest-child-process/"></a>
 </article>
     </main>
     

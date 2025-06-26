@@ -164,17 +164,31 @@
 
 <article class="post-entry"> 
   <header class="entry-header">
-    <h2 class="entry-hint-parent">Jest Worker Encountered 4 Child Process Exceptions
+    <h2 class="entry-hint-parent">ChunkLoadError During Hot Reloads in Webpack with Multiple Entry Points
     </h2>
   </header>
   <div class="entry-content">
-    <p>When writing unit tests using Jest and React Testing Library, you might encounter this frustrating error:
-Jest Worker Encountered 4 Child Process Exceptions This usually signals that Jest retried your test multiple times across its worker threads but failed each time, eventually giving up. Here’s how I traced the root cause of this issue and resolved it.
+    <p>What’s the issue? Webpack supports adding multiple entry points in an app. Entry Points page in documentation explains that a bundle for each entry point is created separately, which can help reduce load time by caching bundles that aren’t modified (e.g. node_modules). But having multiple entry points may lead to following error during hot reloads:
+ChunkLoadError: Loading hot update failed. One of my org’s repo had a long standing issue of hot reloads not working. Digging further into the issue, I found this solution on stack overflow of adding runtimeChunk: &#39;single&#39; to webpack.dev.js. But there was hardly any explanation of what the other options for runtimeChunk actually did in simple words.
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2025-06-26 01:24:50 +0530 IST'>June 26, 2025</span>&nbsp;·&nbsp;2 min</footer>
+  <a class="entry-link" aria-label="post link to ChunkLoadError During Hot Reloads in Webpack with Multiple Entry Points" href="http://localhost:1313/posts/webpack-hot-reload/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Jest Worker and his 4 Horrifying Children
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>When writing unit tests using Jest and React Testing Library, you might encounter this error:
+Jest Worker Encountered 4 Child Process Exceptions, exceeding retry limit This usually signals that Jest retried your test multiple times across its worker threads but failed each time, eventually giving up. Here’s how I traced the root cause of this issue and resolved it.
 The Culprit: fireEvent and Asynchronous Side Effects At first glance, my test code looked fine. I was using fireEvent.click to simulate user interaction. But here’s the catch — while fireEvent is a synchronous function, the side effects it triggers (like state updates or calls inside useEffect) are often asynchronous.
 ...</p>
   </div>
   <footer class="entry-footer"><span title='2025-06-03 21:34:10 +0530 IST'>June 3, 2025</span>&nbsp;·&nbsp;3 min</footer>
-  <a class="entry-link" aria-label="post link to Jest Worker Encountered 4 Child Process Exceptions" href="http://localhost:1313/posts/jest-child-process/"></a>
+  <a class="entry-link" aria-label="post link to Jest Worker and his 4 Horrifying Children" href="http://localhost:1313/posts/jest-child-process/"></a>
 </article>
 
 <article class="post-entry"> 
@@ -222,24 +236,12 @@ Modularization While implementing a package, it should have maximum abstraction.
   <footer class="entry-footer"><span title='2024-11-18 11:30:03 +0000 +0000'>November 18, 2024</span>&nbsp;·&nbsp;3 min</footer>
   <a class="entry-link" aria-label="post link to FortuneExcel - Lessons from my First Package" href="http://localhost:1313/posts/lessons-from-fortuneexcel/"></a>
 </article>
-
-<article class="post-entry"> 
-<figure class="entry-cover"><img loading="lazy" src="https://raw.githubusercontent.com/Corbe30/3D-shape-editor/main/images/3dShapeEditor.png" alt="">
-</figure>
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">Seamless View Switching Algorithm for ArcRotateCamera in Babylon.js
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>I’ll describe how I derived an algorithm to switch seamlessly between perspective and orthographic views. The solution will be implemented in babylon.js.
-Basics (the why) A camera can be controlled by 3 operations - pan, zoom and orbit. These operations in arcRotateCamera are performed by changing the following properties:
-camera position (where the camera is at) camera target (where the camera is looking at) More about how it works here.
-Consider using only these two properties to perform the operations. Although pan and orbit changes are reflect in both the views, zoom doesn’t seem to have any effect in orthographic view (see why?)
-...</p>
-  </div>
-  <footer class="entry-footer"><span title='2024-06-27 11:30:03 +0000 +0000'>June 27, 2024</span>&nbsp;·&nbsp;3 min</footer>
-  <a class="entry-link" aria-label="post link to Seamless View Switching Algorithm for ArcRotateCamera in Babylon.js" href="http://localhost:1313/posts/view-switching-algo/"></a>
-</article>
+<footer class="page-footer">
+  <nav class="pagination">
+    <a class="next" href="http://localhost:1313/posts/page/2/">Next&nbsp;2/2&nbsp;»
+    </a>
+  </nav>
+</footer>
     </main>
     
 <footer class="footer">

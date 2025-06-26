@@ -14,12 +14,12 @@
     <lastBuildDate>Tue, 03 Jun 2025 21:34:10 +0530</lastBuildDate>
     <atom:link href="http://localhost:1313/tags/jest/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Jest Worker Encountered 4 Child Process Exceptions</title>
+      <title>Jest Worker and his 4 Horrifying Children</title>
       <link>http://localhost:1313/posts/jest-child-process/</link>
       <pubDate>Tue, 03 Jun 2025 21:34:10 +0530</pubDate>
       <guid>http://localhost:1313/posts/jest-child-process/</guid>
-      <description>&lt;p&gt;When writing unit tests using Jest and React Testing Library, you might encounter this frustrating error:&lt;/p&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;Jest Worker Encountered 4 Child Process Exceptions
+      <description>&lt;p&gt;When writing unit tests using Jest and React Testing Library, you might encounter this error:&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;Jest Worker Encountered 4 Child Process Exceptions, exceeding retry limit
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;This usually signals that Jest retried your test multiple times across its worker threads but failed each time, eventually giving up. Here&amp;rsquo;s how I traced the root cause of this issue and resolved it.&lt;/p&gt;
 &lt;h2 id=&#34;the-culprit-fireevent-and-asynchronous-side-effects&#34;&gt;The Culprit: fireEvent and Asynchronous Side Effects&lt;/h2&gt;
 &lt;p&gt;At first glance, my test code looked fine. I was using &lt;code&gt;fireEvent.click&lt;/code&gt; to simulate user interaction. But here&amp;rsquo;s the catch — while &lt;code&gt;fireEvent&lt;/code&gt; is a synchronous function, the side effects it triggers (like state updates or calls inside &lt;code&gt;useEffect&lt;/code&gt;) are often asynchronous.&lt;/p&gt;</description>

@@ -148,136 +148,28 @@
     </nav>
 </header>
 <main class="main"> 
-<article class="first-entry home-info">
-    <header class="entry-header">
-        <h1>Hi, I&rsquo;m Shashank!</h1>
-    </header>
-    <div class="entry-content">
-        <ul>
-<li>UI Engineer-1 at <a href="https://www.linkedin.com/company/flipkart/">Flipkart</a>.</li>
-<li>Ex-Algorithms Engineer, Android Developer. I am passionate about frontend, 3D tech and designing.  This blog is to share my learning journey,  and interesting things I found along my way.</li>
-</ul>
-
-    </div>
-    <footer class="entry-footer">
-        <div class="social-icons" >
-    <a href="https://github.com/corbe30/" target="_blank" rel="noopener noreferrer me"
-        title="View Source on Github">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-    stroke-linecap="round" stroke-linejoin="round">
-    <path
-        d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22">
-    </path>
-</svg>
-    </a>
-    <a href="mailto:shashankc1705@gmail.com" target="_blank" rel="noopener noreferrer me"
-        title="E-Mail">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 21" fill="none" stroke="currentColor" stroke-width="2"
-    stroke-linecap="round" stroke-linejoin="round">
-    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-    <polyline points="22,6 12,13 2,6"></polyline>
-</svg>
-    </a>
-    <a href="https://www.linkedin.com/in/shashank-agarwal-3ab5b21a7/" target="_blank" rel="noopener noreferrer me"
-        title="Linkedin">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-    stroke-linecap="round" stroke-linejoin="round">
-    <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
-    <rect x="2" y="9" width="4" height="12"></rect>
-    <circle cx="4" cy="4" r="2"></circle>
-</svg>
-    </a>
-    <a href="https://www.behance.net/shashankagarwal2" target="_blank" rel="noopener noreferrer me"
-        title="Behance">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-    stroke-linecap="round" stroke-linejoin="round">
-    <path paint-order="stroke fill markers" stroke-linejoin="miter" stroke-width="2"
-        style="font-variation-settings:normal"
-        d="M1.774 18.063V5.466h5.51c1.978 0 3.116 1.326 3.055 2.806-.043 1.049-.711 2.988-2.643 2.988h-5.93H7.73c1.224 0 3.532 1.13 3.532 3.532 0 2.4-1.873 3.27-3.318 3.27zm12.57-4.459h7.89s.012-4.18-4.167-4.18c-5.237 0-5.277 9.11-.3 9.11 3.06 0 3.935-1.806 3.935-1.806M15.526 5.823h4.987" />
-</svg>
-    </a>
-</div>
-
-    </footer>
-</article>
 
 <article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">ChunkLoadError During Hot Reloads in Webpack with Multiple Entry Points
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>What’s the issue? Webpack supports adding multiple entry points in an app. Entry Points page in documentation explains that a bundle for each entry point is created separately, which can help reduce load time by caching bundles that aren’t modified (e.g. node_modules). But having multiple entry points may lead to following error during hot reloads:
-ChunkLoadError: Loading hot update failed. One of my org’s repo had a long standing issue of hot reloads not working. Digging further into the issue, I found this solution on stack overflow of adding runtimeChunk: &#39;single&#39; to webpack.dev.js. But there was hardly any explanation of what the other options for runtimeChunk actually did in simple words.
-...</p>
-  </div>
-  <footer class="entry-footer"><span title='2025-06-26 01:24:50 +0530 IST'>June 26, 2025</span>&nbsp;·&nbsp;2 min</footer>
-  <a class="entry-link" aria-label="post link to ChunkLoadError During Hot Reloads in Webpack with Multiple Entry Points" href="http://localhost:1313/posts/webpack-hot-reload/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">Jest Worker and his 4 Horrifying Children
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>When writing unit tests using Jest and React Testing Library, you might encounter this error:
-Jest Worker Encountered 4 Child Process Exceptions, exceeding retry limit This usually signals that Jest retried your test multiple times across its worker threads but failed each time, eventually giving up. Here’s how I traced the root cause of this issue and resolved it.
-The Culprit: fireEvent and Asynchronous Side Effects At first glance, my test code looked fine. I was using fireEvent.click to simulate user interaction. But here’s the catch — while fireEvent is a synchronous function, the side effects it triggers (like state updates or calls inside useEffect) are often asynchronous.
-...</p>
-  </div>
-  <footer class="entry-footer"><span title='2025-06-03 21:34:10 +0530 IST'>June 3, 2025</span>&nbsp;·&nbsp;3 min</footer>
-  <a class="entry-link" aria-label="post link to Jest Worker and his 4 Horrifying Children" href="http://localhost:1313/posts/jest-child-process/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">Optimizing Graphs for Spreadsheet Formulas Evaluation
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>Cells in a spreadsheet can form a chain of interdependent formulas, where a change in one cell triggers the reevaluation of the entire chain. For example, in the example below, changing cell A1 or B1 recomputes C1, which recomputes C2 and D1.
-A B C D 1 4 5 =A1&#43;B1 =B1&#43;C1 2 =C1 &#43; 1 =C2 &#43; 1 I’ll explain how Fortunesheet handles this by using Topological Sorting, and how I optimized its performance by 82%.
-...</p>
-  </div>
-  <footer class="entry-footer"><span title='2025-02-27 22:09:04 +0530 IST'>February 27, 2025</span>&nbsp;·&nbsp;3 min</footer>
-  <a class="entry-link" aria-label="post link to Optimizing Graphs for Spreadsheet Formulas Evaluation" href="http://localhost:1313/posts/formula-algorithm/"></a>
-</article>
-
-<article class="post-entry"> 
-<figure class="entry-cover"><img loading="lazy" src="https://raw.githubusercontent.com/Corbe30/corbe30.github.io/refs/heads/main/assets/images/asyncModal_gif.gif" alt="">
+<figure class="entry-cover"><img loading="lazy" src="https://raw.githubusercontent.com/Corbe30/3D-shape-editor/main/images/3dShapeEditor.png" alt="">
 </figure>
   <header class="entry-header">
-    <h2 class="entry-hint-parent">A Bottom-up Approach to Async Modals in React
+    <h2 class="entry-hint-parent">Seamless View Switching Algorithm for ArcRotateCamera in Babylon.js
     </h2>
   </header>
   <div class="entry-content">
-    <p>In React, you can use combination of Context and custom hooks to implement async modals. Async modals let you capture the response from modal asynchronously, saving the hassle of managing another state and improves readibility.
-Let’s try to build it from the ground up:
-1. Bare bones App.js function App() { const [isModalOpen, setIsModalOpen] = useState(false); const onResponseClick = (response) =&gt; { setIsModalOpen(false); console.log(response); }; return ( &lt;div&gt; {isModalOpen &amp;&amp; &lt;Modal onResponseClick={onResponseClick} /&gt;} &lt;button onClick={() =&gt; { setIsModalOpen(true); }} &gt; Open Modal &lt;/button&gt; &lt;/div&gt; ); } To get the response (yes/no) from the modal, App component is forced to manage isModalOpen state and include &lt;Modal /&gt; component in its JSX. We know there is a better way to manage this by using Context.
+    <p>I’ll describe how I derived an algorithm to switch seamlessly between perspective and orthographic views. The solution will be implemented in babylon.js.
+Basics (the why) A camera can be controlled by 3 operations - pan, zoom and orbit. These operations in arcRotateCamera are performed by changing the following properties:
+camera position (where the camera is at) camera target (where the camera is looking at) More about how it works here.
+Consider using only these two properties to perform the operations. Although pan and orbit changes are reflect in both the views, zoom doesn’t seem to have any effect in orthographic view (see why?)
 ...</p>
   </div>
-  <footer class="entry-footer"><span title='2025-02-26 21:40:25 +0530 IST'>February 26, 2025</span>&nbsp;·&nbsp;3 min</footer>
-  <a class="entry-link" aria-label="post link to A Bottom-up Approach to Async Modals in React" href="http://localhost:1313/posts/async-modals/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">FortuneExcel - Lessons from my First Package
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>I revived an archived project and released it as FortuneExcel - a plugin for FortuneSheet to import/export Excel (.xlsx) files.
-Initialization Reviving the project meant fixing the deprecated code and existing bugs. Along with this, I added export feature, toolbar plugin support for fortune-sheet and set up Github workflow.
-Modularization While implementing a package, it should have maximum abstraction. User should have to add minimal code to their environment for your package to work, all while having no side-effects on their existing code. A proper code strucrure also makes it easier for others to contribute to your code.
-...</p>
-  </div>
-  <footer class="entry-footer"><span title='2024-11-18 11:30:03 +0000 +0000'>November 18, 2024</span>&nbsp;·&nbsp;3 min</footer>
-  <a class="entry-link" aria-label="post link to FortuneExcel - Lessons from my First Package" href="http://localhost:1313/posts/lessons-from-fortuneexcel/"></a>
+  <footer class="entry-footer"><span title='2024-06-27 11:30:03 +0000 +0000'>June 27, 2024</span>&nbsp;·&nbsp;3 min</footer>
+  <a class="entry-link" aria-label="post link to Seamless View Switching Algorithm for ArcRotateCamera in Babylon.js" href="http://localhost:1313/posts/view-switching-algo/"></a>
 </article>
 <footer class="page-footer">
   <nav class="pagination">
-    <a class="next" href="http://localhost:1313/page/2/">Next&nbsp;2/2&nbsp;»
+    <a class="prev" href="http://localhost:1313/">
+      «&nbsp;Prev&nbsp;1/2
     </a>
   </nav>
 </footer>

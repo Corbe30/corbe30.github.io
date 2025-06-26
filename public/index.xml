@@ -11,8 +11,19 @@
     </image>
     <generator>Hugo -- 0.144.2</generator>
     <language>en</language>
-    <lastBuildDate>Tue, 03 Jun 2025 21:34:10 +0530</lastBuildDate>
+    <lastBuildDate>Thu, 26 Jun 2025 01:24:50 +0530</lastBuildDate>
     <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>ChunkLoadError During Hot Reloads in Webpack with Multiple Entry Points</title>
+      <link>http://localhost:1313/posts/webpack-hot-reload/</link>
+      <pubDate>Thu, 26 Jun 2025 01:24:50 +0530</pubDate>
+      <guid>http://localhost:1313/posts/webpack-hot-reload/</guid>
+      <description>&lt;h2 id=&#34;whats-the-issue&#34;&gt;What&amp;rsquo;s the issue?&lt;/h2&gt;
+&lt;p&gt;Webpack supports adding multiple entry points in an app. &lt;a href=&#34;https://webpack.js.org/concepts/entry-points/&#34;&gt;Entry Points page
+&lt;/a&gt; in documentation explains that a bundle for each entry point is created separately, which can help reduce load time by caching bundles that aren&amp;rsquo;t modified (e.g. node_modules). But having multiple entry points may lead to following error during hot reloads:&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;ChunkLoadError: Loading hot update failed.
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;One of my org&amp;rsquo;s repo had a long standing issue of hot reloads not working. Digging further into the issue, I found &lt;a href=&#34;https://stackoverflow.com/a/66197410&#34;&gt;this&lt;/a&gt; solution on stack overflow of adding &lt;code&gt;runtimeChunk: &#39;single&#39;&lt;/code&gt; to webpack.dev.js. But there was hardly any explanation of what the &lt;em&gt;other&lt;/em&gt; options for runtimeChunk actually did in simple words.&lt;/p&gt;</description>
+    </item>
     <item>
       <title>Jest Worker and his 4 Horrifying Children</title>
       <link>http://localhost:1313/posts/jest-child-process/</link>
