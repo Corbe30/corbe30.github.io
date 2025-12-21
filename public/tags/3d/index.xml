@@ -6,15 +6,8 @@
     <description>Recent content in 3D on Corbe30</description>
     <generator>Hugo</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 21 Dec 2025 20:45:17 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 27 Jun 2024 11:30:03 +0000</lastBuildDate>
     <atom:link href="https://corbe30.github.io/tags/3d/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Multithreaded Js</title>
-      <link>https://corbe30.github.io/posts/multithreaded-js/</link>
-      <pubDate>Sun, 21 Dec 2025 20:45:17 +0000</pubDate>
-      <guid>https://corbe30.github.io/posts/multithreaded-js/</guid>
-      <description>&lt;h1 id=&#34;multithreaded-javascript-breaking-the-single-threaded-myth&#34;&gt;Multithreaded JavaScript: Breaking the Single-Threaded Myth&lt;/h1&gt;&#xA;&lt;p&gt;JavaScript is famously known as a single-threaded language, but that doesn&amp;rsquo;t mean we are stuck in a world of sequential execution. In a recent &lt;strong&gt;Brown Bag Session&lt;/strong&gt;, Shashank Agarwal explored the depths of multithreading, the nuances of concurrency, and how modern web environments allow us to push the limits of browser compute.&lt;/p&gt;&#xA;&lt;hr&gt;&#xA;&lt;h2 id=&#34;understanding-the-fundamentals-concurrency-vs-parallelism&#34;&gt;Understanding the Fundamentals: Concurrency vs. Parallelism&lt;/h2&gt;&#xA;&lt;p&gt;Before diving into workers, it is essential to distinguish between how tasks are managed:&lt;/p&gt;</description>
-    </item>
     <item>
       <title>Seamless View Switching Algorithm for ArcRotateCamera in Babylon.js</title>
       <link>https://corbe30.github.io/posts/view-switching-algo/</link>
