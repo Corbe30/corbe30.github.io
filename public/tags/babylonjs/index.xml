@@ -1,33 +1,26 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Babylonjs on Corbe30</title>
-    <link>http://localhost:1313/tags/babylonjs/</link>
+    <link>https://corbe30.github.io/tags/babylonjs/</link>
     <description>Recent content in Babylonjs on Corbe30</description>
-    <image>
-      <title>Corbe30</title>
-      <url>http://localhost:1313/images/papermod-cover.png</url>
-      <link>http://localhost:1313/images/papermod-cover.png</link>
-    </image>
-    <generator>Hugo -- 0.144.2</generator>
+    <generator>Hugo</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 27 Jun 2024 11:30:03 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/babylonjs/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 21 Dec 2025 20:45:17 +0000</lastBuildDate>
+    <atom:link href="https://corbe30.github.io/tags/babylonjs/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Multithreaded Js</title>
+      <link>https://corbe30.github.io/posts/multithreaded-js/</link>
+      <pubDate>Sun, 21 Dec 2025 20:45:17 +0000</pubDate>
+      <guid>https://corbe30.github.io/posts/multithreaded-js/</guid>
+      <description>&lt;h1 id=&#34;multithreaded-javascript-breaking-the-single-threaded-myth&#34;&gt;Multithreaded JavaScript: Breaking the Single-Threaded Myth&lt;/h1&gt;&#xA;&lt;p&gt;JavaScript is famously known as a single-threaded language, but that doesn&amp;rsquo;t mean we are stuck in a world of sequential execution. In a recent &lt;strong&gt;Brown Bag Session&lt;/strong&gt;, Shashank Agarwal explored the depths of multithreading, the nuances of concurrency, and how modern web environments allow us to push the limits of browser compute.&lt;/p&gt;&#xA;&lt;hr&gt;&#xA;&lt;h2 id=&#34;understanding-the-fundamentals-concurrency-vs-parallelism&#34;&gt;Understanding the Fundamentals: Concurrency vs. Parallelism&lt;/h2&gt;&#xA;&lt;p&gt;Before diving into workers, it is essential to distinguish between how tasks are managed:&lt;/p&gt;</description>
+    </item>
     <item>
       <title>Seamless View Switching Algorithm for ArcRotateCamera in Babylon.js</title>
-      <link>http://localhost:1313/posts/view-switching-algo/</link>
+      <link>https://corbe30.github.io/posts/view-switching-algo/</link>
       <pubDate>Thu, 27 Jun 2024 11:30:03 +0000</pubDate>
-      <guid>http://localhost:1313/posts/view-switching-algo/</guid>
-      <description>&lt;p&gt;I&amp;rsquo;ll describe how I derived an algorithm to switch seamlessly between perspective and orthographic views. The solution will be implemented in babylon.js.&lt;/p&gt;
-&lt;h2 id=&#34;basics-the-why&#34;&gt;Basics (the why)&lt;/h2&gt;
-&lt;p&gt;A camera can be controlled by 3 operations - pan, zoom and orbit.
-These operations in arcRotateCamera are performed by changing the following properties:&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;camera position (where the camera is at)&lt;/li&gt;
-&lt;li&gt;camera target (where the camera is looking at)&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;More about how it works &lt;a href=&#34;https://doc.babylonjs.com/features/featuresDeepDive/cameras/camera_introduction#arc-rotate-camera&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;Consider using only these two properties to perform the operations. Although pan and orbit changes are reflect in both the views, zoom doesn&amp;rsquo;t seem to have any effect in orthographic view (see &lt;a href=&#34;https://blenderartists.org/t/zooming-through-orthographic-cameras-not-working-need-everyones-help-to-fix-this/701450/3&#34;&gt;why?&lt;/a&gt;)&lt;/p&gt;</description>
+      <guid>https://corbe30.github.io/posts/view-switching-algo/</guid>
+      <description>&lt;p&gt;I&amp;rsquo;ll describe how I derived an algorithm to switch seamlessly between perspective and orthographic views. The solution will be implemented in babylon.js.&lt;/p&gt;&#xA;&lt;h2 id=&#34;basics-the-why&#34;&gt;Basics (the why)&lt;/h2&gt;&#xA;&lt;p&gt;A camera can be controlled by 3 operations - pan, zoom and orbit.&#xA;These operations in arcRotateCamera are performed by changing the following properties:&lt;/p&gt;&#xA;&lt;ol&gt;&#xA;&lt;li&gt;camera position (where the camera is at)&lt;/li&gt;&#xA;&lt;li&gt;camera target (where the camera is looking at)&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;p&gt;More about how it works &lt;a href=&#34;https://doc.babylonjs.com/features/featuresDeepDive/cameras/camera_introduction#arc-rotate-camera&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;&#xA;&lt;p&gt;Consider using only these two properties to perform the operations. Although pan and orbit changes are reflect in both the views, zoom doesn&amp;rsquo;t seem to have any effect in orthographic view (see &lt;a href=&#34;https://blenderartists.org/t/zooming-through-orthographic-cameras-not-working-need-everyones-help-to-fix-this/701450/3&#34;&gt;why?&lt;/a&gt;)&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>
