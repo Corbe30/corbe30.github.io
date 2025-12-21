@@ -2,16 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://corbe30.github.io/tags/3d/</loc>
-    <lastmod>2025-12-21T20:45:17+00:00</lastmod>
-  </url><url>
     <loc>https://corbe30.github.io/tags/algorithm/</loc>
     <lastmod>2025-12-21T20:45:17+00:00</lastmod>
   </url><url>
-    <loc>https://corbe30.github.io/tags/babylonjs/</loc>
+    <loc>https://corbe30.github.io/</loc>
     <lastmod>2025-12-21T20:45:17+00:00</lastmod>
   </url><url>
-    <loc>https://corbe30.github.io/</loc>
+    <loc>https://corbe30.github.io/tags/javascript/</loc>
+    <lastmod>2025-12-21T20:45:17+00:00</lastmod>
+  </url><url>
+    <loc>https://corbe30.github.io/tags/multithread/</loc>
     <lastmod>2025-12-21T20:45:17+00:00</lastmod>
   </url><url>
     <loc>https://corbe30.github.io/posts/multithreaded-js/</loc>
@@ -58,6 +58,12 @@
   </url><url>
     <loc>https://corbe30.github.io/tags/npm/</loc>
     <lastmod>2024-11-18T11:30:03+00:00</lastmod>
+  </url><url>
+    <loc>https://corbe30.github.io/tags/3d/</loc>
+    <lastmod>2024-06-27T11:30:03+00:00</lastmod>
+  </url><url>
+    <loc>https://corbe30.github.io/tags/babylonjs/</loc>
+    <lastmod>2024-06-27T11:30:03+00:00</lastmod>
   </url><url>
     <loc>https://corbe30.github.io/posts/view-switching-algo/</loc>
     <lastmod>2024-06-27T11:30:03+00:00</lastmod>
