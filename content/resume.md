@@ -24,14 +24,14 @@ cover:
     hidden: false # only hide on current single page
 ---
 
-> PDF [📌](https://drive.google.com/file/d/1U62KfZEP3xN7aZCFMR-0M7jsCO6zPVtg/view?usp=drivesdk)
+> ###### PDF [[📌](https://drive.google.com/file/d/1U62KfZEP3xN7aZCFMR-0M7jsCO6zPVtg/view?usp=drivesdk)]
 
 # Shashank Agarwal
 shashankc1705@gmail.com | [Github](https://github.com/Corbe30/) | [Linkedin](https://www.linkedin.com/in/shashank-agarwal-3ab5b21a7/) | Gurgaon, Haryana
 
 ### Summary
-* 2+ years of work experience in software development
-* Hands-on experience in frontend, backend and android
+* 2.5+ years of work experience in software development
+* Hands-on experience in frontend, android and graphics programming
 * Proficient in React, Redux, TypeScript and node.js + Express
 
 <br/>
@@ -85,4 +85,4 @@ shashankc1705@gmail.com | [Github](https://github.com/Corbe30/) | [Linkedin](htt
 
 ## Skills
 ---
-`JavaScript` `TypeScript` `React` `React Native` `Redux` `Jest` `Web Security` `Web Sockets` `Electron` `JWT` `Webpack` `Express` `Node.js` `HTML` `CSS` `Git` `OOPS` `Design Patterns` `Babylon.js` `three.js`
+`JavaScript` `TypeScript` `React` `React Native` `Redux` `Jest` `Playwright` `Web Security` `Web Sockets` `Electron` `JWT` `Webpack` `Express` `Node.js` `HTML` `CSS` `Git` `OOPS` `Design Patterns` `Babylon.js` `three.js` `Docker`
