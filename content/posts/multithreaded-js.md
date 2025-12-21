@@ -1,7 +1,7 @@
 ---
 date: '2025-12-21T20:45:17Z'
 draft: false
-title: 'Multithreaded Js'
+title: 'Multithreaded Javascript'
 tags: ["algorithm", "multithread", "javascript"]
 showToc: true
 TocOpen: false
@@ -26,6 +26,8 @@ cover:
     relative: false # when using page bundles set this to true
     hidden: false # only hide on current single page
 ---
+
+This blog is based on O'Reilly's Mulithreaded Javascript book.
 
 ## Understanding the Fundamentals: Concurrency vs. Parallelism
 
@@ -114,3 +116,8 @@ You can think of StructuredSerialize() and StructuredDeserialize() as smarter ve
 | When          | Good for parallelism                          | Excellent for massive parallelism                            |
 | Best for      | Long, sequential tasks                        | Identical, independent operations on large datasets          |
 | Goal          | Maintain UI responsiveness by offloading work | Achieve maximum calculation throughput for suitable problems |
+
+---
+
+You can view the entire code and presentation here!
+https://github.com/Corbe30/multithreaded-js
