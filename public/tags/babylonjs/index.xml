@@ -2,22 +2,33 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Babylonjs on Corbe30</title>
-    <link>http://localhost:1313/tags/babylonjs/</link>
+    <link>https://corbe30.github.io/tags/babylonjs/</link>
     <description>Recent content in Babylonjs on Corbe30</description>
     <image>
       <title>Corbe30</title>
-      <url>http://localhost:1313/images/papermod-cover.png</url>
-      <link>http://localhost:1313/images/papermod-cover.png</link>
+      <url>https://corbe30.github.io/images/papermod-cover.png</url>
+      <link>https://corbe30.github.io/images/papermod-cover.png</link>
     </image>
-    <generator>Hugo -- 0.144.2</generator>
+    <generator>Hugo -- 0.153.0</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 27 Jun 2024 11:30:03 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/babylonjs/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 20 Dec 2025 22:03:27 +0530</lastBuildDate>
+    <atom:link href="https://corbe30.github.io/tags/babylonjs/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Multithreaded Javascript</title>
+      <link>https://corbe30.github.io/posts/multithreaded-javascript/</link>
+      <pubDate>Sat, 20 Dec 2025 22:03:27 +0530</pubDate>
+      <guid>https://corbe30.github.io/posts/multithreaded-javascript/</guid>
+      <description>&lt;p&gt;The contents of this article is a summary from &lt;a href=&#34;https://www.oreilly.com/library/view/multithreaded-javascript/9781098104429/&#34;&gt;O&amp;rsquo;Reilly&amp;rsquo;s Multithreaded Javscript&lt;/a&gt;, I prepared for a brown-bag session in my organization. You can find the complete presentation &lt;a href=&#34;https://github.com/Corbe30/multithreaded-js&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;JavaScript is traditionally known as a single-threaded language, but modern web development has moved far beyond simple scripts. To build high-performance applications, we must understand how to leverage concurrency and parallelism through Web Workers and environment-specific APIs.&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;understanding-the-foundations&#34;&gt;Understanding the Foundations&lt;/h2&gt;
+&lt;p&gt;Before diving into multithreading, it is crucial to distinguish between several often-confused concepts:&lt;/p&gt;</description>
+    </item>
     <item>
       <title>Seamless View Switching Algorithm for ArcRotateCamera in Babylon.js</title>
-      <link>http://localhost:1313/posts/view-switching-algo/</link>
+      <link>https://corbe30.github.io/posts/view-switching-algo/</link>
       <pubDate>Thu, 27 Jun 2024 11:30:03 +0000</pubDate>
-      <guid>http://localhost:1313/posts/view-switching-algo/</guid>
+      <guid>https://corbe30.github.io/posts/view-switching-algo/</guid>
       <description>&lt;p&gt;I&amp;rsquo;ll describe how I derived an algorithm to switch seamlessly between perspective and orthographic views. The solution will be implemented in babylon.js.&lt;/p&gt;
 &lt;h2 id=&#34;basics-the-why&#34;&gt;Basics (the why)&lt;/h2&gt;
 &lt;p&gt;A camera can be controlled by 3 operations - pan, zoom and orbit.

@@ -2,22 +2,33 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Corbe30</title>
-    <link>http://localhost:1313/</link>
+    <link>https://corbe30.github.io/</link>
     <description>Recent content on Corbe30</description>
     <image>
       <title>Corbe30</title>
-      <url>http://localhost:1313/images/papermod-cover.png</url>
-      <link>http://localhost:1313/images/papermod-cover.png</link>
+      <url>https://corbe30.github.io/images/papermod-cover.png</url>
+      <link>https://corbe30.github.io/images/papermod-cover.png</link>
     </image>
-    <generator>Hugo -- 0.144.2</generator>
+    <generator>Hugo -- 0.153.0</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 26 Jun 2025 01:24:50 +0530</lastBuildDate>
-    <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 20 Dec 2025 22:03:27 +0530</lastBuildDate>
+    <atom:link href="https://corbe30.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Multithreaded Javascript</title>
+      <link>https://corbe30.github.io/posts/multithreaded-javascript/</link>
+      <pubDate>Sat, 20 Dec 2025 22:03:27 +0530</pubDate>
+      <guid>https://corbe30.github.io/posts/multithreaded-javascript/</guid>
+      <description>&lt;p&gt;The contents of this article is a summary from &lt;a href=&#34;https://www.oreilly.com/library/view/multithreaded-javascript/9781098104429/&#34;&gt;O&amp;rsquo;Reilly&amp;rsquo;s Multithreaded Javscript&lt;/a&gt;, I prepared for a brown-bag session in my organization. You can find the complete presentation &lt;a href=&#34;https://github.com/Corbe30/multithreaded-js&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;JavaScript is traditionally known as a single-threaded language, but modern web development has moved far beyond simple scripts. To build high-performance applications, we must understand how to leverage concurrency and parallelism through Web Workers and environment-specific APIs.&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;understanding-the-foundations&#34;&gt;Understanding the Foundations&lt;/h2&gt;
+&lt;p&gt;Before diving into multithreading, it is crucial to distinguish between several often-confused concepts:&lt;/p&gt;</description>
+    </item>
     <item>
       <title>ChunkLoadError During Hot Reloads in Webpack with Multiple Entry Points</title>
-      <link>http://localhost:1313/posts/webpack-hot-reload/</link>
+      <link>https://corbe30.github.io/posts/webpack-hot-reload/</link>
       <pubDate>Thu, 26 Jun 2025 01:24:50 +0530</pubDate>
-      <guid>http://localhost:1313/posts/webpack-hot-reload/</guid>
+      <guid>https://corbe30.github.io/posts/webpack-hot-reload/</guid>
       <description>&lt;h2 id=&#34;whats-the-issue&#34;&gt;What&amp;rsquo;s the issue?&lt;/h2&gt;
 &lt;p&gt;Webpack supports adding multiple entry points in an app. &lt;a href=&#34;https://webpack.js.org/concepts/entry-points/&#34;&gt;Entry Points page
 &lt;/a&gt; in documentation explains that a bundle for each entry point is created separately, which can help reduce load time by caching bundles that aren&amp;rsquo;t modified (e.g. node_modules). But having multiple entry points may lead to following error during hot reloads:&lt;/p&gt;
@@ -26,9 +37,9 @@
     </item>
     <item>
       <title>Jest Worker and his 4 Horrifying Children</title>
-      <link>http://localhost:1313/posts/jest-child-process/</link>
+      <link>https://corbe30.github.io/posts/jest-child-process/</link>
       <pubDate>Tue, 03 Jun 2025 21:34:10 +0530</pubDate>
-      <guid>http://localhost:1313/posts/jest-child-process/</guid>
+      <guid>https://corbe30.github.io/posts/jest-child-process/</guid>
       <description>&lt;p&gt;When writing unit tests using Jest and React Testing Library, you might encounter this error:&lt;/p&gt;
 &lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;Jest Worker Encountered 4 Child Process Exceptions, exceeding retry limit
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;This usually signals that Jest retried your test multiple times across its worker threads but failed each time, eventually giving up. Here&amp;rsquo;s how I traced the root cause of this issue and resolved it.&lt;/p&gt;
@@ -37,9 +48,9 @@
     </item>
     <item>
       <title>Optimizing Graphs for Spreadsheet Formulas Evaluation</title>
-      <link>http://localhost:1313/posts/formula-algorithm/</link>
+      <link>https://corbe30.github.io/posts/formula-algorithm/</link>
       <pubDate>Thu, 27 Feb 2025 22:09:04 +0530</pubDate>
-      <guid>http://localhost:1313/posts/formula-algorithm/</guid>
+      <guid>https://corbe30.github.io/posts/formula-algorithm/</guid>
       <description>&lt;p&gt;Cells in a spreadsheet can form a chain of interdependent formulas, where a change in one cell triggers the reevaluation of the entire chain. For example, in the example below, changing cell &lt;code&gt;A1&lt;/code&gt; or &lt;code&gt;B1&lt;/code&gt; recomputes &lt;code&gt;C1&lt;/code&gt;, which recomputes &lt;code&gt;C2&lt;/code&gt; and &lt;code&gt;D1&lt;/code&gt;.&lt;/p&gt;
 &lt;table&gt;
   &lt;thead&gt;
@@ -72,9 +83,9 @@
     </item>
     <item>
       <title>A Bottom-up Approach to Async Modals in React</title>
-      <link>http://localhost:1313/posts/async-modals/</link>
+      <link>https://corbe30.github.io/posts/async-modals/</link>
       <pubDate>Wed, 26 Feb 2025 21:40:25 +0530</pubDate>
-      <guid>http://localhost:1313/posts/async-modals/</guid>
+      <guid>https://corbe30.github.io/posts/async-modals/</guid>
       <description>&lt;p&gt;In React, you can use combination of Context and custom hooks to implement async modals. Async modals let you capture the response from modal asynchronously, saving the hassle of managing another state and improves readibility.&lt;/p&gt;
 &lt;p&gt;Let&amp;rsquo;s try to build it from the ground up:&lt;/p&gt;
 &lt;h2 id=&#34;1-bare-bones&#34;&gt;1. Bare bones&lt;/h2&gt;
@@ -106,9 +117,9 @@
     </item>
     <item>
       <title>FortuneExcel - Lessons from my First Package</title>
-      <link>http://localhost:1313/posts/lessons-from-fortuneexcel/</link>
+      <link>https://corbe30.github.io/posts/lessons-from-fortuneexcel/</link>
       <pubDate>Mon, 18 Nov 2024 11:30:03 +0000</pubDate>
-      <guid>http://localhost:1313/posts/lessons-from-fortuneexcel/</guid>
+      <guid>https://corbe30.github.io/posts/lessons-from-fortuneexcel/</guid>
       <description>&lt;p&gt;I revived an archived project and released it as &lt;a href=&#34;http://npmjs.com/package/@corbe30/fortune-excel&#34;&gt;FortuneExcel&lt;/a&gt; - a plugin for FortuneSheet to import/export Excel (.xlsx) files.&lt;/p&gt;
 &lt;table&gt;
   &lt;tr&gt;
@@ -123,9 +134,9 @@
     </item>
     <item>
       <title>Seamless View Switching Algorithm for ArcRotateCamera in Babylon.js</title>
-      <link>http://localhost:1313/posts/view-switching-algo/</link>
+      <link>https://corbe30.github.io/posts/view-switching-algo/</link>
       <pubDate>Thu, 27 Jun 2024 11:30:03 +0000</pubDate>
-      <guid>http://localhost:1313/posts/view-switching-algo/</guid>
+      <guid>https://corbe30.github.io/posts/view-switching-algo/</guid>
       <description>&lt;p&gt;I&amp;rsquo;ll describe how I derived an algorithm to switch seamlessly between perspective and orthographic views. The solution will be implemented in babylon.js.&lt;/p&gt;
 &lt;h2 id=&#34;basics-the-why&#34;&gt;Basics (the why)&lt;/h2&gt;
 &lt;p&gt;A camera can be controlled by 3 operations - pan, zoom and orbit.
@@ -139,9 +150,9 @@ These operations in arcRotateCamera are performed by changing the following prop
     </item>
     <item>
       <title></title>
-      <link>http://localhost:1313/resume/</link>
+      <link>https://corbe30.github.io/resume/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/resume/</guid>
+      <guid>https://corbe30.github.io/resume/</guid>
       <description>&lt;h1 id=&#34;shashank-agarwal&#34;&gt;Shashank Agarwal&lt;/h1&gt;
 &lt;p&gt;&lt;a href=&#34;mailto:shashankc1705@gmail.com&#34;&gt;shashankc1705@gmail.com&lt;/a&gt; | &lt;a href=&#34;https://github.com/Corbe30/&#34;&gt;Github&lt;/a&gt; | &lt;a href=&#34;https://www.linkedin.com/in/shashank-agarwal-3ab5b21a7/&#34;&gt;Linkedin&lt;/a&gt; | Gurgaon, Haryana&lt;/p&gt;
 &lt;h3 id=&#34;summary&#34;&gt;Summary&lt;/h3&gt;

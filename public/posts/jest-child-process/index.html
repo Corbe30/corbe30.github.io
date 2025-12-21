@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" dir="auto">
 
-<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<head><meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="index, follow">
@@ -14,15 +14,15 @@ The Culprit: fireEvent and Asynchronous Side Effects
 At first glance, my test code looked fine. I was using fireEvent.click to simulate user interaction. But here&rsquo;s the catch — while fireEvent is a synchronous function, the side effects it triggers (like state updates or calls inside useEffect) are often asynchronous.">
 <meta name="author" content="">
 <link rel="canonical" href="https://canonical.url/to/page">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.efc11bcb5d31e7c91a87866a42f4dede09b7cbf81ea0cd1f9d3c26a637209b49.css" integrity="sha256-78Eby10x58kah4ZqQvTe3gm3y/geoM0fnTwmpjcgm0k=" rel="preload stylesheet" as="style">
-<link rel="icon" href="http://localhost:1313/favicon.ico">
-<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32.png">
-<link rel="apple-touch-icon" href="http://localhost:1313/apple-touch-icon.png">
-<link rel="mask-icon" href="http://localhost:1313/safari-pinned-tab.svg">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.9a2a6e30dbaa1c1198fb5ccfcd06fac40f5306cac043c24db5068bf05463155d.css" integrity="sha256-mipuMNuqHBGY&#43;1zPzQb6xA9TBsrAQ8JNtQaL8FRjFV0=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://corbe30.github.io/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://corbe30.github.io/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://corbe30.github.io/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://corbe30.github.io/apple-touch-icon.png">
+<link rel="mask-icon" href="https://corbe30.github.io/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" hreflang="en" href="http://localhost:1313/posts/jest-child-process/">
+<link rel="alternate" hreflang="en" href="https://corbe30.github.io/posts/jest-child-process/">
 <noscript>
     <style>
         #theme-toggle,
@@ -59,7 +59,7 @@ At first glance, my test code looked fine. I was using fireEvent.click to simula
         }
 
     </style>
-</noscript><meta property="og:url" content="http://localhost:1313/posts/jest-child-process/">
+</noscript><meta property="og:url" content="https://corbe30.github.io/posts/jest-child-process/">
   <meta property="og:site_name" content="Corbe30">
   <meta property="og:title" content="Jest Worker and his 4 Horrifying Children">
   <meta property="og:description" content="When writing unit tests using Jest and React Testing Library, you might encounter this error:
@@ -72,9 +72,9 @@ The Culprit: fireEvent and Asynchronous Side Effects At first glance, my test co
     <meta property="article:modified_time" content="2025-06-03T21:34:10+05:30">
     <meta property="article:tag" content="Jest">
     <meta property="article:tag" content="React">
-    <meta property="og:image" content="http://localhost:1313/%3Cimage%20path/url%3E">
+    <meta property="og:image" content="https://corbe30.github.io/%3Cimage%20path/url%3E">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://localhost:1313/%3Cimage%20path/url%3E">
+<meta name="twitter:image" content="https://corbe30.github.io/%3Cimage%20path/url%3E">
 <meta name="twitter:title" content="Jest Worker and his 4 Horrifying Children">
 <meta name="twitter:description" content="When writing unit tests using Jest and React Testing Library, you might encounter this error:
 Jest Worker Encountered 4 Child Process Exceptions, exceeding retry limit
@@ -92,13 +92,13 @@ At first glance, my test code looked fine. I was using fireEvent.click to simula
       "@type": "ListItem",
       "position":  1 ,
       "name": "Posts",
-      "item": "http://localhost:1313/posts/"
+      "item": "https://corbe30.github.io/posts/"
     }, 
     {
       "@type": "ListItem",
       "position":  2 ,
       "name": "Jest Worker and his 4 Horrifying Children",
-      "item": "http://localhost:1313/posts/jest-child-process/"
+      "item": "https://corbe30.github.io/posts/jest-child-process/"
     }
   ]
 }
@@ -116,18 +116,18 @@ At first glance, my test code looked fine. I was using fireEvent.click to simula
   "articleBody": "When writing unit tests using Jest and React Testing Library, you might encounter this error:\nJest Worker Encountered 4 Child Process Exceptions, exceeding retry limit This usually signals that Jest retried your test multiple times across its worker threads but failed each time, eventually giving up. Here’s how I traced the root cause of this issue and resolved it.\nThe Culprit: fireEvent and Asynchronous Side Effects At first glance, my test code looked fine. I was using fireEvent.click to simulate user interaction. But here’s the catch — while fireEvent is a synchronous function, the side effects it triggers (like state updates or calls inside useEffect) are often asynchronous.\nThis led to race conditions in my tests. One fireEvent would trigger some async behavior, and before that completed, the next fireEvent would run. This overlap created unpredictable behavior, and Jest interpreted it as a failing test, retrying it across different workers until the retry limit was exceeded.\nReferences:\nAsync function without await in JavaScript Dev.to article on Jest Worker Exceptions The Fix: Wrap fireEvent in waitFor Since fireEvent isn’t async, it won’t wait for the event loop to flush out async side effects. That’s where waitFor comes in.\nawait waitFor(() =\u003e fireEvent.click(button)); waitFor ensures that your test pauses until any resulting async behavior completes. Keep in mind that fireEvent is already wrapped in act() internally by Jest, so you don’t need to do that manually. But wrapping it in waitFor() is essential if you’re seeing race conditions.\nFor deeper understanding of act() vs waitFor(), check out:\nReact Testing Library: act and waitFor Event Queue vs Worker Threads It’s important to understand that async tasks (e.g., a setTimeout, fetch, or useEffect) don’t create new threads. They’re queued in the event loop. Jest spawns new worker threads only for new unit tests, not for async operations inside a test.\nSo, if fireEvent.click() triggers an async useEffect, it’s still the same thread — it’s just relying on the JavaScript event loop to handle timing.\nA Better Way: Use Default Props for Inputs Using waitFor() adds delays. If you have 5+ fireEvent.click() calls wrapped in waitFor(), your unit test will become noticeably slower.\nRather than simulating all UI input changes via fireEvent, you can pass default values as props:\nconst MyPreferences = ( defaultSize, defaultColor ) =\u003e { // component logic }; This makes the component easier to test and avoids unnecessary fireEvent calls.\nWhile it’s ideal to keep test logic and component logic separate, sometimes you need to tweak components slightly to improve testability — and that’s okay. Design decisions should balance testability and maintainability.\nBonus Tip: Speed Up Jest with –maxWorkers=50% Surprisingly, running Jest with fewer workers can speed up your tests in some cases:\njest --maxWorkers=50% Spawning and managing too many worker threads has its own cost. By reducing the number of workers, you may see faster execution due to reduced overhead. Reference: Why does Jest run faster with maxWorkers=50%?\n",
   "wordCount" : "488",
   "inLanguage": "en",
-  "image":"http://localhost:1313/%3Cimage%20path/url%3E","datePublished": "2025-06-03T21:34:10+05:30",
+  "image":"https://corbe30.github.io/%3Cimage%20path/url%3E","datePublished": "2025-06-03T21:34:10+05:30",
   "dateModified": "2025-06-03T21:34:10+05:30",
   "mainEntityOfPage": {
     "@type": "WebPage",
-    "@id": "http://localhost:1313/posts/jest-child-process/"
+    "@id": "https://corbe30.github.io/posts/jest-child-process/"
   },
   "publisher": {
     "@type": "Organization",
     "name": "Corbe30",
     "logo": {
       "@type": "ImageObject",
-      "url": "http://localhost:1313/favicon.ico"
+      "url": "https://corbe30.github.io/favicon.ico"
     }
   }
 }
@@ -149,7 +149,7 @@ At first glance, my test code looked fine. I was using fireEvent.click to simula
 <header class="header">
     <nav class="nav">
         <div class="logo">
-            <a href="http://localhost:1313/" accesskey="h" title="Corbe30 (Alt + H)">Corbe30</a>
+            <a href="https://corbe30.github.io/" accesskey="h" title="Corbe30 (Alt + H)">Corbe30</a>
             <div class="logo-switches">
                 <button id="theme-toggle" accesskey="t" title="(Alt + T)">
                     <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
@@ -175,22 +175,22 @@ At first glance, my test code looked fine. I was using fireEvent.click to simula
         </div>
         <ul id="menu">
             <li>
-                <a href="http://localhost:1313/resume/" title="Resume">
+                <a href="https://corbe30.github.io/resume/" title="Resume">
                     <span>Resume</span>
                 </a>
             </li>
             <li>
-                <a href="http://localhost:1313/archives/" title="Archive">
+                <a href="https://corbe30.github.io/archives/" title="Archive">
                     <span>Archive</span>
                 </a>
             </li>
             <li>
-                <a href="http://localhost:1313/tags/" title="Tags">
+                <a href="https://corbe30.github.io/tags/" title="Tags">
                     <span>Tags</span>
                 </a>
             </li>
             <li>
-                <a href="http://localhost:1313/search/" title="🔍︎">
+                <a href="https://corbe30.github.io/search/" title="🔍︎">
                     <span>🔍︎</span>
                 </a>
             </li>
@@ -201,7 +201,7 @@ At first glance, my test code looked fine. I was using fireEvent.click to simula
 
 <article class="post-single">
   <header class="post-header">
-    <div class="breadcrumbs"><a href="http://localhost:1313/">Home</a>&nbsp;»&nbsp;<a href="http://localhost:1313/posts/">Posts</a></div>
+    <div class="breadcrumbs"><a href="https://corbe30.github.io/">Home</a>&nbsp;»&nbsp;<a href="https://corbe30.github.io/posts/">Posts</a></div>
     <h1 class="post-title entry-hint-parent">
       Jest Worker and his 4 Horrifying Children
     </h1>
@@ -257,7 +257,7 @@ At first glance, my test code looked fine. I was using fireEvent.click to simula
 </span></span><span class="line"><span class="cl">    <span class="nx">defaultColor</span>
 </span></span><span class="line"><span class="cl"><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">  <span class="c1">// component logic
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">};</span>
+</span></span></span><span class="line"><span class="cl"><span class="p">};</span>
 </span></span></code></pre></div><p>This makes the component easier to test and avoids unnecessary <code>fireEvent</code> calls.</p>
 <p>While it&rsquo;s ideal to keep test logic and component logic separate, sometimes you need to tweak components slightly to improve testability — and that’s okay. Design decisions should balance testability and maintainability.</p>
 <h2 id="bonus-tip-speed-up-jest-with-maxworkers50">Bonus Tip: Speed Up Jest with &ndash;maxWorkers=50%<a hidden class="anchor" aria-hidden="true" href="#bonus-tip-speed-up-jest-with-maxworkers50">#</a></h2>
@@ -270,15 +270,15 @@ At first glance, my test code looked fine. I was using fireEvent.click to simula
 
   <footer class="post-footer">
     <ul class="post-tags">
-      <li><a href="http://localhost:1313/tags/jest/">Jest</a></li>
-      <li><a href="http://localhost:1313/tags/react/">React</a></li>
+      <li><a href="https://corbe30.github.io/tags/jest/">Jest</a></li>
+      <li><a href="https://corbe30.github.io/tags/react/">React</a></li>
     </ul>
   </footer>
 </article>
     </main>
     
 <footer class="footer">
-        <span>&copy; 2025 <a href="http://localhost:1313/">Corbe30</a></span> · 
+        <span>&copy; 2025 <a href="https://corbe30.github.io/">Corbe30</a></span> · 
 
     <span>
         Powered by

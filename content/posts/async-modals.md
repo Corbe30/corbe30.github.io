@@ -5,12 +5,10 @@ title: 'A Bottom-up Approach to Async Modals in React'
 tags: ["react"]
 showToc: true
 TocOpen: false
-draft: false
 hidemeta: false
 comments: false
 description: ""
 canonicalURL: "https://canonical.url/to/page"
-disableHLJS: true # to disable highlightjs
 disableShare: true
 disableHLJS: false
 hideSummary: false

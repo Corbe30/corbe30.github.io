@@ -2,71 +2,74 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>http://localhost:1313/posts/webpack-hot-reload/</loc>
+    <loc>https://corbe30.github.io/tags/3d/</loc>
+    <lastmod>2025-12-20T22:03:27+05:30</lastmod>
+  </url><url>
+    <loc>https://corbe30.github.io/tags/algorithm/</loc>
+    <lastmod>2025-12-20T22:03:27+05:30</lastmod>
+  </url><url>
+    <loc>https://corbe30.github.io/tags/babylonjs/</loc>
+    <lastmod>2025-12-20T22:03:27+05:30</lastmod>
+  </url><url>
+    <loc>https://corbe30.github.io/</loc>
+    <lastmod>2025-12-20T22:03:27+05:30</lastmod>
+  </url><url>
+    <loc>https://corbe30.github.io/posts/multithreaded-javascript/</loc>
+    <lastmod>2025-12-20T22:03:27+05:30</lastmod>
+  </url><url>
+    <loc>https://corbe30.github.io/posts/</loc>
+    <lastmod>2025-12-20T22:03:27+05:30</lastmod>
+  </url><url>
+    <loc>https://corbe30.github.io/tags/</loc>
+    <lastmod>2025-12-20T22:03:27+05:30</lastmod>
+  </url><url>
+    <loc>https://corbe30.github.io/posts/webpack-hot-reload/</loc>
     <lastmod>2025-06-26T01:24:50+05:30</lastmod>
   </url><url>
-    <loc>http://localhost:1313/</loc>
+    <loc>https://corbe30.github.io/tags/hmr/</loc>
     <lastmod>2025-06-26T01:24:50+05:30</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/hmr/</loc>
+    <loc>https://corbe30.github.io/tags/webpack/</loc>
     <lastmod>2025-06-26T01:24:50+05:30</lastmod>
   </url><url>
-    <loc>http://localhost:1313/posts/</loc>
-    <lastmod>2025-06-26T01:24:50+05:30</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/tags/</loc>
-    <lastmod>2025-06-26T01:24:50+05:30</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/tags/webpack/</loc>
-    <lastmod>2025-06-26T01:24:50+05:30</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/tags/jest/</loc>
+    <loc>https://corbe30.github.io/tags/jest/</loc>
     <lastmod>2025-06-03T21:34:10+05:30</lastmod>
   </url><url>
-    <loc>http://localhost:1313/posts/jest-child-process/</loc>
+    <loc>https://corbe30.github.io/posts/jest-child-process/</loc>
     <lastmod>2025-06-03T21:34:10+05:30</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/react/</loc>
+    <loc>https://corbe30.github.io/tags/react/</loc>
     <lastmod>2025-06-03T21:34:10+05:30</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/algorithm/</loc>
+    <loc>https://corbe30.github.io/tags/excel/</loc>
     <lastmod>2025-02-27T22:09:04+05:30</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/excel/</loc>
+    <loc>https://corbe30.github.io/tags/fortune-sheet/</loc>
     <lastmod>2025-02-27T22:09:04+05:30</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/fortune-sheet/</loc>
+    <loc>https://corbe30.github.io/posts/formula-algorithm/</loc>
     <lastmod>2025-02-27T22:09:04+05:30</lastmod>
   </url><url>
-    <loc>http://localhost:1313/posts/formula-algorithm/</loc>
-    <lastmod>2025-02-27T22:09:04+05:30</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/posts/async-modals/</loc>
+    <loc>https://corbe30.github.io/posts/async-modals/</loc>
     <lastmod>2025-02-26T21:40:25+05:30</lastmod>
   </url><url>
-    <loc>http://localhost:1313/posts/lessons-from-fortuneexcel/</loc>
+    <loc>https://corbe30.github.io/posts/lessons-from-fortuneexcel/</loc>
     <lastmod>2024-11-18T11:30:03+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/npm/</loc>
+    <loc>https://corbe30.github.io/tags/npm/</loc>
     <lastmod>2024-11-18T11:30:03+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/3d/</loc>
+    <loc>https://corbe30.github.io/posts/view-switching-algo/</loc>
     <lastmod>2024-06-27T11:30:03+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/babylonjs/</loc>
-    <lastmod>2024-06-27T11:30:03+00:00</lastmod>
+    <loc>https://corbe30.github.io/resume/</loc>
   </url><url>
-    <loc>http://localhost:1313/posts/view-switching-algo/</loc>
-    <lastmod>2024-06-27T11:30:03+00:00</lastmod>
+    <loc>https://corbe30.github.io/archives/</loc>
   </url><url>
-    <loc>http://localhost:1313/resume/</loc>
+    <loc>https://corbe30.github.io/categories/</loc>
   </url><url>
-    <loc>http://localhost:1313/archives/</loc>
+    <loc>https://corbe30.github.io/search/</loc>
   </url><url>
-    <loc>http://localhost:1313/categories/</loc>
-  </url><url>
-    <loc>http://localhost:1313/search/</loc>
-  </url><url>
-    <loc>http://localhost:1313/series/</loc>
+    <loc>https://corbe30.github.io/series/</loc>
   </url>
 </urlset>
