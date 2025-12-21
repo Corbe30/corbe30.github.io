@@ -24,6 +24,8 @@ cover:
     hidden: false # only hide on current single page
 ---
 
+> PDF [📌](https://drive.google.com/file/d/1U62KfZEP3xN7aZCFMR-0M7jsCO6zPVtg/view?usp=drivesdk)
+
 # Shashank Agarwal
 shashankc1705@gmail.com | [Github](https://github.com/Corbe30/) | [Linkedin](https://www.linkedin.com/in/shashank-agarwal-3ab5b21a7/) | Gurgaon, Haryana
 
@@ -39,8 +41,15 @@ shashankc1705@gmail.com | [Github](https://github.com/Corbe30/) | [Linkedin](htt
 ### [Flipkart](https://www.linkedin.com/company/flipkart/)
 #### UI Engineer-1 [08/2024 - present]
 
-* Maintained and enhanced spreadsheet library [FortuneSheet](https://github.com/ruilisi/fortune-sheet), resulting in 24% increase in weekly downloads. Managed code reviews, resolved issues, and upheld coding standards and license compliance.
-* Reduce latency from 4.5s to 0.8s on edit operations by optimizations in formula parser. Resulted 20% bump in fps in large sheets optimizations in cell-text handling. 
+* Acted as scrum master for a team of **2 junior engineers** - driving agile practices, sprint planning and retrospectives, and providing mentorship and technical guidance to help them grow and deliver key business objectives.
+* Maintained and enhanced public spreadsheet library FortuneSheet, resulting in **24% increase to 5k+ weekly downloads**. Managed code reviews, resolved 50+ breaking bugs, upheld coding standards and **license compliance**. 
+* Orchestrated internal **monorepo library** called Flip-sheet. Optimized its **performance by 94.4%**, reducing edit operations from 4.5s to 250ms and decreased memory footprint by 27MB through data structure optimization and algorithm improvements, enabling smooth handling of **~10,000 row planbooks**.
+* Led **Retailerhub's migration to public domain**, engineering custom routing solutions for microfrontend architecture, resolving 5 critical production blockers including browser security restrictions and deployment errors, **enabling VPN-free** access for external sellers and brand managers.
+* Architected and implemented **Sellerhub** Minutes Demand Forecast in a **multirepo environment**, navigating 6 different codebases to build purchase requisition recommendations system with **Node.js middleware integration**, advanced filtering across 7+ dimensions, and mobile-responsive design.
+* Integrated **Microsoft Playwright for comprehensive E2E testing**, reducing manual testing time and frequency of critical production issues by **over 50%**.
+* Delivered Brown-Bag Session on **Multithreaded Javascript** to 40+ MART engineers and led multiple knowledge transfer sessions on React patterns, custom hooks, and module federation, strengthening team capabilities and code quality.
+* **Key skills**: React, Typescript, Express, Jest, Playwright, Docker, Agile, Figma
+
 
 ### [Snaptrude](https://www.linkedin.com/company/snaptrude/) 
 #### Algorithms Engineer [08/2023 - 08/2024] 
