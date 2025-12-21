@@ -114,9 +114,3 @@ You can think of StructuredSerialize() and StructuredDeserialize() as smarter ve
 | When          | Good for parallelism                          | Excellent for massive parallelism                            |
 | Best for      | Long, sequential tasks                        | Identical, independent operations on large datasets          |
 | Goal          | Maintain UI responsiveness by offloading work | Achieve maximum calculation throughput for suitable problems |
-
----
-
-## Conclusion
-
-While combining Workers with **Promises** doesn't technically increase speed—Promises act as "syntactic sugar" for easier coding—it significantly improves code maintainability.
