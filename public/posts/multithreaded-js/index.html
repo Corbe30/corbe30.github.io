@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Multithreaded Javascript | Corbe30</title>
+<meta name="keywords" content="algorithm, multithread, javascript">
+<meta name="description" content="This blog is based on O&rsquo;Reilly&rsquo;s Mulithreaded Javascript book.
+Understanding the Fundamentals: Concurrency vs. Parallelism
+Before diving into workers, it is essential to distinguish between how tasks are managed:
+
+
+source: https://medium.com/swift-india/concurrency-parallelism-threads-processes-async-and-sync-related-39fd951bc61d
+
+
+
+Concurrency: Executing multiple tasks over overlapping time, though not necessarily at the exact same moment. In a single thread, this looks like tasks taking turns.
+
+
+Parallelism: This is concurrency in a multi-threaded environment where tasks run simultaneously.
+
+
+
+
+source: https://medium.com/swift-india/concurrency-parallelism-threads-processes-async-and-sync-related-39fd951bc61d
+
+
+
+The Synchronous Model: Each task must wait for the previous one to complete before starting.">
+<meta name="author" content="">
+<link rel="canonical" href="https://canonical.url/to/page">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.efc11bcb5d31e7c91a87866a42f4dede09b7cbf81ea0cd1f9d3c26a637209b49.css" integrity="sha256-78Eby10x58kah4ZqQvTe3gm3y/geoM0fnTwmpjcgm0k=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://corbe30.github.io/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://corbe30.github.io/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://corbe30.github.io/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://corbe30.github.io/apple-touch-icon.png">
+<link rel="mask-icon" href="https://corbe30.github.io/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="https://corbe30.github.io/posts/multithreaded-js/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:url" content="https://corbe30.github.io/posts/multithreaded-js/">
+  <meta property="og:site_name" content="Corbe30">
+  <meta property="og:title" content="Multithreaded Javascript">
+  <meta property="og:description" content="This blog is based on O’Reilly’s Mulithreaded Javascript book.
+Understanding the Fundamentals: Concurrency vs. Parallelism Before diving into workers, it is essential to distinguish between how tasks are managed:
+source: https://medium.com/swift-india/concurrency-parallelism-threads-processes-async-and-sync-related-39fd951bc61d Concurrency: Executing multiple tasks over overlapping time, though not necessarily at the exact same moment. In a single thread, this looks like tasks taking turns.
+Parallelism: This is concurrency in a multi-threaded environment where tasks run simultaneously.
+source: https://medium.com/swift-india/concurrency-parallelism-threads-processes-async-and-sync-related-39fd951bc61d The Synchronous Model: Each task must wait for the previous one to complete before starting.">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2025-12-21T20:45:17+00:00">
+    <meta property="article:modified_time" content="2025-12-21T20:45:17+00:00">
+    <meta property="article:tag" content="Algorithm">
+    <meta property="article:tag" content="Multithread">
+    <meta property="article:tag" content="Javascript">
+    <meta property="og:image" content="https://raw.githubusercontent.com/Corbe30/corbe30.github.io/refs/heads/main/assets/images/MULTITHREADED%20JAVASCRIPT%20%5BBROWN%20BAG%20SESSION%5D_pages-to-jpg-0001.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/Corbe30/corbe30.github.io/refs/heads/main/assets/images/MULTITHREADED%20JAVASCRIPT%20%5BBROWN%20BAG%20SESSION%5D_pages-to-jpg-0001.jpg">
+<meta name="twitter:title" content="Multithreaded Javascript">
+<meta name="twitter:description" content="This blog is based on O&rsquo;Reilly&rsquo;s Mulithreaded Javascript book.
+Understanding the Fundamentals: Concurrency vs. Parallelism
+Before diving into workers, it is essential to distinguish between how tasks are managed:
+
+
+source: https://medium.com/swift-india/concurrency-parallelism-threads-processes-async-and-sync-related-39fd951bc61d
+
+
+
+Concurrency: Executing multiple tasks over overlapping time, though not necessarily at the exact same moment. In a single thread, this looks like tasks taking turns.
+
+
+Parallelism: This is concurrency in a multi-threaded environment where tasks run simultaneously.
+
+
+
+
+source: https://medium.com/swift-india/concurrency-parallelism-threads-processes-async-and-sync-related-39fd951bc61d
+
+
+
+The Synchronous Model: Each task must wait for the previous one to complete before starting.">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://corbe30.github.io/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Multithreaded Javascript",
+      "item": "https://corbe30.github.io/posts/multithreaded-js/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Multithreaded Javascript",
+  "name": "Multithreaded Javascript",
+  "description": "This blog is based on O\u0026rsquo;Reilly\u0026rsquo;s Mulithreaded Javascript book.\nUnderstanding the Fundamentals: Concurrency vs. Parallelism Before diving into workers, it is essential to distinguish between how tasks are managed:\nsource: https://medium.com/swift-india/concurrency-parallelism-threads-processes-async-and-sync-related-39fd951bc61d Concurrency: Executing multiple tasks over overlapping time, though not necessarily at the exact same moment. In a single thread, this looks like tasks taking turns.\nParallelism: This is concurrency in a multi-threaded environment where tasks run simultaneously.\nsource: https://medium.com/swift-india/concurrency-parallelism-threads-processes-async-and-sync-related-39fd951bc61d The Synchronous Model: Each task must wait for the previous one to complete before starting.\n",
+  "keywords": [
+    "algorithm", "multithread", "javascript"
+  ],
+  "articleBody": "This blog is based on O’Reilly’s Mulithreaded Javascript book.\nUnderstanding the Fundamentals: Concurrency vs. Parallelism Before diving into workers, it is essential to distinguish between how tasks are managed:\nsource: https://medium.com/swift-india/concurrency-parallelism-threads-processes-async-and-sync-related-39fd951bc61d Concurrency: Executing multiple tasks over overlapping time, though not necessarily at the exact same moment. In a single thread, this looks like tasks taking turns.\nParallelism: This is concurrency in a multi-threaded environment where tasks run simultaneously.\nsource: https://medium.com/swift-india/concurrency-parallelism-threads-processes-async-and-sync-related-39fd951bc61d The Synchronous Model: Each task must wait for the previous one to complete before starting.\nThe Asynchronous Model: Tasks can start without waiting for others to finish. However, it is a common misconception that async code makes a single thread “faster”—it simply prevents blocking.\nIs JavaScript Really Single-Threaded? Technically, yes. JavaScript itself lacks built-in functionality to create threads or even make system calls for networking and filesystems. Even setTimeout() is not a native JavaScript feature. Instead, these capabilities are provided by the Runtime Environment (like Node.js or Browsers) via specific APIs.\nWeb Workers Web Workers allow you to spawn new environments to execute JavaScript in, effectively enabling multithreading. Communication between the main thread and workers is strictly event-driven.\n1. Dedicated Workers These are used to parallelize computationally intensive tasks to keep the UI responsive.\nCode example: https://github.com/Corbe30/multithreaded-js/tree/main/01-browsers/01-dedicated-worker\nNote: None of the workers have access to the document (DOM) but can use localStorage and indexedDB. 2. Shared Workers Unlike dedicated workers, a Shared Worker can be accessed by multiple tabs from the same origin.\nCode example: https://github.com/Corbe30/multithreaded-js/tree/main/01-browsers/02-shared-worker\nStay Alive: They persist until the very last tab is closed.\nUse Case: Managing a single Server-Sent Events (SSE) or WebSocket connection to save network traffic across multiple open tabs.\n3. Service Workers Service workers act as a proxy between your app and the network.\nCode example: https://github.com/Corbe30/multithreaded-js/tree/main/01-browsers/03-service-worker\nPersistence: They can exist even after all tabs are closed.\nUse Case: Enabling offline functionality, caching static assets, and handling push notifications.\nPromisifying Workers When working with Web Workers, the native communication is strictly event-driven, using postMessage() to send data and onmessage to receive it. Promisifying these workers wraps this message-passing logic into a Promise structure, making the asynchronous code cleaner and easier to read.\nNote that combining workers and promises does not provide any benefit in terms of execution speed. It’s just a ‘syntacting sugar’.\nCode example: https://github.com/Corbe30/multithreaded-js/tree/main/01-browsers/04-promises-worker/1p-4w\nStructured Clone Algorithm It turns out that both Chrome and Safari defer running StructuredDeserialize() until you actually access the .data property on the MessageEvent.\nYou can think of StructuredSerialize() and StructuredDeserialize() as smarter versions of JSON.stringify() and JSON.parse(), respectively. They are smarter in the sense that they handle cyclical data structures, built-in data types like Map, Set, etc.\nCPU vs. GPU Feature Web Workers GPU.js / GPGPU Resource used CPU GPU When Good for parallelism Excellent for massive parallelism Best for Long, sequential tasks Identical, independent operations on large datasets Goal Maintain UI responsiveness by offloading work Achieve maximum calculation throughput for suitable problems You can view the entire code and presentation here! https://github.com/Corbe30/multithreaded-js\n",
+  "wordCount" : "497",
+  "inLanguage": "en",
+  "image":"https://raw.githubusercontent.com/Corbe30/corbe30.github.io/refs/heads/main/assets/images/MULTITHREADED%20JAVASCRIPT%20%5BBROWN%20BAG%20SESSION%5D_pages-to-jpg-0001.jpg","datePublished": "2025-12-21T20:45:17Z",
+  "dateModified": "2025-12-21T20:45:17Z",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://corbe30.github.io/posts/multithreaded-js/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Corbe30",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://corbe30.github.io/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://corbe30.github.io/" accesskey="h" title="Corbe30 (Alt + H)">Corbe30</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://corbe30.github.io/resume/" title="Resume">
+                    <span>Resume</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://corbe30.github.io/archives/" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://corbe30.github.io/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://corbe30.github.io/search/" title="🔍︎">
+                    <span>🔍︎</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="https://corbe30.github.io/">Home</a>&nbsp;»&nbsp;<a href="https://corbe30.github.io/posts/">Posts</a></div>
+    <h1 class="post-title entry-hint-parent">
+      Multithreaded Javascript
+    </h1>
+    <div class="post-meta"><span title='2025-12-21 20:45:17 +0000 UTC'>December 21, 2025</span>&nbsp;·&nbsp;3 min
+
+</div>
+  </header> 
+<figure class="entry-cover"><img loading="eager" src="https://raw.githubusercontent.com/Corbe30/corbe30.github.io/refs/heads/main/assets/images/MULTITHREADED%20JAVASCRIPT%20%5BBROWN%20BAG%20SESSION%5D_pages-to-jpg-0001.jpg" alt="">
+        <p><text></p>
+</figure><div class="toc">
+    <details >
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">Table of Contents</span>
+        </summary>
+
+        <div class="inner"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#understanding-the-fundamentals-concurrency-vs-parallelism">Understanding the Fundamentals: Concurrency vs. Parallelism</a>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
+    <li><a href="#is-javascript-really-single-threaded">Is JavaScript Really Single-Threaded?</a></li>
+    <li><a href="#web-workers">Web Workers</a>
+      <ul>
+        <li><a href="#1-dedicated-workers">1. Dedicated Workers</a></li>
+        <li><a href="#2-shared-workers">2. Shared Workers</a></li>
+        <li><a href="#3-service-workers">3. Service Workers</a></li>
+      </ul>
+    </li>
+    <li><a href="#promisifying-workers">Promisifying Workers</a></li>
+    <li><a href="#structured-clone-algorithm">Structured Clone Algorithm</a></li>
+    <li><a href="#cpu-vs-gpu">CPU vs. GPU</a></li>
+  </ul>
+</nav>
+        </div>
+    </details>
+</div>
+
+  <div class="post-content"><p>This blog is based on O&rsquo;Reilly&rsquo;s Mulithreaded Javascript book.</p>
+<h2 id="understanding-the-fundamentals-concurrency-vs-parallelism">Understanding the Fundamentals: Concurrency vs. Parallelism<a hidden class="anchor" aria-hidden="true" href="#understanding-the-fundamentals-concurrency-vs-parallelism">#</a></h2>
+<p>Before diving into workers, it is essential to distinguish between how tasks are managed:</p>
+<img src="https://raw.githubusercontent.com/Corbe30/corbe30.github.io/refs/heads/main/assets/images/MULTITHREADED%20JAVASCRIPT%20%5BBROWN%20BAG%20SESSION%5D_pages-to-jpg-0003.jpg" />
+<blockquote>
+<h6 id="source-httpsmediumcomswift-indiaconcurrency-parallelism-threads-processes-async-and-sync-related-39fd951bc61d">source: <a href="https://medium.com/swift-india/concurrency-parallelism-threads-processes-async-and-sync-related-39fd951bc61d">https://medium.com/swift-india/concurrency-parallelism-threads-processes-async-and-sync-related-39fd951bc61d</a><a hidden class="anchor" aria-hidden="true" href="#source-httpsmediumcomswift-indiaconcurrency-parallelism-threads-processes-async-and-sync-related-39fd951bc61d">#</a></h6>
+</blockquote>
+<ul>
+<li>
+<p><strong>Concurrency</strong>: Executing multiple tasks over overlapping time, though not necessarily at the exact same moment. In a single thread, this looks like tasks taking turns.</p>
+</li>
+<li>
+<p><strong>Parallelism</strong>: This is concurrency in a multi-threaded environment where tasks run simultaneously.</p>
+</li>
+</ul>
+<img src="https://raw.githubusercontent.com/Corbe30/corbe30.github.io/refs/heads/main/assets/images/MULTITHREADED%20JAVASCRIPT%20%5BBROWN%20BAG%20SESSION%5D_pages-to-jpg-0004.jpg" />
+<blockquote>
+<h6 id="source-httpsmediumcomswift-indiaconcurrency-parallelism-threads-processes-async-and-sync-related-39fd951bc61d-1">source: <a href="https://medium.com/swift-india/concurrency-parallelism-threads-processes-async-and-sync-related-39fd951bc61d">https://medium.com/swift-india/concurrency-parallelism-threads-processes-async-and-sync-related-39fd951bc61d</a><a hidden class="anchor" aria-hidden="true" href="#source-httpsmediumcomswift-indiaconcurrency-parallelism-threads-processes-async-and-sync-related-39fd951bc61d-1">#</a></h6>
+</blockquote>
+<ul>
+<li>
+<p><strong>The Synchronous Model</strong>: Each task must wait for the previous one to complete before starting.</p>
+</li>
+<li>
+<p><strong>The Asynchronous Model</strong>: Tasks can start without waiting for others to finish. However, it is a common misconception that async code makes a single thread &ldquo;faster&rdquo;—it simply prevents blocking.</p>
+</li>
+</ul>
+<h2 id="is-javascript-really-single-threaded">Is JavaScript Really Single-Threaded?<a hidden class="anchor" aria-hidden="true" href="#is-javascript-really-single-threaded">#</a></h2>
+<p>Technically, yes. JavaScript itself lacks built-in functionality to create threads or even make system calls for networking and filesystems. Even <code>setTimeout()</code> is not a native JavaScript feature. Instead, these capabilities are provided by the <strong>Runtime Environment</strong> (like Node.js or Browsers) via specific APIs.</p>
+<hr>
+<h2 id="web-workers">Web Workers<a hidden class="anchor" aria-hidden="true" href="#web-workers">#</a></h2>
+<p>Web Workers allow you to spawn new environments to execute JavaScript in, effectively enabling multithreading. Communication between the main thread and workers is strictly <strong>event-driven</strong>.</p>
+<h3 id="1-dedicated-workers">1. Dedicated Workers<a hidden class="anchor" aria-hidden="true" href="#1-dedicated-workers">#</a></h3>
+<p>These are used to parallelize computationally intensive tasks to keep the UI responsive.</p>
+<blockquote>
+<p>Code example: <a href="https://github.com/Corbe30/multithreaded-js/tree/main/01-browsers/01-dedicated-worker">https://github.com/Corbe30/multithreaded-js/tree/main/01-browsers/01-dedicated-worker</a></p>
+</blockquote>
+<ul>
+<li><strong>Note</strong>: None of the workers have access to the <code>document</code> (DOM) but can use <code>localStorage</code> and <code>indexedDB</code>.</li>
+</ul>
+<h3 id="2-shared-workers">2. Shared Workers<a hidden class="anchor" aria-hidden="true" href="#2-shared-workers">#</a></h3>
+<p>Unlike dedicated workers, a Shared Worker can be accessed by multiple tabs from the same origin.</p>
+<blockquote>
+<p>Code example: <a href="https://github.com/Corbe30/multithreaded-js/tree/main/01-browsers/02-shared-worker">https://github.com/Corbe30/multithreaded-js/tree/main/01-browsers/02-shared-worker</a></p>
+</blockquote>
+<ul>
+<li>
+<p><strong>Stay Alive</strong>: They persist until the very last tab is closed.</p>
+</li>
+<li>
+<p><strong>Use Case</strong>: Managing a single Server-Sent Events (SSE) or WebSocket connection to save network traffic across multiple open tabs.</p>
+</li>
+</ul>
+<h3 id="3-service-workers">3. Service Workers<a hidden class="anchor" aria-hidden="true" href="#3-service-workers">#</a></h3>
+<p>Service workers act as a proxy between your app and the network.</p>
+<blockquote>
+<p>Code example: <a href="https://github.com/Corbe30/multithreaded-js/tree/main/01-browsers/03-service-worker">https://github.com/Corbe30/multithreaded-js/tree/main/01-browsers/03-service-worker</a></p>
+</blockquote>
+<ul>
+<li>
+<p><strong>Persistence</strong>: They can exist even after all tabs are closed.</p>
+</li>
+<li>
+<p><strong>Use Case</strong>: Enabling offline functionality, caching static assets, and handling push notifications.</p>
+</li>
+</ul>
+<hr>
+<h2 id="promisifying-workers">Promisifying Workers<a hidden class="anchor" aria-hidden="true" href="#promisifying-workers">#</a></h2>
+<p>When working with Web Workers, the native communication is strictly event-driven, using postMessage() to send data and onmessage to receive it. Promisifying these workers wraps this message-passing logic into a Promise structure, making the asynchronous code cleaner and easier to read.</p>
+<p>Note that combining workers and promises does not provide any benefit in terms of execution speed. It&rsquo;s just a &lsquo;syntacting sugar&rsquo;.</p>
+<blockquote>
+<p>Code example: <a href="https://github.com/Corbe30/multithreaded-js/tree/main/01-browsers/04-promises-worker/1p-4w">https://github.com/Corbe30/multithreaded-js/tree/main/01-browsers/04-promises-worker/1p-4w</a></p>
+</blockquote>
+<hr>
+<h2 id="structured-clone-algorithm">Structured Clone Algorithm<a hidden class="anchor" aria-hidden="true" href="#structured-clone-algorithm">#</a></h2>
+<p>It turns out that both Chrome and Safari defer running StructuredDeserialize() until you actually access the <code>.data</code> property on the <code>MessageEvent</code>.</p>
+<p>You can think of StructuredSerialize() and StructuredDeserialize() as smarter versions of JSON.stringify() and JSON.parse(), respectively. They are smarter in the sense that they handle cyclical data structures, built-in data types like Map, Set, etc.</p>
+<hr>
+<h2 id="cpu-vs-gpu">CPU vs. GPU<a hidden class="anchor" aria-hidden="true" href="#cpu-vs-gpu">#</a></h2>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">Feature</th>
+          <th style="text-align: left">Web Workers</th>
+          <th style="text-align: left">GPU.js / GPGPU</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left">Resource used</td>
+          <td style="text-align: left">CPU</td>
+          <td style="text-align: left">GPU</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">When</td>
+          <td style="text-align: left">Good for parallelism</td>
+          <td style="text-align: left">Excellent for massive parallelism</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">Best for</td>
+          <td style="text-align: left">Long, sequential tasks</td>
+          <td style="text-align: left">Identical, independent operations on large datasets</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">Goal</td>
+          <td style="text-align: left">Maintain UI responsiveness by offloading work</td>
+          <td style="text-align: left">Achieve maximum calculation throughput for suitable problems</td>
+      </tr>
+  </tbody>
+</table>
+<hr>
+<p>You can view the entire code and presentation here!
+<a href="https://github.com/Corbe30/multithreaded-js">https://github.com/Corbe30/multithreaded-js</a></p>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://corbe30.github.io/tags/algorithm/">Algorithm</a></li>
+      <li><a href="https://corbe30.github.io/tags/multithread/">Multithread</a></li>
+      <li><a href="https://corbe30.github.io/tags/javascript/">Javascript</a></li>
+    </ul>
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2026 <a href="https://corbe30.github.io/">Corbe30</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>
