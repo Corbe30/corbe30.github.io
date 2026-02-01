@@ -24,7 +24,15 @@ cover:
     hidden: false # only hide on current single page
 ---
 
-> ###### PDF [[📌](https://drive.google.com/file/d/1U62KfZEP3xN7aZCFMR-0M7jsCO6zPVtg/view?usp=drivesdk)]
+<div style="display: flex; justify-content: center; align-items: center; background-color: rgba(128, 128, 128, 0.5); height: 2em; border-radius: 6px; cursor: pointer;"       onclick="window.open('https://drive.google.com/file/d/1U62KfZEP3xN7aZCFMR-0M7jsCO6zPVtg/view?usp=drivesdk', '_blank')"> 
+  <h5 style="margin: 0;">
+    <button 
+      type="button"
+      style="background: none; border: none; color: white; cursor: pointer; font-family: inherit; font-size: inherit; font-weight: bold;">
+      View PDF
+    </button>
+  </h5>
+</div>
 
 # Shashank Agarwal
 shashankc1705@gmail.com | [Github](https://github.com/Corbe30/) | [Linkedin](https://www.linkedin.com/in/shashank-agarwal-3ab5b21a7/) | Gurgaon, Haryana
